@@ -1,0 +1,9 @@
+{
+ "year": 2026,
+ "builtAt": "2026-08-12T13:07:19Z",
+ "distinctAgendaSpeakerNames": 345,
+ "matchedToSpeakerDirectory": 345,
+ "naiveEqualityJoinWouldMatch": 0,
+ "unmatchedNames": [],
+ "normalisation": "gff_names.normalise_name — strips salutations/suffixes/accents; see test_gff_names.py which pins the join rate"
+}
