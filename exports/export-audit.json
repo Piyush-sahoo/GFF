@@ -1,0 +1,200 @@
+{
+  "year": 2026,
+  "generatedFrom": "MongoDB Atlas (gff)",
+  "collections": {
+    "exhibitors-2026.csv": {
+      "path": "/Users/piyuzz/.ao/data/worktrees/scratch/workers/scratch-10/exports/exhibitors-2026.csv",
+      "rows": 316,
+      "expected": 316,
+      "match": true,
+      "columns": 42,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": []
+    },
+    "speakers-2026.csv": {
+      "path": "/Users/piyuzz/.ao/data/worktrees/scratch/workers/scratch-10/exports/speakers-2026.csv",
+      "rows": 487,
+      "expected": 487,
+      "match": true,
+      "columns": 15,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": []
+    },
+    "sessions-2026.csv": {
+      "path": "/Users/piyuzz/.ao/data/worktrees/scratch/workers/scratch-10/exports/sessions-2026.csv",
+      "rows": 256,
+      "expected": 256,
+      "match": true,
+      "columns": 23,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": []
+    }
+  },
+  "partners": {
+    "yearMatched": 316,
+    "isDataArtifactTrue_excluded": 0,
+    "isDataArtifactFalse": 231,
+    "isDataArtifactMissing": 85,
+    "exported": 316,
+    "boothNonNull": 0,
+    "boothSourceNonNull": 0,
+    "coverage": {
+      "name": 316,
+      "aliases": 20,
+      "tier": 316,
+      "sourceGroup": 316,
+      "category": 316,
+      "website": 292,
+      "logoUrl": 316,
+      "whatTheyDo_traced": 291,
+      "whatTheyDo_unsourced": 105,
+      "whatTheyDo_anyText": 296,
+      "useCases_traced": 208,
+      "useCases_unsourced": 105,
+      "confidence": 316,
+      "confidenceScore": 85,
+      "logoUrl_provenance": 85
+    },
+    "whatTheyDoMethods": {
+      "direct-meta-description": 149,
+      "apify:apify/website-content-crawler": 107,
+      "curated-public-facts": 35,
+      "(empty)": 20,
+      "unsourced": 5
+    },
+    "useCasesMethods": {
+      "phrase-match:whatTheyDo": 202,
+      "(empty)": 81,
+      "unsourced": 27,
+      "curated-public-facts": 6
+    },
+    "tiers": {
+      "Exhibitor": 165,
+      "Bronze Partner": 36,
+      "Gold Partner": 24,
+      "Silver Partner": 23,
+      "Ecosystem": 12,
+      "Supporter": 7,
+      "Brought To You By": 5,
+      "Diamond Partner": 3,
+      "Platinum Partner": 2,
+      "Co-Powered By": 2,
+      "Associate Partner": 2,
+      "Payment Processing Partner": 1,
+      "Global Enterprise Payments Partner": 1,
+      "Banking Innovation Partner": 1,
+      "Beer Booth Partner": 1,
+      "Data Protection & Consent Partner": 1,
+      "Global Payments Partner": 1,
+      "Voice AI Partner": 1,
+      "Credit Innovation Partner": 1,
+      "System Of Intelligence Partner": 1,
+      "Omni-Channel Payments Partner": 1,
+      "Innovation Leadership Partner": 1,
+      "Country Partner": 1,
+      "Financial Intelligence Partner": 1,
+      "Session Partner": 1,
+      "Digital Engagement Partner": 1,
+      "Caffeine Partner": 1,
+      "Payment Enabler": 1,
+      "Securing & Insuring Partner": 1,
+      "VIP Lounge Partner": 1,
+      "Digital Gifting and Rewards Partner": 1,
+      "Gourmet Partner": 1,
+      "Payments Orchestration Partner": 1,
+      "Technology Partner": 1,
+      "Agenda Partner": 1,
+      "Mobile App Security Partner": 1,
+      "AI Powered Payments Partner": 1,
+      "Cloud Communications Partner": 1,
+      "Hydration Partner": 1,
+      "Sundowner": 1,
+      "Autonomous Lending Partner": 1,
+      "Credit Insights Partner": 1,
+      "Registration Partner": 1,
+      "Loyalty & Marketplaces Partner": 1,
+      "Notepad partner": 1,
+      "Spend Management Partner": 1
+    },
+    "sourceGroups": {
+      "Exhibitors": 165,
+      "Partners": 132,
+      "Ecosystem": 12,
+      "Supporters": 7
+    },
+    "categories": {
+      "other": 158,
+      "infra": 46,
+      "payments": 35,
+      "ai": 28,
+      "banking": 16,
+      "lending": 15,
+      "regtech": 9,
+      "wealthtech": 5,
+      "insurtech": 3,
+      "crypto": 1
+    }
+  },
+  "speakers": {
+    "exported": 487,
+    "coverage": {
+      "name": 487,
+      "title": 487,
+      "org": 487,
+      "country": 453,
+      "bio": 425,
+      "linkedin": 199,
+      "headshotUrl": 487,
+      "sessionTitle": 356,
+      "sessionCodes": 356
+    }
+  },
+  "sessions": {
+    "exported": 256,
+    "statuses": {
+      "active": 254,
+      "withdrawn": 2
+    },
+    "days": {
+      "2026-09-10": 93,
+      "2026-09-09": 92,
+      "2026-09-11": 71
+    },
+    "coverage": {
+      "agendaCode": 256,
+      "title": 256,
+      "day": 256,
+      "startTime": 256,
+      "endTime": 256,
+      "hall": 256,
+      "format": 256,
+      "track": 170,
+      "topics": 170,
+      "description": 236,
+      "speakerNames": 143,
+      "hostNames": 44,
+      "accessType": 256
+    },
+    "closedDoor": 34,
+    "inviteOnly": 34,
+    "halls": [
+      "Cube",
+      "Hall 102",
+      "Hall 103",
+      "Hall 104 A&B",
+      "Hall 202",
+      "Hall 203",
+      "Hall 204 A&B",
+      "Hall 205 A&B",
+      "Hall 206 A&B",
+      "Indian Accent",
+      "Jasmine 3",
+      "Lotus 1",
+      "Lotus 2",
+      "Lotus 3",
+      "Taftoon",
+      "The Grand Theatre",
+      "The Studio"
+    ]
+  }
+}
