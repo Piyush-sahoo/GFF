@@ -1,0 +1,602 @@
+[
+ {
+  "name": "Transunion CIBIL",
+  "slug": "transunion-cibil",
+  "website": "https://www.transunioncibil.com/"
+ },
+ {
+  "name": "Pay10",
+  "slug": "pay10",
+  "website": "https://www.pay10.in/"
+ },
+ {
+  "name": "Digio",
+  "slug": "digio",
+  "website": "https://www.digio.in/"
+ },
+ {
+  "name": "Navi Technologies Limited",
+  "slug": "navi-technologies-limited",
+  "website": "http://www.navi.com/"
+ },
+ {
+  "name": "Zoho",
+  "slug": "zoho",
+  "website": "https://www.zoho.com/"
+ },
+ {
+  "name": "Bureau ID",
+  "slug": "bureau-id",
+  "website": "https://bureau.id/"
+ },
+ {
+  "name": "Paramotor",
+  "slug": "paramotor",
+  "website": "https://www.paramotordt.com/"
+ },
+ {
+  "name": "Getepay",
+  "slug": "getepay",
+  "website": "http://www.getepay.in/"
+ },
+ {
+  "name": "Ignosis",
+  "slug": "ignosis",
+  "website": "https://ignosis.ai"
+ },
+ {
+  "name": "Wise",
+  "slug": "wise",
+  "website": "https://www.wise.com/"
+ },
+ {
+  "name": "LenDenClub",
+  "slug": "lendenclub",
+  "website": "https://www.lendenclub.com/"
+ },
+ {
+  "name": "Intellect Design Arena Ltd",
+  "slug": "intellect-design-arena-ltd",
+  "website": "https://www.intellectdesign.com/"
+ },
+ {
+  "name": "Mitigata",
+  "slug": "mitigata",
+  "website": "https://mitigata.com/"
+ },
+ {
+  "name": "CRED",
+  "slug": "cred",
+  "website": "https://cred.club/"
+ },
+ {
+  "name": "ScoreMe",
+  "slug": "scoreme",
+  "website": "https://scoreme.in"
+ },
+ {
+  "name": "Jio Financial Services Limited",
+  "slug": "jio-financial-services-limited",
+  "website": "https://www.jiofinance.in/"
+ },
+ {
+  "name": "Indian Bank",
+  "slug": "indian-bank",
+  "website": "https://indianbank.bank.in/en/"
+ },
+ {
+  "name": "Zrika",
+  "slug": "zrika",
+  "website": "https://zrika.com/"
+ },
+ {
+  "name": "DreamFolks",
+  "slug": "dreamfolks",
+  "website": "https://www.dreamfolks.com/"
+ },
+ {
+  "name": "Yubi",
+  "slug": "yubi",
+  "website": "https://www.go-yubi.com/"
+ },
+ {
+  "name": "Cashfree Payments",
+  "slug": "cashfree-payments",
+  "website": "https://www.cashfree.com/"
+ },
+ {
+  "name": "DCB Bank",
+  "slug": "dcb-bank",
+  "website": "https://www.dcb.bank.in/"
+ },
+ {
+  "name": "CRIF",
+  "slug": "crif",
+  "website": "https://www.crifhighmark.com/"
+ },
+ {
+  "name": "Union Bank of India",
+  "slug": "union-bank-of-india",
+  "website": "https://www.unionbankofindia.bank.in/"
+ },
+ {
+  "name": "Agentic Universe",
+  "slug": "agentic-universe",
+  "website": "https://agenticuniverse.ai/"
+ },
+ {
+  "name": "Juspay",
+  "slug": "juspay",
+  "website": "https://juspay.io/in"
+ },
+ {
+  "name": "Cisco",
+  "slug": "cisco",
+  "website": "https://www.cisco.com/"
+ },
+ {
+  "name": "Data Sutram",
+  "slug": "data-sutram",
+  "website": "https://datasutram.ai/"
+ },
+ {
+  "name": "Bank of India",
+  "slug": "bank-of-india",
+  "website": "https://bankofindia.bank.in/"
+ },
+ {
+  "name": "Redhat",
+  "slug": "redhat",
+  "website": "https://www.redhat.com/en"
+ },
+ {
+  "name": "Montran Corporation India",
+  "slug": "montran-corporation-india",
+  "website": "https://www.montran.in/"
+ },
+ {
+  "name": "Airtel Payments Bank",
+  "slug": "airtel-payments-bank",
+  "website": "https://www.airtelpayments.bank.in/"
+ },
+ {
+  "name": "J.P. Morgan",
+  "slug": "j-p-morgan",
+  "website": "https://www.jpmorgan.com/IN/en/about-us"
+ },
+ {
+  "name": "Protectt.ai Labs",
+  "slug": "protectt-ai-labs",
+  "website": "https://protectt.ai/"
+ },
+ {
+  "name": "Safegold",
+  "slug": "safegold",
+  "website": "https://www.safegold.com/"
+ },
+ {
+  "name": "Pinnacle Services",
+  "slug": "pinnacle-services",
+  "website": "https://www.pinnacle.in/"
+ },
+ {
+  "name": "Bolna",
+  "slug": "bolna",
+  "website": "https://bolna.ai/"
+ },
+ {
+  "name": "Jocata",
+  "slug": "jocata",
+  "website": "https://www.jocata.com/"
+ },
+ {
+  "name": "Devrev",
+  "slug": "devrev",
+  "website": "https://devrev.ai/"
+ },
+ {
+  "name": "PayGlocal",
+  "slug": "payglocal",
+  "website": "https://payglocal.in/"
+ },
+ {
+  "name": "Vayana Finserv",
+  "slug": "vayana-finserv",
+  "website": "https://www.vayana.com/"
+ },
+ {
+  "name": "Ringg.ai",
+  "slug": "ringg-ai",
+  "website": "https://www.ringg.ai/"
+ },
+ {
+  "name": "Fundamento",
+  "slug": "fundamento",
+  "website": "https://fundamento.ai/"
+ },
+ {
+  "name": "True Balance",
+  "slug": "true-balance",
+  "website": "https://www.truebalance.io/"
+ },
+ {
+  "name": "Kissht",
+  "slug": "kissht",
+  "website": "https://www.kissht.com/"
+ },
+ {
+  "name": "86400",
+  "slug": "86400",
+  "website": "https://www.86400.in/"
+ },
+ {
+  "name": "IDA Ireland",
+  "slug": "ida-ireland",
+  "website": "https://www.idaireland.com/"
+ },
+ {
+  "name": "Times Internet",
+  "slug": "times-internet",
+  "website": "https://timesinternet.in/"
+ },
+ {
+  "name": "Trackwizz",
+  "slug": "trackwizz",
+  "website": "https://www.trackwizz.com"
+ },
+ {
+  "name": "TransBnk",
+  "slug": "transbnk",
+  "website": "https://transbnk.co.in/"
+ },
+ {
+  "name": "Protean eGov Technologies Limited",
+  "slug": "protean-egov-technologies-limited",
+  "website": "https://www.proteantech.in/"
+ },
+ {
+  "name": "NTT Data (ADAPTIS)",
+  "slug": "ntt-data-adaptis",
+  "website": "https://in.nttdatapay.com/en"
+ },
+ {
+  "name": "Paysprint",
+  "slug": "paysprint",
+  "website": "https://www.paysprint.in/index.html"
+ },
+ {
+  "name": "RevRag.AI",
+  "slug": "revrag-ai",
+  "website": "https://www.revrag.ai/"
+ },
+ {
+  "name": "IppoPay",
+  "slug": "ippopay",
+  "website": "https://www.ippopay.com/"
+ },
+ {
+  "name": "Integra Micro",
+  "slug": "integra-micro",
+  "website": "https://integramicro.com/en/"
+ },
+ {
+  "name": "Vakrangee",
+  "slug": "vakrangee",
+  "website": "https://vakrangee.in/"
+ },
+ {
+  "name": "Chat360",
+  "slug": "chat360",
+  "website": "https://www.chat360.io/"
+ },
+ {
+  "name": "5paisa Capital Limited",
+  "slug": "5paisa-capital-limited",
+  "website": "https://www.5paisa.com/"
+ },
+ {
+  "name": "Alt Drx",
+  "slug": "alt-drx",
+  "website": "https://altdrx.com/"
+ },
+ {
+  "name": "Association of Mutual Funds in India",
+  "slug": "association-of-mutual-funds-in-india",
+  "website": "https://www.amfiindia.com/"
+ },
+ {
+  "name": "Bajaj Capital",
+  "slug": "bajaj-capital",
+  "website": "https://www.bajajcapital.com/"
+ },
+ {
+  "name": "CCIL",
+  "slug": "ccil",
+  "website": "https://www.ccilindia.com/"
+ },
+ {
+  "name": "Concerto",
+  "slug": "concerto",
+  "website": "https://www.concertosoft.com/"
+ },
+ {
+  "name": "Credentek",
+  "slug": "credentek",
+  "website": "https://www.credentek.com/"
+ },
+ {
+  "name": "CryptoBind",
+  "slug": "cryptobind",
+  "website": "https://jisasoftech.com/"
+ },
+ {
+  "name": "CyberSRCC",
+  "slug": "cybersrcc",
+  "website": "https://cybersrcc.com/"
+ },
+ {
+  "name": "Domywork",
+  "slug": "domywork",
+  "website": "www.companyhub.com"
+ },
+ {
+  "name": "Equence Technologies",
+  "slug": "equence-technologies",
+  "website": "https://www.equence.com/"
+ },
+ {
+  "name": "Equifax",
+  "slug": "equifax",
+  "website": "https://www.equifax.co.in/"
+ },
+ {
+  "name": "Finacus",
+  "slug": "finacus",
+  "website": "https://www.finacus.co.in/"
+ },
+ {
+  "name": "FinEye",
+  "slug": "fineye",
+  "website": "fineye.co"
+ },
+ {
+  "name": "Finnulate",
+  "slug": "finnulate",
+  "website": "https://finnulate.ai/"
+ },
+ {
+  "name": "Fino Payments",
+  "slug": "fino-payments",
+  "website": "https://www.fino.bank.in/"
+ },
+ {
+  "name": "Fintoo",
+  "slug": "fintoo",
+  "website": "https://www.fintoo.in/"
+ },
+ {
+  "name": "Fintree Finance Pvt. Ltd.",
+  "slug": "fintree-finance-pvt-ltd",
+  "website": "https://fintreefinance.com/"
+ },
+ {
+  "name": "FIS",
+  "slug": "fis",
+  "website": "https://www.fisglobal.com/"
+ },
+ {
+  "name": "Heph",
+  "slug": "heph",
+  "website": "https://heph.in/"
+ },
+ {
+  "name": "HyperVerge",
+  "slug": "hyperverge",
+  "website": "https://hyperverge.co/in/"
+ },
+ {
+  "name": "Identy.io",
+  "slug": "identy-io",
+  "website": "https://www.identy.io/"
+ },
+ {
+  "name": "iDreamBiz",
+  "slug": "idreambiz",
+  "website": "https://www.idreambiz.com/"
+ },
+ {
+  "name": "IIMA Ventures",
+  "slug": "iima-ventures",
+  "website": "www.iimaventures.com"
+ },
+ {
+  "name": "Indian Banks Association",
+  "slug": "indian-banks-association",
+  "website": "https://www.iba.org.in/"
+ },
+ {
+  "name": "Infibeam Avenues",
+  "slug": "infibeam-avenues",
+  "website": "https://www.avenuesai.com/"
+ },
+ {
+  "name": "Karta AI",
+  "slug": "karta-ai",
+  "website": "https://getkarta.ai/"
+ },
+ {
+  "name": "Kiya.ai",
+  "slug": "kiya-ai",
+  "website": "https://www.kiya.ai/"
+ },
+ {
+  "name": "Knight Fintech",
+  "slug": "knight-fintech",
+  "website": "https://knightfintech.com/"
+ },
+ {
+  "name": "Kuster Engineering",
+  "slug": "kuster-engineering",
+  "website": "https://www.imuindia.com/"
+ },
+ {
+  "name": "Luxembourg House of Financial Technology",
+  "slug": "luxembourg-house-of-financial-technology",
+  "website": "www.luxembourgforfinance.com"
+ },
+ {
+  "name": "MapmyIndia",
+  "slug": "mapmyindia",
+  "website": "https://www.mapmyindia.com/"
+ },
+ {
+  "name": "Metropolitan Stock Exchange",
+  "slug": "metropolitan-stock-exchange",
+  "website": "https://mseindia.com/"
+ },
+ {
+  "name": "Mufinpay",
+  "slug": "mufinpay",
+  "website": "https://mufinpay.com"
+ },
+ {
+  "name": "My Mudra Fincorp",
+  "slug": "my-mudra-fincorp",
+  "website": "www.mymudra.com"
+ },
+ {
+  "name": "Nexensus",
+  "slug": "nexensus",
+  "website": "https://www.nexensus.com/"
+ },
+ {
+  "name": "NPCI",
+  "slug": "npci",
+  "website": "https://www.npci.org.in/"
+ },
+ {
+  "name": "NPST",
+  "slug": "npst",
+  "website": "https://www.npstx.com/"
+ },
+ {
+  "name": "Oli AI",
+  "slug": "oli-ai",
+  "website": "https://oliai.in/"
+ },
+ {
+  "name": "Oxymoney",
+  "slug": "oxymoney",
+  "website": "https://website.oxymoney.com/"
+ },
+ {
+  "name": "Phi Commerce",
+  "slug": "phi-commerce",
+  "website": "https://phicommerce.com/"
+ },
+ {
+  "name": "Plutos One",
+  "slug": "plutos-one",
+  "website": "https://www.plutos.one/"
+ },
+ {
+  "name": "PSB Alliance",
+  "slug": "psb-alliance",
+  "website": "https://www.psballiance.com/"
+ },
+ {
+  "name": "QistonPe",
+  "slug": "qistonpe",
+  "website": "https://www.qistonpe.com/"
+ },
+ {
+  "name": "Qualitrix",
+  "slug": "qualitrix",
+  "website": "https://qualitrix.com/"
+ },
+ {
+  "name": "Qualtech Edge",
+  "slug": "qualtech-edge",
+  "website": "https://www.qualtechedge.ai/"
+ },
+ {
+  "name": "Rezolv AI Technology Solutions Pvt Ltd",
+  "slug": "rezolv-ai-technology-solutions-pvt-ltd",
+  "website": "https://www.rezolv.com/"
+ },
+ {
+  "name": "Sarvam.ai",
+  "slug": "sarvam-ai",
+  "website": "https://www.sarvam.ai/"
+ },
+ {
+  "name": "SEBI",
+  "slug": "sebi",
+  "website": "https://www.sebi.gov.in/"
+ },
+ {
+  "name": "Suvidhaa Pe",
+  "slug": "suvidhaa-pe",
+  "website": "https://suvidhaape.com/"
+ },
+ {
+  "name": "Tech Rajendra",
+  "slug": "tech-rajendra",
+  "website": "https://www.techrajendra.com/"
+ },
+ {
+  "name": "Turtlefin",
+  "slug": "turtlefin",
+  "website": "https://www.turtlefin.com/"
+ },
+ {
+  "name": "UK FCDO",
+  "slug": "uk-fcdo",
+  "website": "https://www.gov.uk/world/organisations/british-high-commission-new-delhi"
+ },
+ {
+  "name": "Utimaco",
+  "slug": "utimaco",
+  "website": "https://utimaco.com/"
+ },
+ {
+  "name": "Verismart",
+  "slug": "verismart",
+  "website": "https://www.verismart.ai/"
+ },
+ {
+  "name": "Watchdata",
+  "slug": "watchdata",
+  "website": "https://www.watchdata.com/"
+ },
+ {
+  "name": "WhyMinds Global",
+  "slug": "whyminds-global",
+  "website": "https://whyminds.ai"
+ },
+ {
+  "name": "Winjit Technologies",
+  "slug": "winjit-technologies",
+  "website": "https://winjit.com/"
+ },
+ {
+  "name": "YugabyteDB Inc.",
+  "slug": "yugabytedb-inc",
+  "website": "https://www.yugabyte.com/"
+ },
+ {
+  "name": "Zeta",
+  "slug": "zeta",
+  "website": "https://www.zeta.tech/in/"
+ },
+ {
+  "name": "Zigram",
+  "slug": "zigram",
+  "website": "https://www.zigram.tech/in/"
+ },
+ {
+  "name": "Zykrr",
+  "slug": "zykrr",
+  "website": "https://www.zykrr.com/"
+ }
+]

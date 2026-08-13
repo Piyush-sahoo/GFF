@@ -1,0 +1,8 @@
+GFF 2026 refresh diff - 2026-08-12T14:01:01Z
+============================================================
+
+SESSIONS: live=254  in-db=256  added=0  disappeared=0  changed=0  rescheduled=0  retitled=0
+
+SPEAKERS: live=487  in-db=487  added=0  disappeared=0  changed=0
+
+PARTNERS: live=316  in-db=316  added=0  disappeared=0  changed=0

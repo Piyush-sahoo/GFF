@@ -1,0 +1,106 @@
+[
+ {
+  "name": "WhatsApp",
+  "slug": "whatsapp"
+ },
+ {
+  "name": "IFSCA",
+  "slug": "ifsca"
+ },
+ {
+  "name": "PCI / FCC",
+  "slug": "pci-fcc"
+ },
+ {
+  "name": "Sugary",
+  "slug": "sugary"
+ },
+ {
+  "name": "UIDAI",
+  "slug": "uidai"
+ },
+ {
+  "name": "RBIH",
+  "slug": "rbih"
+ },
+ {
+  "name": "ONDC",
+  "slug": "ondc"
+ },
+ {
+  "name": "PWC",
+  "slug": "pwc"
+ },
+ {
+  "name": "BCG",
+  "slug": "bcg"
+ },
+ {
+  "name": "EY",
+  "slug": "ey"
+ },
+ {
+  "name": "KPMG",
+  "slug": "kpmg"
+ },
+ {
+  "name": "AFN",
+  "slug": "afn"
+ },
+ {
+  "name": "CIBE",
+  "slug": "cibe"
+ },
+ {
+  "name": "FinStep Asia",
+  "slug": "finstep-asia"
+ },
+ {
+  "name": "FinTech Armenia",
+  "slug": "fintech-armenia"
+ },
+ {
+  "name": "GLEIF",
+  "slug": "gleif"
+ },
+ {
+  "name": "IIIT Bangalore",
+  "slug": "iiit-bangalore"
+ },
+ {
+  "name": "ITEL",
+  "slug": "itel"
+ },
+ {
+  "name": "NSRCEL IIMB",
+  "slug": "nsrcel-iimb"
+ },
+ {
+  "name": "SINE IIT Bombay Business Incubator",
+  "slug": "sine-iit-bombay-business-incubator"
+ },
+ {
+  "name": "The Fintech Meetup",
+  "slug": "the-fintech-meetup"
+ },
+ {
+  "name": "Financial Technology Association",
+  "slug": "financial-technology-association"
+ },
+ {
+  "name": "Kathmandu Fintel",
+  "slug": "kathmandu-fintel"
+ },
+ {
+  "name": "PCI logo",
+  "slug": "pci-logo"
+ },
+ {
+  "name": "NPCI logo",
+  "slug": "npci-logo"
+ },
+ {
+  "name": "FCC logo",
+  "slug": "fcc-logo"
+ }
+]

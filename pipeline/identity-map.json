@@ -1,0 +1,35 @@
+{
+ "artifactNames": [
+  "PCI logo",
+  "NPCI logo",
+  "FCC logo"
+ ],
+ "artifactSlugs": [
+  "pci-logo",
+  "npci-logo",
+  "fcc-logo"
+ ],
+ "canonical": {
+  "Cockroach Labs": "Cockroach labs",
+  "DevRev": "Devrev",
+  "ElevenLabs": "Eleven Labs",
+  "Finarkein Analytics": "Finarkein",
+  "HDFC Bank": "HDFC",
+  "Hitachi Payment Services": "Hitachi Payments",
+  "Intellect Design Arena": "Intellect Design Arena Ltd",
+  "JCB International": "JCB International Co. Ltd.",
+  "Jio Financial Services": "Jio Financial Services Limited",
+  "Mindgate Solutions": "Mindgate",
+  "Montran": "Montran Corporation India",
+  "NTT DATA": "NTT Data (ADAPTIS)",
+  "Navi Technologies": "Navi Technologies Limited",
+  "OnFinance AI": "OnFinance",
+  "Protean eGov Technologies": "Protean eGov Technologies Limited",
+  "Red Hat": "Redhat",
+  "SafeGold": "Safegold",
+  "ScoreMe Solutions": "ScoreMe",
+  "TrackWizz": "Trackwizz",
+  "TransUnion CIBIL": "Transunion CIBIL"
+ },
+ "generatedAt": "2026-08-12"
+}
