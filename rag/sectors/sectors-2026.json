@@ -1,0 +1,3178 @@
+{
+  "5paisa Capital Limited": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "broking",
+      "equity-trading",
+      "derivatives",
+      "retail-investing"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Start online trading with 5paisa – a trusted stock broking company in India. Trade stocks, derivatives & more on a secure platform at just ₹20/order.  ||  useCases: [\"trading and brokerage\"]"
+  },
+  "86400": {
+    "sector": "Payments",
+    "subSectors": [
+      "payments-infrastructure",
+      "banking-apis",
+      "upi"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "86400 empowers banks and fintechs with secure digital payment infrastructure and advanced API banking solutions. Enable UPI, IMPS, BBPS, AePS & more with scalable, high-performance payment technology.  ||  useCases: [\"UPI payments\", \"cloud infrastructure\"]"
+  },
+  "Aadhaar": {
+    "sector": "Identity & KYC",
+    "subSectors": [
+      "digital-identity",
+      "government-identity"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo+useCases",
+    "evidence": "One portal for all online Aadhaar Services.  ||  useCases: [\"identity verification\"]"
+  },
+  "Adyen": {
+    "sector": "Payments",
+    "subSectors": [
+      "payment-processing",
+      "merchant-acquiring",
+      "money-movement"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Run payments, manage your data, and offer financial products in one platform. Adyen is purpose-built for the world"
+  },
+  "Aerospike": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "database",
+      "data-infrastructure"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Aerospike is the real-time database for AI, trusted in the world  ||  useCases: [\"AI and automation\"]"
+  },
+  "Affluense.ai": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "wealth-intelligence",
+      "sales-intelligence"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Discover HNI prospects, enrich client profiles, track real-time wealth events, and map warm introduction paths — built for India"
+  },
+  "AFN": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "tier",
+    "evidence": "partner tier: \"Ecosystem\""
+  },
+  "Agentic Universe": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "agentic-ai",
+      "voice-ai",
+      "conversational-ai"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Secure, compliant, multilingual Agentic AI for banking and insurance. Agentic AI that finishes the job across voice, chat, WhatsApp and SMS, governed.  ||  useCases: [\"AML and compliance\", \"insurance distribution\", \"customer communication\", \"AI and automation\"]"
+  },
+  "Airtel Payments Bank": {
+    "sector": "Banking & Financial Institutions",
+    "subSectors": [
+      "retail-banking"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo",
+    "evidence": "Open an account with zero minimum balance and no hidden charges. Enjoy instant access to your funds with our quick and hassle-free account opening process."
+  },
+  "Alankit": {
+    "sector": "Diversified Financial Services",
+    "subSectors": [
+      "e-governance",
+      "financial-services",
+      "insurance-distribution"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Alankit is known for its inventive solutions in e-Governance services, Financial services, Insurance services, and Healthcare services in India. Visit Now !  ||  useCases: [\"insurance distribution\"]"
+  },
+  "AllCloud Enterprise Solutions": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "lending-software",
+      "loan-origination"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Empower your lending operations with AllCloud’s Digital Lending Software. Our Unified Lending Technology platform offers smarter workflows and faster onboarding to help you scale compliantly.  ||  useCases: [\"digital lending\", \"KYC and onboarding\", \"AML and compliance\"]"
+  },
+  "Alohaa.ai": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "cpaas",
+      "contact-center",
+      "whatsapp-business"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Alohaa helps you set up a customer support line, open a Whatsapp Business account, manage calls & call routing, and an industry-first SMS via API.  ||  useCases: [\"customer communication\", \"cloud infrastructure\"]"
+  },
+  "Alt Drx": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "fractional-real-estate",
+      "retail-investing"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Build your wealth through digital real estate. Buy and sell properties 1 SQFT at a time starting from ₹10,000."
+  },
+  "Amazon Pay": {
+    "sector": "Payments",
+    "subSectors": [
+      "consumer-payments",
+      "upi"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Digital payments arm of Amazon  ||  useCases: [\"online checkout\", \"UPI payments\"]"
+  },
+  "ArrowHead": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "voice-ai",
+      "ai-agents"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Enterprise-grade, humanlike AI voice agent for India. Arrowhead automates sales & support calls with understanding of Indian tonality, nuances and Indic languages.  ||  useCases: [\"AI and automation\"]"
+  },
+  "Aska Technologies": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "ai-platform",
+      "govtech"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Aska Technologies delivers next-gen AI-driven platforms and analytics for government and enterprises. We modernize infrastructure and services across sectors.  ||  useCases: [\"analytics and reporting\", \"AI and automation\", \"cloud infrastructure\"]"
+  },
+  "Association of Mutual Funds in India": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-evidence",
+    "evidence": null
+  },
+  "Automation Edge": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "agentic-ai",
+      "rpa",
+      "document-ai",
+      "workflow-automation"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "The Agentic AI and automation platform that unifies RPA, Document AI, workflow automation and orchestration in one platform to streamline operations and drive business growth.  ||  useCases: [\"AI and automation\"]"
+  },
+  "AVSS EFORRM INDIA PVT LTD": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "software-development",
+      "digital-marketing"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Avsstech is a best website design and development company in India, offering digital marketing, mobile app development, and software development services."
+  },
+  "Bajaj Capital": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "wealth-management"
+    ],
+    "confidence": "low",
+    "method": "whatTheyDo",
+    "evidence": "Start your Wealth Creation Journey with BajajCapital"
+  },
+  "Bank of Baroda": {
+    "sector": "Banking & Financial Institutions",
+    "subSectors": [
+      "public-sector-bank",
+      "retail-banking",
+      "digital-lending"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Indian public sector bank  ||  useCases: [\"retail banking\", \"digital lending\", \"payments\"]"
+  },
+  "Bank of India": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-evidence",
+    "evidence": null
+  },
+  "BASIC home loan": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "home-loans",
+      "loan-marketplace"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Compare and apply online for best interest rates on home loan, loan against property, balance transfer. Calculate your EMI instantly.  ||  useCases: [\"digital lending\"]"
+  },
+  "BCG": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [
+      "consulting",
+      "advisory"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Boston Consulting Group, a global management consulting firm."
+  },
+  "Benepik": {
+    "sector": "Loyalty & Rewards",
+    "subSectors": [
+      "employee-rewards",
+      "corporate-gifting",
+      "loyalty"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Benepik offers rewards & loyalty platform for employee engagement, corporate gifting, and recognition solutions for businesses."
+  },
+  "BharatPe": {
+    "sector": "Payments",
+    "subSectors": [
+      "merchant-payments",
+      "upi",
+      "merchant-lending"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Merchant payments and lending platform  ||  useCases: [\"UPI QR acceptance\", \"merchant lending\"]"
+  },
+  "Blostem": {
+    "sector": "Banking Infrastructure & Core Systems",
+    "subSectors": [
+      "banking-as-a-service",
+      "embedded-finance",
+      "banking-apis"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Launch banking products in days. Single API for FD, RD, Loans & Bonds across 10+ banks. Backed by Zerodha's Rainmatter.  ||  useCases: [\"digital lending\", \"cloud infrastructure\"]"
+  },
+  "Blue Machines AI": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "voice-ai",
+      "agentic-ai"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Blue Machines is the world's fastest enterprise-grade Voice AI platform - built for reliability, compliance, and scale in the era of Agentic AI.  ||  useCases: [\"AML and compliance\", \"AI and automation\"]"
+  },
+  "BNPRS": {
+    "sector": "Payments",
+    "subSectors": [
+      "mpos",
+      "biometric-payments",
+      "payments-infrastructure"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo",
+    "evidence": "Innovating the future with biometrics and payment technologies. BNPRS offers cutting-edge solutions including mGate, mPOS, Pass, BfzCore, and more."
+  },
+  "Bolna": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "voice-ai",
+      "ai-agents"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Scale customer support, sales, recruitment with Bolna Voice Agents. Inbound and outbound calls in vernacular Indian languages like English, Hindi, Hinglish."
+  },
+  "Borderless": {
+    "sector": "Cross-Border & FX",
+    "subSectors": [
+      "cross-border-payments",
+      "multicurrency-accounts"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Explore expert insights, guides, and updates on global finance, multicurrency accounts, payments, and cross-border money management  ||  useCases: [\"cross-border payments\", \"analytics and reporting\"]"
+  },
+  "Brandworks Technologies Pvt Ltd": {
+    "sector": "Other Non-Fintech",
+    "subSectors": [
+      "hardware-manufacturing",
+      "industrial"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo",
+    "evidence": "Brandworks Technologies Pvt Ltd the best Original Equipment Manufacturer in India. OEM Innovating and delivering quality industrial solutions"
+  },
+  "BSE Limited.": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "stock-exchange",
+      "equity-trading",
+      "listing",
+      "market-data"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Indian stock exchange  ||  useCases: [\"equity trading\", \"listing\", \"market data\"]"
+  },
+  "Bureau ID": {
+    "sector": "Fraud Prevention & Risk",
+    "subSectors": [
+      "fraud-detection",
+      "identity-verification"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Bureau stops fraud in real time using device, identity, and behavioral signals. Trusted by 200+ global brands across fintech and e-commerce.  ||  useCases: [\"identity verification\", \"fraud prevention\"]"
+  },
+  "BUSINESS NEXT": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "Accelerate your digital transformation with BUSINESSNEXT",
+    "note": "generic 'digital transformation' tagline"
+  },
+  "CamsPay": {
+    "sector": "Payments",
+    "subSectors": [
+      "payment-gateway",
+      "payments-infrastructure"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "CAMSPay is the panoptic platform for payments. A robust and secure full stack platform for the BFSI sector to safely accept payments across multiple channels."
+  },
+  "Canara Bank": {
+    "sector": "Banking & Financial Institutions",
+    "subSectors": [
+      "public-sector-bank",
+      "retail-banking",
+      "corporate-banking",
+      "digital-lending"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Canara Bank offers personal & corporate banking services including accounts, loans, cards, deposits, net banking & more to meet your financial needs.  ||  useCases: [\"digital lending\"]"
+  },
+  "Canso.AI": {
+    "sector": "Fraud Prevention & Risk",
+    "subSectors": [
+      "fraud-detection",
+      "risk-management"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Reimagine fraud control with CansoAI. Leverage AI agents and MLOps to detect and prevent fraud with real-time insights and automation.  ||  useCases: [\"fraud prevention\", \"analytics and reporting\", \"AI and automation\"]"
+  },
+  "Cashfree Payments": {
+    "sector": "Payments",
+    "subSectors": [
+      "payment-gateway",
+      "merchant-acquiring",
+      "cross-border-payments"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Payments & checkout solution provider for e-commerce, SaaS, Travel, Edtech & Fintech - go live fast, convert more, & collect domestic and international payments  ||  useCases: [\"cross-border payments\", \"cloud infrastructure\"]"
+  },
+  "CCIL": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "Home - CCIL - The Clearing Corporation of India Limited",
+    "note": "site title / legal name only, no description"
+  },
+  "CDSL": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "securities-depository",
+      "market-infrastructure"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Central Depository Services Limited, is the second Indian central securities depository based in Mumbai.  ||  useCases: [\"trading and brokerage\"]"
+  },
+  "Chat360": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "chatbots",
+      "whatsapp-business",
+      "customer-engagement"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Chat360 is an Agentic AI-powered chatbot platform to automate customer support, lead generation & engagement across WhatsApp, Web, Voice, and social media.  ||  useCases: [\"customer communication\", \"AI and automation\"]"
+  },
+  "CHUBB": {
+    "sector": "Insurance & Insurtech",
+    "subSectors": [
+      "insurance-carrier",
+      "general-insurance"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Protect what matters most with Chubb’s personal and business insurance solutions. Discover tailored coverage and get your personalized quote today.  ||  useCases: [\"insurance distribution\"]"
+  },
+  "CIBE": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "tier",
+    "evidence": "partner tier: \"Ecosystem\""
+  },
+  "Cisco": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "whatTheyDo",
+    "evidence": "Cisco is a worldwide technology leader powering an inclusive future for all. Learn more about our products, services, solutions, and innovations."
+  },
+  "Citi": {
+    "sector": "Banking & Financial Institutions",
+    "subSectors": [
+      "corporate-banking",
+      "treasury-services"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Global bank  ||  useCases: [\"corporate banking\", \"treasury services\", \"cross-border payments\"]"
+  },
+  "City Union Bank": {
+    "sector": "Banking & Financial Institutions",
+    "subSectors": [
+      "retail-banking",
+      "digital-lending"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "City Union Bank offers a full suite of banking services - savings & current accounts, fixed & recurring deposits, home & personal loans, NRI services, net banking & mobile banking. Secure, smart, everywhere.  ||  useCases: [\"digital lending\"]"
+  },
+  "Cleartax.ai": {
+    "sector": "RegTech & Compliance",
+    "subSectors": [
+      "tax-compliance",
+      "gst",
+      "e-invoicing"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Clear - India’s largest tax and financial services software platform. Discover our software products and solutions for ITR filing, e-Invoicing, GST and e-Way Bill compliance, invoicing and billing, Max ITC, Taxcloud, invest, TDS & expert services.  ||  useCases: [\"AML and compliance\"]"
+  },
+  "CleverTap": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "customer-engagement",
+      "marketing-automation"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Engage your customers like never before with CleverTap’s all-in-one customer engagement platform. From personalized messaging to automated campaigns, CleverTap platform offers a suite of powerful tools to help you connect with your audience at every stage of the customer journey. Get started with CleverTap today.  ||  useCases: [\"customer communication\"]"
+  },
+  "Cockroach labs": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "database",
+      "cloud-infrastructure"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "CockroachDB is a distributed database with standard SQL for cloud applications. CockroachDB powers companies like Comcast, Lush, and Bose.  ||  useCases: [\"cloud infrastructure\"]"
+  },
+  "Comviva": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "fintech-software",
+      "martech"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo",
+    "evidence": "At Comviva, we go beyond technology, we create intelligent software platforms that drive real business impact at scale. As a global leader in FinTech, MarTech, DigiTech, and RevTech, we empower businesses to simplify complexity, unlock growth, and transform customer experiences."
+  },
+  "Concerto": {
+    "sector": "Payments",
+    "subSectors": [
+      "payment-gateway",
+      "merchant-acquiring"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Our payment gateway is authorised by RBI to operate as an Online Payment Aggregator  ||  useCases: [\"payment gateway\"]"
+  },
+  "Craft AI": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "lending-software",
+      "loan-origination",
+      "collections-recovery",
+      "ai-agents"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Transform your lending operations with AI agents. Automate loan origination, disbursals, servicing and collections with AI agents, leading to faster business growth, and 70% lower costs.  ||  useCases: [\"digital lending\", \"AI and automation\", \"collections and recovery\"]"
+  },
+  "Craftsilicon": {
+    "sector": "Banking Infrastructure & Core Systems",
+    "subSectors": [
+      "core-banking",
+      "lending-software",
+      "microfinance-software"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Craftsilicon provides AI-powered microfinance software, loan managemnet systems, digital lending, core banking and LOS solutions across Asia.  ||  useCases: [\"digital lending\", \"core banking\", \"AI and automation\"]"
+  },
+  "CRED": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "financial & lifestyle experiences crafted for the creditworthy.",
+    "note": "brand copy ('financial & lifestyle experiences'); no business line stated"
+  },
+  "Credentek": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "secure-file-transfer"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo",
+    "evidence": "Xfer4Sure has securely transferred 8.80 billion financial files to date"
+  },
+  "Credility": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "lending-software",
+      "loan-origination",
+      "collections-recovery"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "End-to-end digital lending solutions by Credility for NBFCs, HFCs, and banks. Streamline loan origination, onboarding, credit verification, and collections with AI-powered, paperless lending technology.  ||  useCases: [\"digital lending\", \"KYC and onboarding\", \"identity verification\", \"AI and automation\", \"collections and recovery\"]"
+  },
+  "Credit Saison": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "nbfc",
+      "financial-inclusion"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Discover how Credit Saison India empowers India’s credit growth with innovative financial solutions, fostering business success and financial inclusion..  ||  useCases: [\"financial inclusion\"]"
+  },
+  "CredResolve": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "collections-recovery"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "AI-Powered Collection beyond Automation at every step of your debt collection journey. One powerful and intelligent Platform built for maximum Recovery.  ||  useCases: [\"AI and automation\", \"collections and recovery\"]"
+  },
+  "CRIF": {
+    "sector": "Credit Bureau & Risk Scoring",
+    "subSectors": [
+      "credit-bureau",
+      "credit-data",
+      "credit-scoring"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "CRIF High Mark is one of India’s top credit bureaus, offering credit information reports, bureau scores, and analytics trusted by banks and NBFCs across India.  ||  useCases: [\"credit underwriting\", \"analytics and reporting\"]"
+  },
+  "Crunchfish Digital Cash": {
+    "sector": "Payments",
+    "subSectors": [
+      "offline-payments",
+      "payments-infrastructure"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "OFFLINE PAYMENTS AS CRITICAL INFRASTRUCTURE Offline payments that keep working when systems don’t Digital payments have become critical public infrastructure, yet most digital payments depend on network connectivity and central system availability to complete a transaction. When networks are congested, unavailable, or when the underlying payment system is disrupted, payments can fail or become imp  ||  useCases: [\"cloud infrastructure\"]"
+  },
+  "CryptoBind": {
+    "sector": "Cybersecurity",
+    "subSectors": [
+      "hsm",
+      "encryption",
+      "data-protection"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "At JISA, we offer Aadhar Data Vault Solution, HSM Security Solution, Data Security Solution, encryption key management solution and many more  ||  useCases: [\"cybersecurity\"]"
+  },
+  "Cy5.io": {
+    "sector": "Cybersecurity",
+    "subSectors": [
+      "cloud-security",
+      "cnapp",
+      "threat-detection"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Discover actionable security signals at cloud speed with Cy5's next-gen CNAPP platform. Real-time posture monitoring, threat detection, and vulnerability insights for AWS, Azure,  ||  useCases: [\"analytics and reporting\", \"cloud infrastructure\", \"cybersecurity\"]"
+  },
+  "CyberSRCC": {
+    "sector": "Cybersecurity",
+    "subSectors": [
+      "security-compliance",
+      "grc",
+      "data-governance"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Cyber Insights & Blogs - CyberSRC® Consultancy Pvt. Ltd. is a globally recognized CERT-IN and STQC-empaneled organization specializing in cybersecurity, data governance, IT audit, and compliance.  ||  useCases: [\"AML and compliance\", \"analytics and reporting\", \"cybersecurity\"]"
+  },
+  "Cygnet.One": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "it-services",
+      "cloud-infrastructure",
+      "product-engineering"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Explore Cygnet.One’s IT services, cloud transformation, and product engineering solutions. Simplify complexity and drive digital success for your businesses.  ||  useCases: [\"cloud infrastructure\"]"
+  },
+  "Data Science Wizards": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "ai-platform",
+      "mlops"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Governed. Explainable. Production-Ready AI at Scale.  ||  useCases: [\"AI and automation\"]"
+  },
+  "Data Sutram": {
+    "sector": "Fraud Prevention & Risk",
+    "subSectors": [
+      "fraud-detection",
+      "risk-management",
+      "collections-recovery"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Enterprise AI Trust Platform solving fraud, credit risk, and collections for financial institutions. Powered by Auth intelligence and Echo agentic workflows.  ||  useCases: [\"fraud prevention\", \"AI and automation\", \"collections and recovery\"]"
+  },
+  "Datagen Systems Private Limited (LAKE X AI)": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "data-governance",
+      "enterprise-data"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "LakeX Sovereign AI DataVault is the only sovereign data intelligence platform that archives, governs, and AI-queries your structured and unstructured enterprise data — on-premises, air-gap capable, BFSI-grade.  ||  useCases: [\"AI and automation\"]"
+  },
+  "DBS Bank": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "We are proud to serve generations of customers in Singapore, who have made us Asia's Safest, Asia's Best.",
+    "note": "brand/awards copy only; does not state a business line"
+  },
+  "DCB Bank": {
+    "sector": "Banking & Financial Institutions",
+    "subSectors": [
+      "retail-banking",
+      "digital-lending"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "DCB Bank offers a range of banking services including Current & Savings Accounts, Fixed Deposits, Debit Cards, and Loan solutions to meet all your financial needs.  ||  useCases: [\"digital lending\"]"
+  },
+  "Devrev": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "ai-platform"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "The only enterprise AI platform with Native Shared Memory. Computer reasons across live product, support, and sales data – more efficiently, and more precisely  ||  useCases: [\"AI and automation\"]"
+  },
+  "Digikhata": {
+    "sector": "Banking Infrastructure & Core Systems",
+    "subSectors": [
+      "agent-banking",
+      "business-correspondent",
+      "financial-inclusion"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo",
+    "evidence": "Create Digital shop with PayPoint India. Become a digital center agent and complete CSP registration easily to start your BC business."
+  },
+  "Digio": {
+    "sector": "Identity & KYC",
+    "subSectors": [
+      "kyc",
+      "esign",
+      "onboarding",
+      "aml-screening"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "KYC, Documents, eSign, AML/CFT, DigiLocker & Payments APIs for secure onboarding and documentation. Trusted Digital Infrastructure for businesses.  ||  useCases: [\"KYC and onboarding\", \"AML and compliance\", \"cloud infrastructure\"]"
+  },
+  "Digitap.AI": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "financial-data-analytics",
+      "credit-underwriting",
+      "onboarding"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "AI driven solutions for analysing financial data of customers to enable credit underwriting and powering digital customer onboarding journeys for enterprises in the Banking sector.  ||  useCases: [\"credit underwriting\", \"KYC and onboarding\", \"AI and automation\"]"
+  },
+  "Discover": {
+    "sector": "Payments",
+    "subSectors": [
+      "card-networks",
+      "card-issuing",
+      "card-acceptance"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Global card payment network and issuer  ||  useCases: [\"card acceptance\", \"card issuing\"]"
+  },
+  "Dista Technology Pvt. Ltd.": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "location-intelligence"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Dista empowers businesses with AI-driven location intelligence to optimize field operations, improve efficiency, and achieve faster business expansion.  ||  useCases: [\"AI and automation\"]"
+  },
+  "Domywork": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "crm",
+      "sales-automation"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "CompanyHub is a sales automation CRM for sales teams that can be completely tailored for your industry. Try for free & fall in ❤️ with CompanyHub  ||  useCases: [\"AI and automation\"]"
+  },
+  "DoubleTick": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "whatsapp-business",
+      "messaging",
+      "chatbots"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Centralize every WhatsApp number, department, and conversation into one secure command center. Unified inbox, bulk messaging, AI chatbots, enterprise governance, and CRM integrations. Rated 4.8/5 on G2. Official Meta Technology Partner.  ||  useCases: [\"customer communication\", \"AI and automation\"]"
+  },
+  "DreamFolks": {
+    "sector": "Other Non-Fintech",
+    "subSectors": [
+      "travel"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Global travel and lifestyle services aggregator."
+  },
+  "Eleven Labs": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "voice-ai",
+      "speech-synthesis",
+      "developer-apis"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Create lifelike speech with our AI voice generator and voice agents platform. Access 5,000+ voices in 70+ languages with secure APIs and SDKs.  ||  useCases: [\"AI and automation\", \"cloud infrastructure\"]"
+  },
+  "Equence Technologies": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "cpaas",
+      "messaging",
+      "otp",
+      "whatsapp-business"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Equence offers Verified SMS, Two-way SMS API, OTP services, and WhatsApp Business Solutions for secure, multichannel enterprise messaging.  ||  useCases: [\"customer communication\", \"cloud infrastructure\"]"
+  },
+  "Equifax": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "We at Equifax help people live their financial best. Our focus is on giving people an equal opportunity to access affordable, mainstream financial services for the things that they want and need in life.",
+    "note": "brand purpose statement; no business line stated"
+  },
+  "Experian": {
+    "sector": "Credit Bureau & Risk Scoring",
+    "subSectors": [
+      "credit-bureau",
+      "credit-data",
+      "fraud-detection"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Empowering smarter lending and business decisions with trusted credit data, advanced analytics and fraud prevention solutions from Experian India.  ||  useCases: [\"digital lending\", \"fraud prevention\", \"analytics and reporting\"]"
+  },
+  "EY": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [
+      "consulting",
+      "advisory",
+      "tax"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "EY (Ernst & Young), one of the large global professional services networks, providing assurance, tax, consulting and advisory services."
+  },
+  "Fibe": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "consumer-lending",
+      "personal-loans"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Fibe (formerly EarlySalary): India's largest lending platform. One solution for all life's big and small upgrades. Visit now to apply for a personal loan.  ||  useCases: [\"digital lending\"]"
+  },
+  "Finacus": {
+    "sector": "Banking Infrastructure & Core Systems",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Our solutions are highly, adaptive and offer remarkable flexibility, enabling financial institutions and partners to adopt products that are perfectly aligned with their needs. These solutions are available for acquisition and implementation through either the Licensed Model or the SaaS Model.  ||  useCases: [\"cloud infrastructure\"]"
+  },
+  "Financial Technology Association": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "tier",
+    "evidence": "partner tier: \"Ecosystem\""
+  },
+  "Finarkein": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "account-aggregator",
+      "open-finance",
+      "financial-data-analytics"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Finarkein helps BFSI companies build intelligent, data-driven solutions across data aggregation, AI/ML powered analytics, and financial services distribution, leveraging Account Aggregator (AA), ONDC, and OCEN.  ||  useCases: [\"account aggregation\", \"analytics and reporting\", \"AI and automation\"]"
+  },
+  "FinEye": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "financial-data-analytics",
+      "credit-underwriting",
+      "fraud-detection"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "FinEye offers AI-powered financial statement analysis with tampering detection, cashflow insights, and faster decision-making for lending and finance teams.  ||  useCases: [\"digital lending\", \"analytics and reporting\", \"AI and automation\"]"
+  },
+  "Finlock": {
+    "sector": "Cybersecurity",
+    "subSectors": [
+      "zero-trust",
+      "cloud-security"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "One platform that protects your apps, data and cloud with secure connections from users, devices and edge locations.  ||  useCases: [\"cloud infrastructure\"]"
+  },
+  "Finnulate": {
+    "sector": "RegTech & Compliance",
+    "subSectors": [
+      "compliance-automation",
+      "regulatory-reporting",
+      "grc"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "AI-native compliance management platform for NBFCs, FPIs, and banks. Link regulatory obligations to owned tasks and evidence in one system.  ||  useCases: [\"AML and compliance\", \"AI and automation\"]"
+  },
+  "Fino Payments": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-evidence",
+    "evidence": null
+  },
+  "FinStep Asia": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "tier",
+    "evidence": "partner tier: \"Ecosystem\""
+  },
+  "FinTech Armenia": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "tier",
+    "evidence": "partner tier: \"Ecosystem\""
+  },
+  "Fintoo": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "financial-planning",
+      "robo-advisory",
+      "tax-advisory"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Fintoo is an online platform providing solutions for all your Financial planning, Tax planning goals with AI-powered advisory in India  ||  useCases: [\"AI and automation\"]"
+  },
+  "Fintree Finance Pvt. Ltd.": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "financial-inclusion"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Fintree Finance Pvt. Ltd. is an Impact Lender based out of Mumbai & is backed by the veterans from Banking & Fintech Industry."
+  },
+  "Firsthive": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "customer-data-platform",
+      "decisioning"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "AI-powered CDP and decisioning engine that unifies customer data into a real-time, context-enriched plane and turns every signal into revenue.  ||  useCases: [\"AI and automation\"]"
+  },
+  "FIS": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "FIS is fintech for bold ideas. FIS is behind the financial technology that transforms how we live, work and play.",
+    "note": "brand copy; says 'fintech' but names no business line"
+  },
+  "Fundamento": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "ai-agents"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "AI agents that drive business outcomes for financial institutions  ||  useCases: [\"AI and automation\"]"
+  },
+  "Fyno": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "communication-orchestration",
+      "messaging"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Fyno is the Communication Orchestration Platform for BFSI. Route, govern, and prove every message across every vendor, without replacing your existing stack."
+  },
+  "GeekyAnts": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "product-engineering",
+      "it-consulting"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "GeekyAnts is an AI-powered digital product engineering and consulting company helping Indian businesses build, modernize, and scale production-grade products, platforms, and intelligent systems.  ||  useCases: [\"AI and automation\"]"
+  },
+  "GEMCARDS": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "it-services",
+      "software-development"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "IT company in Technopark, Kerala, India, Customized solutions across Maritime, Logistics, Warehouse, cards, Travel, BFSI, ERP, Cloud, and Software Development.  ||  useCases: [\"cloud infrastructure\"]"
+  },
+  "Getepay": {
+    "sector": "Payments",
+    "subSectors": [
+      "omnichannel-payments"
+    ],
+    "confidence": "medium",
+    "method": "tier",
+    "evidence": "partner tier: \"Omni-Channel Payments Partner\""
+  },
+  "Gift City": {
+    "sector": "Regulator & Public Sector",
+    "subSectors": [
+      "international-financial-centre",
+      "special-economic-zone"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo",
+    "evidence": "Discover GIFT City - India’s first International Financial Services Centre (IFSC), a global finance hub, and a platinum-rated Greenfield Smart City."
+  },
+  "GLEIF": {
+    "sector": "Identity & KYC",
+    "subSectors": [
+      "legal-entity-identifier",
+      "kyb"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Global Legal Entity Identifier Foundation, the body overseeing the LEI system for identifying legal entities in financial transactions.  ||  useCases: [\"identity verification\"]"
+  },
+  "Gnani.ai": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "voice-ai",
+      "speech-analytics",
+      "voice-biometrics"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Voice AI built for real-world enterprise scale. ASR, TTS, voice agents, speech analytics, and voice biometrics across 40+ languages. Trusted by 200+ global enterprises.  ||  useCases: [\"analytics and reporting\", \"AI and automation\"]"
+  },
+  "Google Pay": {
+    "sector": "Payments",
+    "subSectors": [
+      "consumer-payments",
+      "upi"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Digital payments app  ||  useCases: [\"UPI payments\", \"peer-to-peer transfers\"]"
+  },
+  "Gridlines by OnGrid": {
+    "sector": "Identity & KYC",
+    "subSectors": [
+      "video-kyc",
+      "identity-verification",
+      "esign",
+      "onboarding",
+      "fraud-detection"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Digital onboarding platform for customer verification, Video KYC, eSign, fraud detection, and identity workflows.  ||  useCases: [\"KYC and onboarding\", \"identity verification\", \"fraud prevention\"]"
+  },
+  "HDFC": {
+    "sector": "Banking & Financial Institutions",
+    "subSectors": [
+      "private-sector-bank",
+      "retail-banking",
+      "digital-lending",
+      "wealth-management"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "HDFC Bank, India's leading private sector bank, offers Online NetBanking & Personal Banking Services like Accounts & Deposits, Cards, Loans, & Investment.  ||  useCases: [\"digital lending\", \"wealth management\"]"
+  },
+  "helo.ai": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "cpaas",
+      "whatsapp-business",
+      "chatbots"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Helo.ai is a trusted CPaaS platform offering WhatsApp Business API, SMS API, Voice API, Email API, RCS, chatbots, and omnichannel customer engagement.  ||  useCases: [\"customer communication\", \"AI and automation\", \"cloud infrastructure\"]"
+  },
+  "Heph": {
+    "sector": "Insurance & Insurtech",
+    "subSectors": [
+      "insurance-infrastructure",
+      "insurance-distribution"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Heph - India's Largest Insurance SAAS Platform  ||  useCases: [\"insurance distribution\", \"cloud infrastructure\"]"
+  },
+  "Hitachi Payments": {
+    "sector": "Payments",
+    "subSectors": [
+      "payments-infrastructure",
+      "payment-processing"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "In the fast changing world of money and banking, we empower Banks, Fintechs and Aggregators with innovative and end-to-end payment solutions that create customer delight, drive profitability and most importantly, bring payment services closer to people."
+  },
+  "HSBC": {
+    "sector": "Banking & Financial Institutions",
+    "subSectors": [
+      "corporate-banking",
+      "trade-finance",
+      "treasury-services"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Global bank  ||  useCases: [\"corporate banking\", \"cross-border payments\", \"trade finance\"]"
+  },
+  "HyperVerge": {
+    "sector": "Identity & KYC",
+    "subSectors": [
+      "kyc",
+      "identity-verification",
+      "aml-screening",
+      "fraud-detection"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Built for banks, NBFCs & fintechs. RBI-compliant KYC, AML checks, deepfake detection & fraud prevention at scale. 2B+ identities verified globally. Start today.  ||  useCases: [\"KYC and onboarding\", \"fraud prevention\", \"AML and compliance\"]"
+  },
+  "IDA Ireland": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [
+      "investment-promotion",
+      "country-delegation"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "IDA Ireland is the foreign investment promotion agency that helps companies expand into Ireland and beyond. Looking to expand into Europe? Think IDA  ||  useCases: [\"wealth management\"]"
+  },
+  "Identy.io": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-evidence",
+    "evidence": null
+  },
+  "iDreamBiz": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "messaging"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo",
+    "evidence": "An all-in-one platform for limitless business communication, seamless"
+  },
+  "IFSCA": {
+    "sector": "Regulator & Public Sector",
+    "subSectors": [
+      "financial-regulator",
+      "international-financial-centre"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "India's International Financial Services Centres Authority, the unified regulator for financial services in the country's IFSCs, including GIFT City.  ||  useCases: [\"AML and compliance\"]"
+  },
+  "Ignosis": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "account-aggregator",
+      "open-finance",
+      "risk-analytics"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Transform financial data into actionable intelligence with Account Aggregator infrastructure, risk analytics, and agentic AI automation for BFSI.  ||  useCases: [\"account aggregation\", \"analytics and reporting\", \"AI and automation\", \"cloud infrastructure\"]"
+  },
+  "IIIT Bangalore": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "tier",
+    "evidence": "partner tier: \"Ecosystem\""
+  },
+  "IIMA Ventures": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [
+      "incubator",
+      "venture-capital",
+      "investor"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "IIMA Ventures is a startup incubator established by IIM Ahmedabad. IIMA Ventures is providing startup funding, Startup Investment, startup capital, funding for startups  ||  useCases: [\"wealth management\"]"
+  },
+  "In-Solutions Global": {
+    "sector": "Payments",
+    "subSectors": [
+      "payments-infrastructure",
+      "payment-processing"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "In-Solutions Global (ISG) is a leading payment solutions provider operating across India, Africa, the Middle East, APAC, and Southeast Asia. Founded in 2004, ISG has spent two decades driving innovation, staying ahead of regulatory and market demands, and building a robust business model that serves marquee clients worldwide.  ||  useCases: [\"AML and compliance\"]"
+  },
+  "InCred": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "nbfc",
+      "personal-loans",
+      "education-loans",
+      "business-loans"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "InCred Finance a new-age tech and analytics-driven NBFC. It offers Personal loans, Education Loans and Business.  ||  useCases: [\"digital lending\", \"analytics and reporting\"]"
+  },
+  "IndiaBonds": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "bond-platform",
+      "fixed-income",
+      "retail-investing"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Invest in bonds online with IndiaBonds, a SEBI-registered online bond platform. Explore corporate, government, public issue & tax-free bonds for 9-12% fixed returns."
+  },
+  "Indian Bank": {
+    "sector": "Banking & Financial Institutions",
+    "subSectors": [
+      "retail-banking",
+      "digital-lending"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Indian Bank offers trusted financial services in India including personal loans, home loans, saving accounts, credit cards, and secure digital banking services.  ||  useCases: [\"digital lending\"]"
+  },
+  "Indian Banks Association": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-evidence",
+    "evidence": null
+  },
+  "Indifly": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [
+      "venture-building",
+      "investor"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Indifly Ventures partners with founders to build successful startups in fintech, e-commerce, and ed-tech across India."
+  },
+  "Infibeam Avenues": {
+    "sector": "Payments",
+    "subSectors": [
+      "payment-gateway",
+      "merchant-acquiring",
+      "fintech-software"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "We are an Indian multinational Financial Technology Company that offers integrated & scalable digital platforms consisting of Digital Payment Solution under the brand name CCAvenue and Enterprise Software solutions under the brand name BuildaBazaar. We are the only listed home-grown, bootstrapped, and profitable Fintech conglomerate having a comprehensive Fintech portfolio.  ||  useCases: [\"wealth management\"]"
+  },
+  "InstantPay": {
+    "sector": "Payments",
+    "subSectors": [
+      "payouts",
+      "payment-processing"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Instantpay is a provider of payment solutions for businesses. Send payouts, manage accounts, verify identities, and automate transactions securely on one platform.  ||  useCases: [\"payouts\"]"
+  },
+  "InsureMO": {
+    "sector": "Insurance & Insurtech",
+    "subSectors": [
+      "insurance-infrastructure",
+      "insurance-apis"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "insureMO is the insurance Middle Office platform — 17,500+ products, 2,500+ atomic APIs, 50+ countries, processing USD 25B+ GWP annually for insurers globally.  ||  useCases: [\"insurance distribution\", \"cloud infrastructure\"]"
+  },
+  "Int Global": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "digital-transformation",
+      "cloud-infrastructure"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "INT Global delivers digital transformation, cloud, and analytics solutions that help businesses scale, innovate, and achieve sustainable growth.  ||  useCases: [\"analytics and reporting\", \"cloud infrastructure\"]"
+  },
+  "Integra Micro": {
+    "sector": "Banking Infrastructure & Core Systems",
+    "subSectors": [
+      "banking-infrastructure",
+      "digital-identity",
+      "financial-inclusion"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo",
+    "evidence": "Integra stands at the intersection of TechFin and FinTech, enabling secure digital identities, resilient payment systems, and last-mile financial services — making digital transformation real for millions."
+  },
+  "Intellect Design Arena Ltd": {
+    "sector": "Banking Infrastructure & Core Systems",
+    "subSectors": [
+      "core-banking",
+      "banking-apis",
+      "digital-banking-software"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Explore Intellect Design’s eMACH.ai platform for composable banking, AI-led fintech products, open APIs and digital finance transformation. Build what’s next.  ||  useCases: [\"AI and automation\", \"cloud infrastructure\"]"
+  },
+  "Interestng": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "loan-marketplace"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Compare loans from 60+ banks & NBFCs. AI-powered loan comparison with real-time rates. Join 500+ DSA agents earning high commissions. Free EMI calculator & instant eligibility check.  ||  useCases: [\"digital lending\", \"AI and automation\"]"
+  },
+  "Invincible Ocean": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "ai-platform",
+      "blockchain-infrastructure"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Invincible Clients https://youtu.be/1PgFXcvR6Hg?si=fP-ZDhiYuuzJaizV Know More about Invincible About us Resources Roboi Contact us Intelligent Digital Economy Enterprise-Grade AI Products on Proprietary Blockchain Infrastructure 1. Cloudtuner.aiCut Cloud Bills by 80% Know more 2. Motointel.aiAI Powered Intelligence for Automotive Know more 3. RoboiFrom CCTV to Drones, Intelligence at the Edge know  ||  useCases: [\"AI and automation\", \"cloud infrastructure\", \"blockchain and tokenisation\"]"
+  },
+  "IppoPay": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-evidence",
+    "evidence": null
+  },
+  "IserveU": {
+    "sector": "Banking Infrastructure & Core Systems",
+    "subSectors": [
+      "banking-infrastructure",
+      "banking-as-a-service"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "iServeU delivers award winning banking infrastructure to Banks, Fintechs, NBFCs and other businesses across globe along with high transaction processing proficiencies.  ||  useCases: [\"cloud infrastructure\"]"
+  },
+  "ITEL": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "tier",
+    "evidence": "partner tier: \"Ecosystem\""
+  },
+  "ITRS": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "Solutions for the most demanding environments on the planet",
+    "note": "generic tagline, no business line stated"
+  },
+  "J.P. Morgan": {
+    "sector": "Banking & Financial Institutions",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "whatTheyDo",
+    "evidence": "We strive to provide outstanding service at every interaction with the Bank. Every customer grievance is an opportunity to provide commitment to service excellence and need for addressing customer complaints promptly and fairly through a robust and efficient complaint resolution process."
+  },
+  "JCB International Co. Ltd.": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "This is the website for JCB, Japan",
+    "note": "'This is the website for JCB, Japan' - states nothing about the business"
+  },
+  "Jio Financial Services Limited": {
+    "sector": "Diversified Financial Services",
+    "subSectors": [
+      "diversified-financial-group",
+      "financing",
+      "investing",
+      "credit-cards",
+      "digital-gold"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Get instant credit cards, personal loans, high-yield FDs & 24K digital gold. File taxes & manage all your finances on the JioFinance today!  ||  useCases: [\"digital lending\"]"
+  },
+  "Jocata": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-evidence",
+    "evidence": null
+  },
+  "Juspay": {
+    "sector": "Payments",
+    "subSectors": [
+      "payment-orchestration",
+      "payments-infrastructure",
+      "upi"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "India's leading payment orchestration platform. Juspay powers billions of transactions with industry-high success rates, seamless UPI flows & fraud protection.  ||  useCases: [\"UPI payments\", \"fraud prevention\"]"
+  },
+  "Karix": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "customer-engagement"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo",
+    "evidence": "25 years of pioneering immersive customer experiences, 35% market share in India, among the world’s top three globally — a Tanla Platforms company."
+  },
+  "Karta AI": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "customer-support-ai",
+      "ai-agents",
+      "voice-ai"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Transform customer support with Karta AI - multilingual agents across chat, voice, WhatsApp & email to boost automation for the landing page  ||  useCases: [\"customer communication\", \"AI and automation\"]"
+  },
+  "Kathmandu Fintel": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "tier",
+    "evidence": "partner tier: \"Ecosystem\""
+  },
+  "KFin Technologies": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "registrar-transfer-agent",
+      "mutual-funds",
+      "market-infrastructure"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "KFintech is the largest RTA and a market leader in the financial sector. We specialize in Mutual Funds, Corporate Registry, NPS, and many more.  ||  useCases: [\"wealth management\"]"
+  },
+  "Kissht": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "consumer-lending",
+      "personal-loans"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Get instant loan online from Kissht with easy online application, quick approval & attractive interest rates. Apply now & get your funds today!  ||  useCases: [\"digital lending\"]"
+  },
+  "Kiya.ai": {
+    "sector": "Banking Infrastructure & Core Systems",
+    "subSectors": [
+      "core-banking",
+      "compliance-automation"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "KiyaAI | AI-Powered Core Banking & RegTech Solutions for Financial Institutions  ||  useCases: [\"core banking\", \"AI and automation\"]"
+  },
+  "Knight Fintech": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "lending-software",
+      "embedded-finance",
+      "treasury"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "India's leading digital lending infrastructure platform. Powering 500+ financial institutions with co-lending, treasury management, and embedded finance solutions.  ||  useCases: [\"digital lending\", \"banking as a service\", \"cloud infrastructure\", \"treasury and cash management\"]"
+  },
+  "KPMG": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [
+      "consulting",
+      "advisory",
+      "tax"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "KPMG, one of the large global professional services networks, providing audit, tax and advisory services."
+  },
+  "Kuster Engineering": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "bpo"
+    ],
+    "confidence": "low",
+    "method": "whatTheyDo",
+    "evidence": "We have experienced that the most significant challenge that companies face when they outsource their key processes is in getting the outsourcing partners aligned to their goals and priorities."
+  },
+  "Kyvos": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "business-intelligence",
+      "data-engineering"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Accelerate your BI journey with Intellicus data engineering and analytics platform. Get end-to-end solution from data discovery to transformation to insights.  ||  useCases: [\"analytics and reporting\"]"
+  },
+  "Leadsquared": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "crm",
+      "sales-automation",
+      "marketing-automation"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Accelerate revenue growth with a powerful CRM software built for sales, marketing, service & field teams. Improve customer acquisition, retention, & efficiency."
+  },
+  "Leegality": {
+    "sector": "RegTech & Compliance",
+    "subSectors": [
+      "esign",
+      "estamp",
+      "legaltech",
+      "document-automation"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "More than 5000 Indian businesses use Leegality to digitize their agreements and legal documents. eSign, eStamp, Document Automation, Document Security and more.  ||  useCases: [\"AI and automation\", \"cybersecurity\"]"
+  },
+  "LEINow by Bundesanzeiger Verlag GmbH": {
+    "sector": "RegTech & Compliance",
+    "subSectors": [
+      "regulatory-publishing"
+    ],
+    "confidence": "low",
+    "method": "whatTheyDo",
+    "evidence": "Der Bundesanzeiger Verlag veröffentlich u.a. das Bundesgesetzblatt und den Bundesanzeiger. Lernen Sie alle Produkte und Plattformen kennen."
+  },
+  "Lemon Yellow": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "design-agency"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Lemon Yellow is a UI UX design agency creating human-first, AI-enhanced digital experiences. Transform your product design. Contact our team today.  ||  useCases: [\"AI and automation\"]"
+  },
+  "LenDenClub": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "p2p-lending",
+      "nbfc"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Lend money online on India's largest Peer to Peer Lending platform. RBI Registered NBFC-P2P. ₹20,000 Cr+ disbursed. Start with ₹25,000.  ||  useCases: [\"digital lending\"]"
+  },
+  "Lexis Nexis Risk Solutions": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "risk-analytics",
+      "alternative-data"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "LexisNexis Risk Solutions uses Big Data, proprietary linking and targeted solutions to provide insights that help make organizations more secure and efficient.  ||  useCases: [\"analytics and reporting\"]"
+  },
+  "Luxembourg House of Financial Technology": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [
+      "investment-promotion",
+      "country-delegation"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Welcome to the website of Luxembourg for Finance, the Agency for the Development of the Financial Centre. Founded in 2008, its objective is to develop Luxembourg’s financial services industry and identify new business opportunities."
+  },
+  "LXME": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "retail-investing",
+      "mutual-funds",
+      "digital-gold"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Lxme is India's first investment app for women, built to simplify mutual funds, digital gold and everyday budgeting. Join thousands of women managing money on their own terms, backed by tools designed for real financial goals.  ||  useCases: [\"wealth management\"]"
+  },
+  "Lyra": {
+    "sector": "Payments",
+    "subSectors": [
+      "payment-gateway",
+      "payment-security"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Payment gateway and secure transaction provider  ||  useCases: [\"online payment gateway\", \"payment security\"]"
+  },
+  "M-tech Innovations": {
+    "sector": "Hardware & Devices",
+    "subSectors": [
+      "smart-cards",
+      "rfid",
+      "secure-id-hardware",
+      "automotive-components"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo",
+    "evidence": "M-Tech Innovations provides smart cards, RFID solutions, automotive components, HMI systems, PU logos & secure ID solutions across India. Contact us today."
+  },
+  "Mantra Softech": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "Mantra Softech India Pvt Ltd - India",
+    "note": "company name and country only"
+  },
+  "MapmyIndia": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "location-intelligence"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "MapmyIndia provides revolutionary location-based products, solutions and services built on India’s best maps. MapmyIndia bringing deep tech to Maps, Location Intelligence & IoT"
+  },
+  "Mastercard": {
+    "sector": "Payments",
+    "subSectors": [
+      "card-networks",
+      "card-issuing",
+      "card-acceptance",
+      "cross-border-payments"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Global card payment network  ||  useCases: [\"card issuing\", \"card acceptance\", \"cross-border payments\"]"
+  },
+  "MCX": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "commodity-exchange",
+      "derivatives",
+      "price-discovery"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Indian commodity derivatives exchange  ||  useCases: [\"commodity trading\", \"price discovery\"]"
+  },
+  "Melento": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "document-automation"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Experience document automation with Melento  ||  useCases: [\"AI and automation\"]"
+  },
+  "Metropolitan Stock Exchange": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "stock-exchange",
+      "equity-trading",
+      "derivatives"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Explore Metropolitan Stock Exchange of India (MSE India) for equity, equity derivatives, index, currency trading & market insights. Secure, transparent trading platform.  ||  useCases: [\"trading and brokerage\", \"analytics and reporting\"]"
+  },
+  "Mfilterit": {
+    "sector": "Fraud Prevention & Risk",
+    "subSectors": [
+      "ad-fraud",
+      "brand-protection",
+      "scam-detection"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "mFilterIt is a digital trust platform that detects ad fraud, brand threats and financial scams for brands and enterprises worldwide.  ||  useCases: [\"fraud prevention\"]"
+  },
+  "Mindgate": {
+    "sector": "Payments",
+    "subSectors": [
+      "payments-infrastructure",
+      "payment-processing"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Mindgate Solutions is a leading digital payment solutions provider for banks, corporates and businesses, processing over 8 Billion+ transactions monthly."
+  },
+  "Mitigata": {
+    "sector": "Cybersecurity",
+    "subSectors": [
+      "security-compliance",
+      "cyber-insurance"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Mitigata is India’s own AI-built cyber resilience platform — unifying cybersecurity, compliance, and cyber insurance into one operating layer for every business.  ||  useCases: [\"AML and compliance\", \"insurance distribution\", \"AI and automation\", \"cybersecurity\"]"
+  },
+  "Modus AI": {
+    "sector": "Fraud Prevention & Risk",
+    "subSectors": [
+      "merchant-monitoring",
+      "fraud-detection",
+      "due-diligence"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Everything you need for merchant monitoring, compliance review, fraud detection, case resolution, document review, and due diligence.  ||  useCases: [\"fraud prevention\", \"AML and compliance\"]"
+  },
+  "MongoDB": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "database",
+      "cloud-infrastructure"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Get your ideas to market faster with a flexible, AI-ready database. MongoDB makes working with data easy.  ||  useCases: [\"AI and automation\"]"
+  },
+  "Montran Corporation India": {
+    "sector": "Banking Infrastructure & Core Systems",
+    "subSectors": [
+      "banking-infrastructure"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo",
+    "evidence": "Banks need high-performance, future-proof financial systems ready to move economies."
+  },
+  "Mufinpay": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-evidence",
+    "evidence": null
+  },
+  "My Mudra Fincorp": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "loan-marketplace",
+      "personal-loans",
+      "home-loans",
+      "business-loans"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Looking for the best loan provider in India? Get instant personal, home & business loans at low interest rates, fast approval, and trusted RBI registered lenders.  ||  useCases: [\"digital lending\"]"
+  },
+  "NABARD": {
+    "sector": "Banking & Financial Institutions",
+    "subSectors": [
+      "development-finance",
+      "rural-finance",
+      "financial-inclusion"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Explore NABARD's official website - your trusted source for rural development finance, agriculture support, financial inclusion and sustainable development programmes in India. Learn about schemes, loans, and initiatives empowering rural india.  ||  useCases: [\"digital lending\", \"financial inclusion\"]"
+  },
+  "National Stock Exchange": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "stock-exchange",
+      "equity-trading",
+      "derivatives",
+      "market-data"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "India's largest stock exchange  ||  useCases: [\"equity trading\", \"derivatives\", \"market data\"]"
+  },
+  "Navanatech AI": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "voice-ai",
+      "speech-recognition"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Navana.ai is building India’s foundational voice AI infrastructure with proprietary speech models that understand India - not just linguistically, but contextually in all Indian languages.  ||  useCases: [\"AI and automation\", \"cloud infrastructure\"]"
+  },
+  "Navi Technologies Limited": {
+    "sector": "Diversified Financial Services",
+    "subSectors": [
+      "diversified-financial-group",
+      "payments",
+      "financing",
+      "investing",
+      "insurance-distribution"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Lightning fast UPI payments, instant Cash Loans & Home Loans, smart investments in Mutual Funds & Digital Gold, comprehensive Health Insurance - all in one app.  ||  useCases: [\"UPI payments\", \"digital lending\", \"wealth management\", \"insurance distribution\"]"
+  },
+  "Neo4j": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "database",
+      "data-infrastructure"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Connect data as it's stored with Neo4j. Perform powerful, complex queries at scale and speed with our graph data platform.  ||  useCases: [\"analytics and reporting\"]"
+  },
+  "NeoSoft Technology": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "software-development",
+      "it-services"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "NeoSOFT is a leading software development and IT outsourcing company with 25+ years of software engineering excellence and successfully driving digital growth and innovation for 1500+ global brands."
+  },
+  "Nerve Solutions": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "fintech-consulting",
+      "software-development"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "A boutique consulting and development firm, making technology easy for all your fintech needs"
+  },
+  "Netwin": {
+    "sector": "Banking Infrastructure & Core Systems",
+    "subSectors": [
+      "digital-banking-software"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Global Fintech Fest 2025 Date 7th to 9th Oct 2025 Venue Jasmine Hall, Jio World Convention Centre Booth No. JC9 Book a Meeting Redefining Digital Banking Have all banking operations like opening of account, paying your bills & receiving payments, getting loans, repaying instalments & interest at your fingertips sitting at your own place. Digital ... Read more  ||  useCases: [\"digital lending\"]"
+  },
+  "Nexensus": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "alternative-data",
+      "risk-analytics"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Nexensus, founded in 2013, began as a helping hand to the BFSI sector by providing ROC documents and data. Nexensus has carved out a significant niche in three critical areas of Data Aggregation, Data Analytics and Information Systems/Solutions. Offering EWS, Credit , Data Aggregations and Risk solutions to BFSI sector  ||  useCases: [\"analytics and reporting\"]"
+  },
+  "Nogrunt": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "ai-agents",
+      "software-testing"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Nogrunt is an AI-native Digital Teammate that joins your engineering team, understands your product, and handles the full quality lifecycle.  ||  useCases: [\"AI and automation\"]"
+  },
+  "Novus Loyalty": {
+    "sector": "Loyalty & Rewards",
+    "subSectors": [
+      "loyalty-software",
+      "rewards"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "AI-powered loyalty program software to deliver better customer experiences globally with a flexible rule engine and smart rewards that boost retention, engagement & lifetime value.  ||  useCases: [\"AI and automation\"]"
+  },
+  "NPCI": {
+    "sector": "Payments",
+    "subSectors": [
+      "payments-infrastructure",
+      "upi",
+      "card-networks",
+      "public-infrastructure"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "National Payments Corporation of India, the umbrella organisation that operates retail payment systems in India including UPI, RuPay and IMPS.  ||  useCases: [\"UPI payments\", \"card acceptance\"]"
+  },
+  "NPST": {
+    "sector": "Banking Infrastructure & Core Systems",
+    "subSectors": [
+      "digital-banking-software",
+      "payments-infrastructure"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo",
+    "evidence": "India’s Leading Digital Banking and Payments Provider"
+  },
+  "NSDL": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "securities-depository",
+      "demat"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Unlock Your Investment Journey! Open a NSDL Demat Account Today with your preferred Participant (DP)  ||  useCases: [\"wealth management\"]"
+  },
+  "NSRCEL IIMB": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "tier",
+    "evidence": "partner tier: \"Ecosystem\""
+  },
+  "NTT Data (ADAPTIS)": {
+    "sector": "Payments",
+    "subSectors": [
+      "merchant-acquiring",
+      "payment-gateway",
+      "pos-acceptance"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "NTT DATA Payment Services India is an RBI-licensed payment aggregator delivering secure, scalable in-store, online and enterprise digital payment solutions."
+  },
+  "Nucleus Software": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "lending-software",
+      "transaction-banking",
+      "core-banking"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Nucleus software is a leading digital lending and global transaction banking platform supporting all lines of business – retail banking, corporate banking, Islamic banking, auto finance banking, transaction banking.  ||  useCases: [\"digital lending\"]"
+  },
+  "Nugget by Zomato": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "customer-support-ai",
+      "voice-ai",
+      "ai-agents"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Creating high velocity impact across every link in the business value chain with AI-native voice, chat, and email agents.  ||  useCases: [\"AI and automation\"]"
+  },
+  "Odyssey": {
+    "sector": "Cybersecurity",
+    "subSectors": [
+      "pki",
+      "digital-signatures",
+      "encryption"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Odyssey Technologies is a Chennai based Public Company providing information security products and services built around PKI and other extended public key technologies. Odyssey offers driverless access to DSC tokens, simple interfaces to digital signatures, cryptographically secure data vaults and intuitive digital certificate management all with unparalleled security. xorkee service, one of its k  ||  useCases: [\"cybersecurity\"]"
+  },
+  "Oli AI": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "voice-ai",
+      "ai-agents",
+      "collections-recovery"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Enterprise Voice AI for BFSI and NBFC collections. Automate EMI reminders, verification, and support calls with RBI/TRAI-compliant, multilingual voice agents.  ||  useCases: [\"AML and compliance\", \"AI and automation\", \"collections and recovery\"]"
+  },
+  "ONDC": {
+    "sector": "Regulator & Public Sector",
+    "subSectors": [
+      "public-infrastructure",
+      "government-body"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Open Network for Digital Commerce, an Indian government-backed open network for interoperable digital commerce.  ||  useCases: [\"cloud infrastructure\"]"
+  },
+  "OnFinance": {
+    "sector": "RegTech & Compliance",
+    "subSectors": [
+      "regulatory-ai",
+      "compliance-automation"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "AI Agents to simplify, streamline, and strengthen your regulatory processes. We currently support regulators like SEBI, RBI, SEC, FINRA, FCA, SAMA, MAS, AMFI.  ||  useCases: [\"AI and automation\"]"
+  },
+  "Onsurity": {
+    "sector": "Insurance & Insurtech",
+    "subSectors": [
+      "health-insurance",
+      "group-insurance",
+      "insurance-distribution"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Bring instant, reliable healthcare to your team. Group health insurance, wellness, term life and personal accident cover for Indian businesses.  ||  useCases: [\"insurance distribution\"]"
+  },
+  "Oxymoney": {
+    "sector": "Payments",
+    "subSectors": [
+      "upi",
+      "prepaid",
+      "bill-payments",
+      "expense-management"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Secure, scalable payment solutions with UPI, prepaid cards, BBPS & expense management. Trusted by 2M+ users. RBI-licensed PPI provider.  ||  useCases: [\"UPI payments\", \"expense management\"]"
+  },
+  "Paramotor": {
+    "sector": "Payments",
+    "subSectors": [
+      "prepaid",
+      "bill-payments",
+      "digital-gifting"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Paramotor Digital Technology Limited offers secure fintech SaaS solutions for consumer spend management, prepaid cards, bill payments and gifting in India.  ||  useCases: [\"cloud infrastructure\", \"expense management\"]"
+  },
+  "Parasoft": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "software-testing",
+      "devtools"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Intelligent automated testing platform covering every SDLC stage. Blend human insight with AI to validate software quality at speed and scale.  ||  useCases: [\"AI and automation\"]"
+  },
+  "Pay10": {
+    "sector": "Payments",
+    "subSectors": [
+      "payment-gateway",
+      "cross-border-payments",
+      "payment-processing"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Pay10 offers secure digital payment gateway solutions with seamless digital transactions, cross-border payments, and fast, reliable payment processing.  ||  useCases: [\"payment gateway\", \"cross-border payments\"]"
+  },
+  "PayGlocal": {
+    "sector": "Cross-Border & FX",
+    "subSectors": [
+      "cross-border-payments",
+      "payments-infrastructure"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "India's RBI-authorised cross-border payments infrastructure. Up to 96% PSR. Collect international payments from 180+ countries. FIRA/FIRC automated. Inward, outward and domestic on one stack.  ||  useCases: [\"cross-border payments\", \"cloud infrastructure\"]"
+  },
+  "Payhuddle": {
+    "sector": "Payments",
+    "subSectors": [
+      "emv-certification",
+      "payments-testing"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Payhuddle offers EMV test tools, simulators, consulting, and certification solutions for acquirers, merchant acquirers, merchants, issuers, terminal vendors, processors, payment networks, and fintechs."
+  },
+  "Paysprint": {
+    "sector": "Banking Infrastructure & Core Systems",
+    "subSectors": [
+      "banking-apis",
+      "embedded-finance",
+      "kyc"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Paysprint offers India's most reliable B2B fintech APIs — including KYC API for instant verification and excrow API for secure fund management. Compliance-ready, developer-friendly. Get started today.  ||  useCases: [\"KYC and onboarding\", \"AML and compliance\", \"cloud infrastructure\"]"
+  },
+  "Paytm": {
+    "sector": "Payments",
+    "subSectors": [
+      "consumer-payments",
+      "upi",
+      "merchant-acquiring",
+      "bill-payments"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Indian digital payments and financial services platform  ||  useCases: [\"UPI payments\", \"merchant acquiring\", \"bill payments\"]"
+  },
+  "PayU": {
+    "sector": "Payments",
+    "subSectors": [
+      "payment-gateway",
+      "merchant-acquiring",
+      "upi"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "PayU enables businesses in India to accept digital payments from credit cards, debit cards, net banking, BNPL, QR, UPI, Wallets and more.  ||  useCases: [\"UPI payments\", \"digital lending\"]"
+  },
+  "PCI / FCC": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-evidence",
+    "evidence": null
+  },
+  "PehchanPe": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "Transform your banking with MAKSPay",
+    "note": "one-line product slogan, no business line stated"
+  },
+  "Perfios": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "financial-data-analytics",
+      "credit-underwriting",
+      "income-verification"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Financial data analytics and underwriting platform  ||  useCases: [\"bank statement analysis\", \"credit underwriting\", \"income verification\"]"
+  },
+  "Perto": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "Explore as vantagens do Perto S.A e como ele pode melhorar seu dia a dia com tecnologia acessível.",
+    "note": "generic Portuguese marketing copy, no business line stated"
+  },
+  "Phi Commerce": {
+    "sector": "Payments",
+    "subSectors": [
+      "payment-gateway",
+      "omnichannel-payments"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Discover the best omnichannel payment gateway in India offering seamless online & offline transactions, secure payments, and easy integration for businesses.  ||  useCases: [\"payment gateway\"]"
+  },
+  "PhonePe": {
+    "sector": "Payments",
+    "subSectors": [
+      "consumer-payments",
+      "upi",
+      "merchant-payments",
+      "bill-payments"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Indian UPI payments and financial services app  ||  useCases: [\"UPI payments\", \"merchant payments\", \"bill payments\"]"
+  },
+  "Pine Labs": {
+    "sector": "Payments",
+    "subSectors": [
+      "pos-acceptance",
+      "merchant-payments",
+      "card-acceptance"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Merchant point-of-sale and payments platform  ||  useCases: [\"in-store card acceptance\", \"EMI at checkout\", \"gift cards\"]"
+  },
+  "Pinnacle Services": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "chatbots",
+      "customer-engagement",
+      "marketing-automation"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "We offer an Automated Chat Integration and Communication Module that helps businesses automate customer service, sales, and marketing processes."
+  },
+  "Plutos One": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-evidence",
+    "evidence": null
+  },
+  "Posidex Technologies": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "customer-data-platform",
+      "decisioning"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "AI/ML-powered, privacy-enhanced customer data platform for contextual insights for better growth, compliance, & customer experiences.  ||  useCases: [\"AML and compliance\", \"analytics and reporting\", \"AI and automation\"]"
+  },
+  "Precize": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "unlisted-shares",
+      "pre-ipo",
+      "retail-investing"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Buy and sell unlisted shares in India with Precize, your online platform for pre-IPO shares. Diversify with pre-IPO and unlisted shares investment opportunities!  ||  useCases: [\"wealth management\"]"
+  },
+  "Premier Financial Services": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "trust-and-fiduciary",
+      "tax-advisory",
+      "wealth-management"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo",
+    "evidence": "Premier is a fast growing Management & Trust Company operating in the offshore jurisdiction of Mauritius. The Premier Group offers its services to high net worth individuals, private companies, multinationals and listed entities across the globe. Our group and affiliate companies are based in Mauritius, Dubai, South Africa and the Seychelles. Our services include expert tax advice, reduction"
+  },
+  "Presolv360": {
+    "sector": "RegTech & Compliance",
+    "subSectors": [
+      "dispute-resolution",
+      "legaltech"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Presolv360® is an Online Dispute Resolution platform developed in India offering Mediation, Arbitration, Conciliation and Negotiation. Enabling resolution of disputes faster, legally, and securely, while preserving party relations."
+  },
+  "Protean eGov Technologies Limited": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "e-governance",
+      "digital-transformation"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Revolutionizing e-Governance for 28 years. From tax modernization to digital infrastructure, we empower citizens, businesses, and governments with innovative solutions.\\r\\n  ||  useCases: [\"cloud infrastructure\"]"
+  },
+  "Protectt.ai Labs": {
+    "sector": "Cybersecurity",
+    "subSectors": [
+      "mobile-app-security",
+      "application-security",
+      "ai-security",
+      "red-teaming"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Protect mobile apps, AI models, and agentic systems with Protectt.ai’s AI-native security platform offering RASP, AI red teaming, model scanning, and runtime protection.  ||  useCases: [\"AI and automation\", \"cybersecurity\"]"
+  },
+  "PSB Alliance": {
+    "sector": "Banking Infrastructure & Core Systems",
+    "subSectors": [
+      "banking-infrastructure"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo",
+    "evidence": "Innovation and progress never stop at PSB Alliance. We are committed to offering new services, products and platforms that help the banking sector enhance their offerings for individuals and businesses."
+  },
+  "Punjab National Bank": {
+    "sector": "Banking & Financial Institutions",
+    "subSectors": [
+      "public-sector-bank",
+      "retail-banking"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Indian public sector bank  ||  useCases: [\"retail banking\", \"payments\"]"
+  },
+  "PWC": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [
+      "consulting",
+      "advisory",
+      "tax"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "PwC, one of the large global professional services networks, providing assurance, tax and advisory services."
+  },
+  "QistonPe": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "govtech",
+      "workflow-automation"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "OpportunityX is an AI-powered tender management platform for Indian MSME manufacturers. It automates tender discovery across 90+ government portals (GeM, NTPC, BHEL, Railways, Defence, ONGC, CPPP, PWD), checks eligibility instantly, and generates complete bid-ready documentation. The platform helps manufacturing companies file government tenders in 10 minutes instead of 2 days. It is a product by  ||  useCases: [\"AI and automation\"]"
+  },
+  "Qualitrix": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "software-testing",
+      "it-services"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Horizontal News Ticker End-to-End UAT at Scale for a Leading Telecom Platform View Case Study→ National Startup Day 2026: Featured Among India’s Top Innovators. View News→ The Fastest Way to Stand Up a QA Center for Your India GCC. Read the Blog→ PAYMENT QE CENTRE OF EXCELLENCE 64% of India’s UPI market trusts Qualitrix. Domain-native,…  ||  useCases: [\"UPI payments\"]"
+  },
+  "Qualtech Edge": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "Set return targets by department and track performance against them. Gain visibility that drives accountability.",
+    "note": "product feature blurb; business line not identifiable"
+  },
+  "Quantum Data Engines": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "risk-analytics"
+    ],
+    "confidence": "low",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Quantum Data Engines builds algorithms of trust for banks, insurers, fintechs, and exchanges across nineteen countries and jurisdictions.  ||  useCases: [\"insurance distribution\"]"
+  },
+  "Rahi Technologies": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "lending-software",
+      "loan-servicing",
+      "collections-recovery"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "A practitioner-built, cloud-agnostic Lending platform that simplifies acquisition, servicing, and collections - powered by 100% open source technologies for a lower TCO  ||  useCases: [\"digital lending\", \"cloud infrastructure\", \"collections and recovery\"]"
+  },
+  "Raise": {
+    "sector": "Diversified Financial Services",
+    "subSectors": [
+      "diversified-financial-group",
+      "investing",
+      "wealth-management",
+      "asset-management",
+      "insurance-distribution",
+      "financing",
+      "payments"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "We are building technology-led financial services across investing, learning, wealth, insurance, financing, payments, and asset management.  ||  useCases: [\"wealth management\", \"insurance distribution\"]"
+  },
+  "Razorpay": {
+    "sector": "Payments",
+    "subSectors": [
+      "payment-gateway",
+      "payouts",
+      "subscription-billing",
+      "business-banking"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Indian payment gateway and business banking platform  ||  useCases: [\"online payment gateway\", \"payouts\", \"subscription billing\"]"
+  },
+  "RBIH": {
+    "sector": "Regulator & Public Sector",
+    "subSectors": [
+      "government-body"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Reserve Bank Innovation Hub, an entity set up by the Reserve Bank of India to promote innovation in financial services."
+  },
+  "Redhat": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "cloud-infrastructure",
+      "devtools"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Red Hat is the world’s leading provider of enterprise open source solutions, including high-performing Linux, cloud, container, and Kubernetes technologies.  ||  useCases: [\"cloud infrastructure\"]"
+  },
+  "RevRag.AI": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "ai-agents",
+      "conversational-ai"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Embed AI agents directly into your BFSI product. Automate onboarding, re-engage drop-offs, and drive conversions with In-App and Calling AI agents.  ||  useCases: [\"KYC and onboarding\", \"AI and automation\"]"
+  },
+  "Rezolv AI Technology Solutions Pvt Ltd": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "collections-recovery"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Rezolv revolutionizes debt recovery with AI-driven strategies, automation, and human-centric communication. Maximize recovery while preserving customer relationships.  ||  useCases: [\"AI and automation\", \"collections and recovery\"]"
+  },
+  "Ringg.ai": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "voice-ai",
+      "ai-agents",
+      "conversational-ai"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Build multilingual AI agents for inbound and outbound calls, chat, WhatsApp, and web. Test, deploy, and monitor agents in minutes.  ||  useCases: [\"customer communication\", \"AI and automation\"]"
+  },
+  "Route Mobile": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "cpaas",
+      "transactional-messaging",
+      "otp"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Cloud communications provider (CPaaS)  ||  useCases: [\"transactional SMS/OTP\", \"customer messaging\"]"
+  },
+  "Safebox": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "financial-record-keeping",
+      "estate-planning"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "SEBI-regulated. Organise investments, insurance, and documents in one secure place. Give your family access so they are never left searching.  ||  useCases: [\"wealth management\", \"insurance distribution\"]"
+  },
+  "Safegold": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-evidence",
+    "evidence": null
+  },
+  "Salesforce": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "crm",
+      "ai-agents"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Salesforce is the #1 AI CRM, helping companies become Agentic Enterprises where humans and agents drive success together through a unified AI, data, and Customer 360 platform.  ||  useCases: [\"AI and automation\"]"
+  },
+  "Sarvam.ai": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "ai-platform",
+      "speech-recognition",
+      "speech-synthesis",
+      "conversational-ai"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Sarvam is India's full-stack sovereign AI platform, with speech-to-text, text-to-speech, translation, and conversational agents across 22 Indian languages. Start free.  ||  useCases: [\"AI and automation\"]"
+  },
+  "Sarvdhan": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "Home Page Meta Description would be added here as per the need",
+    "note": "placeholder meta-description copy"
+  },
+  "Scapia": {
+    "sector": "Payments",
+    "subSectors": [
+      "credit-cards",
+      "travel-rewards"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Issued in partnership with Federal bank, the most rewarding credit card for the traveller in you. Get 10% rewards, zero forex, unlimited domestic lounge access and more at zero fees."
+  },
+  "Scienaptic": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "credit-decisioning",
+      "underwriting-software"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Make faster AI credit decisions with our Business Rule Engine. Automate credit underwriting, deploy decisioning software, and reduce risk using a powerful credit decision engine for lenders.  ||  useCases: [\"credit underwriting\", \"AI and automation\"]"
+  },
+  "ScoreMe": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "financial-data-analytics",
+      "credit-underwriting"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Seamless credit decisions with ScoreMe’s AI tools for banks & NBFCs. Analyze bank statements, KYC, ITR & automate underwriting faster than ever.  ||  useCases: [\"credit underwriting\", \"KYC and onboarding\", \"AI and automation\"]"
+  },
+  "Scrut Automation": {
+    "sector": "RegTech & Compliance",
+    "subSectors": [
+      "grc",
+      "security-compliance",
+      "vendor-risk"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Automate compliance evidence collection, risk assessment, and vendor risk management with AI agents built for SOC 2, ISO 27001, and 60+ frameworks.  ||  useCases: [\"AML and compliance\", \"risk management\", \"AI and automation\", \"collections and recovery\"]"
+  },
+  "SEBI": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "Frequently Asked Questions FAQs on Cybersecurity and Cyber",
+    "note": "scraped fragment of a cybersecurity FAQ page; says nothing about the organisation"
+  },
+  "Selkea": {
+    "sector": "RegTech & Compliance",
+    "subSectors": [
+      "regulatory-ai",
+      "compliance-automation"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Transform your regulatory compliance workflow with conversational AI. Get instant, verified answers from RBI regulations.  ||  useCases: [\"AML and compliance\", \"AI and automation\"]"
+  },
+  "ShellKode": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "We engineer what's complex-you operate with confidence.",
+    "note": "generic engineering tagline, no business line stated"
+  },
+  "Signzy": {
+    "sector": "Identity & KYC",
+    "subSectors": [
+      "kyc",
+      "kyb",
+      "onboarding",
+      "aml-screening"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Verify, onboard, and monitor users with Signzy’s KYC, KYB, and AML APIs. Trusted by 500+ global companies for secure and compliant user journeys.  ||  useCases: [\"KYC and onboarding\", \"AML and compliance\", \"cloud infrastructure\"]"
+  },
+  "Simple2Call": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "contact-center",
+      "customer-experience"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Simple2Call is a leading omnichannel contact centre and CX solution provider with Global calling. 40-Years proven track record and trusted by 200+ Enterprises in India.  ||  useCases: [\"customer communication\"]"
+  },
+  "Simplifin AI": {
+    "sector": "Wealth & Capital Markets",
+    "subSectors": [
+      "financial-planning",
+      "mutual-funds",
+      "robo-advisory"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "AI-based financial goal planning with our SIP mutual fund calculator. Plan your investments and calculate potential with our advanced SIP investment calculator  ||  useCases: [\"wealth management\", \"AI and automation\"]"
+  },
+  "Sinch": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "cpaas",
+      "transactional-messaging",
+      "otp"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Cloud communications provider (CPaaS)  ||  useCases: [\"transactional messaging\", \"OTP delivery\"]"
+  },
+  "SINE IIT Bombay Business Incubator": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "tier",
+    "evidence": "partner tier: \"Ecosystem\""
+  },
+  "Skan.ai": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "process-intelligence"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Observe how work gets done. Skan AI gives enterprise AI the context it needs to improve operations, accelerate automation and deploy AI with confidence.  ||  useCases: [\"AI and automation\"]"
+  },
+  "Smallest.ai": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "voice-ai"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Power enterprise voice with Smallest AI  ||  useCases: [\"AI and automation\"]"
+  },
+  "Smartping": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "Enhance your business efficiency with Smartping. Find out how this innovative technology can streamline your operations.",
+    "note": "generic efficiency tagline"
+  },
+  "Squareyards": {
+    "sector": "Other Non-Fintech",
+    "subSectors": [
+      "real-estate",
+      "proptech"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Square Yards is India's Growing Real Estate Website for BUY / SALE / RENT that help find your dream home backed with Trusted Real Estate Developers"
+  },
+  "State Bank of India": {
+    "sector": "Banking & Financial Institutions",
+    "subSectors": [
+      "public-sector-bank",
+      "retail-banking",
+      "digital-lending"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "India's largest public sector bank  ||  useCases: [\"retail banking\", \"digital lending\", \"payments\"]"
+  },
+  "Stripe": {
+    "sector": "Payments",
+    "subSectors": [
+      "payment-gateway",
+      "subscription-billing",
+      "money-movement"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Stripe is a financial services platform that helps all types of businesses accept payments, build flexible billing models and manage money movement."
+  },
+  "Sugary": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-evidence",
+    "evidence": null
+  },
+  "Sumsub": {
+    "sector": "Identity & KYC",
+    "subSectors": [
+      "identity-verification",
+      "kyb",
+      "fraud-detection"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Sumsub - Identity verification platform to secure the whole user journey ✔️Verify users, businesses or transactions, all while managing cases and deterring fraud ✔️ Highest pass rates ✔️4000+ clients ✔️Book a free demo now!  ||  useCases: [\"identity verification\", \"fraud prevention\"]"
+  },
+  "Surepass Technologies": {
+    "sector": "Identity & KYC",
+    "subSectors": [
+      "kyc",
+      "identity-verification",
+      "onboarding",
+      "background-verification"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "End-to-End user OnBoarding & Digital Identity Verification solutions for Enterprises | Digital KYC | Background Verification | Banking  ||  useCases: [\"KYC and onboarding\", \"identity verification\"]"
+  },
+  "Sutradhar": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "Our team of experienced professionals will help you stay ahead of the game with our top-of-the-line technology solutions.",
+    "note": "generic 'technology solutions' tagline"
+  },
+  "Suvidhaa Pe": {
+    "sector": "Payments",
+    "subSectors": [
+      "consumer-payments",
+      "payment-processing"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Simplify every payment with a fast, secure, and flexible digital system designed for your convenience. We offer smooth, reliable transactions anytime, anywhere, whether you're purchasing, sending money, or managing business payments. Our system adapts to your needs for a seamless experience."
+  },
+  "Tata Capital": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "nbfc",
+      "retail-lending",
+      "business-loans"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Indian non-banking financial company  ||  useCases: [\"retail lending\", \"business loans\"]"
+  },
+  "Tech Rajendra": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "it-services"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Looking for top-notch IT solutions? Our skilled team provides the best IT services for busine­sses, big or small. Get started on your journey with us for effe­ctive results!"
+  },
+  "The Fintech Meetup": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "tier",
+    "evidence": "partner tier: \"Ecosystem\""
+  },
+  "Timble Tech": {
+    "sector": "Identity & KYC",
+    "subSectors": [
+      "kyc",
+      "background-verification",
+      "dpdp-compliance",
+      "fraud-detection"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Timble AI - Products across KYC, DPDP compliance, OCR & fraud, BGV and conversational AI.  ||  useCases: [\"KYC and onboarding\", \"fraud prevention\", \"AML and compliance\", \"AI and automation\"]"
+  },
+  "Times Internet": {
+    "sector": "Other Non-Fintech",
+    "subSectors": [
+      "advertising",
+      "media"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "From Mastheads, MRECs, and Interstitials to premium IAB standard formats, Times Internet offers a wide range of display advertising solutions to meet your brand's needs."
+  },
+  "Trackwizz": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-evidence",
+    "evidence": null
+  },
+  "TransBnk": {
+    "sector": "Banking Infrastructure & Core Systems",
+    "subSectors": [
+      "transaction-banking",
+      "banking-infrastructure",
+      "treasury"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Corporate Banking Infrastructure for a Connected Financial Ecosystem. Enable payments, collections, treasury, and banking operations with TBX.  ||  useCases: [\"cloud infrastructure\", \"treasury and cash management\", \"collections and recovery\"]"
+  },
+  "Transunion CIBIL": {
+    "sector": "Credit Bureau & Risk Scoring",
+    "subSectors": [
+      "credit-scoring"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo",
+    "evidence": "Segmented Score for Unlocking Rural Credit Potential"
+  },
+  "Treelife": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [
+      "advisory",
+      "legal",
+      "tax",
+      "virtual-cfo"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "We simplify complex legal and financial challenges by offering a range of services, including Virtual CFO, Legal Support, Tax & Regulatory, and Global Expansion assistance.  ||  useCases: [\"AML and compliance\"]"
+  },
+  "Tripgain": {
+    "sector": "Spend & Business Finance",
+    "subSectors": [
+      "travel-expense-management",
+      "corporate-travel",
+      "expense-management"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "TripGain’s AI Copilot handles booking, management, support, and expenses through natural conversation; saving time, cutting costs, and delighting employees. Works natively in Teams, WhatsApp, Slack.  ||  useCases: [\"customer communication\", \"AI and automation\", \"expense management\"]"
+  },
+  "True Balance": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "consumer-lending",
+      "personal-loans"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Looking for an instant loan? True Balance offers instant personal loans from ₹5,000 to ₹2,00,000 with credit-assessed approval and easy EMIs. Apply online for funds in minutes.  ||  useCases: [\"digital lending\"]"
+  },
+  "Truecaller": {
+    "sector": "Identity & KYC",
+    "subSectors": [
+      "caller-identity",
+      "fraud-detection"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Caller identification and spam-blocking platform  ||  useCases: [\"caller identity\", \"fraud/spam detection\"]"
+  },
+  "Turtlefin": {
+    "sector": "Insurance & Insurtech",
+    "subSectors": [
+      "insurance-distribution",
+      "insurance-infrastructure"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "We are an insurance technology (insurtech) company. Our products and platforms help intermediaries digitize insurance sales and services making sure that the end consumer gets a modern experience.  ||  useCases: [\"insurance distribution\"]"
+  },
+  "UIDAI": {
+    "sector": "Regulator & Public Sector",
+    "subSectors": [
+      "statutory-authority",
+      "government-body",
+      "digital-identity"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "India's Unique Identification Authority, the statutory body that issues Aadhaar identity numbers and operates the associated authentication system.  ||  useCases: [\"identity verification\", \"KYC and onboarding\"]"
+  },
+  "UK FCDO": {
+    "sector": "Ecosystem, Investors & Advisory",
+    "subSectors": [
+      "country-delegation",
+      "government-body"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "The British High Commission in India maintains and develops relations between the UK and India and Bhutan."
+  },
+  "Unify Technologies": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "digital-transformation",
+      "software-development"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Unify: Your partner for digital transformation. We engineer high-quality software solutions and help reinvent your business digitally. Start with us today."
+  },
+  "Union Bank of India": {
+    "sector": "Banking & Financial Institutions",
+    "subSectors": [
+      "retail-banking",
+      "digital-lending",
+      "insurance-distribution"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Union Bank of India offers Net Banking, Personal Accounts, Loans, Insurance, and other banking solutions to cater to all your diverse financial needs.  ||  useCases: [\"digital lending\", \"insurance distribution\"]"
+  },
+  "Unlimit": {
+    "sector": "Payments",
+    "subSectors": [
+      "payment-gateway",
+      "merchant-acquiring",
+      "upi"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Unlimit empowers businesses in India to accept a variety of digital payments, including credit cards, debit cards, net banking, QR, UPI, wallets, and more.  ||  useCases: [\"UPI payments\"]"
+  },
+  "Utimaco": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "The Better Choice for Trust in the Digital Society",
+    "note": "tagline only, no business line stated"
+  },
+  "Vakrangee": {
+    "sector": "Banking Infrastructure & Core Systems",
+    "subSectors": [
+      "agent-banking",
+      "business-correspondent",
+      "financial-inclusion"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Through our ‘one stop shop’ outlets, we are making BFSI, ATM, E-commerce and logistics, that is all basic necessities accessible to the Indian citizens at their doorstep."
+  },
+  "Vampay": {
+    "sector": "Payments",
+    "subSectors": [
+      "payment-processing",
+      "reconciliation",
+      "settlements"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Discover Vampay's all-in-one payment solution for seamless transactions,optimal efficiency, and tailored experiences. Secure direct payments, automated reconciliation.Download the app for multiple modes, instant settlements!  ||  useCases: [\"treasury and cash management\"]"
+  },
+  "Vayana": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "trade-finance",
+      "supply-chain-finance"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Vayana is India’s largest trade finance platform, enabling businesses of all sizes to access affordable credit seamlessly. Explore our digital supply chain finance solutions and compliance mechanism.  ||  useCases: [\"AML and compliance\"]"
+  },
+  "Vayana Finserv": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "trade-finance",
+      "supply-chain-finance"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Vayana is India’s largest trade finance platform, enabling businesses of all sizes to access affordable credit seamlessly. Explore our digital supply chain finance solutions and compliance mechanism.  ||  useCases: [\"AML and compliance\"]"
+  },
+  "Verismart": {
+    "sector": "Identity & KYC",
+    "subSectors": [
+      "kyc",
+      "identity-verification",
+      "data-protection"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "VeriSmart is a privacy-first AI platform enabling secure data exchange, digital KYC, identity verification, blockchain-powered data interoperability, and conversational AI solutions for enterprises.  ||  useCases: [\"KYC and onboarding\", \"identity verification\", \"trading and brokerage\", \"AI and automation\", \"blockchain and tokenisation\"]"
+  },
+  "Vernost": {
+    "sector": "Loyalty & Rewards",
+    "subSectors": [
+      "loyalty",
+      "rewards",
+      "marketplaces"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Powering next-gen Loyalty, Payments and Travel Solutions. Serving over 50 clients, over 50 mn. end consumers in over 10 countries."
+  },
+  "Visa": {
+    "sector": "Payments",
+    "subSectors": [
+      "card-networks",
+      "card-issuing",
+      "card-acceptance",
+      "cross-border-payments"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Global card payment network  ||  useCases: [\"card issuing\", \"card acceptance\", \"cross-border payments\"]"
+  },
+  "Vivifi": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "nbfc",
+      "personal-credit-line",
+      "consumer-lending"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "VIVIFI India Finance Private Limited is a non-banking finance company (NBFC) registered with the Reserve Bank of India (RBI)*. Vivifi offers an instant personal line of credit for salaried employees in India."
+  },
+  "Vodafone Idea Business": {
+    "sector": "Other Non-Fintech",
+    "subSectors": [
+      "telecom"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Vodafone and Idea are now Vi. Vi brings you a wide range of postpaid and prepaid services. Explore our plans for postpaid, prepaid, and international roaming. Get connected with Vi today!"
+  },
+  "Voice India": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "RBI. TRAI. IRDAI. Data sovereignty. Built for India",
+    "note": "regulator acronyms and a data-sovereignty slogan; no business line stated"
+  },
+  "Vunet Systems": {
+    "sector": "Data & Analytics",
+    "subSectors": [
+      "observability",
+      "business-intelligence"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Our full-stack AI/ML, and Big Data analytics platform monitors data at scale for better customer experience and unified business journey observability.  ||  useCases: [\"analytics and reporting\", \"AI and automation\"]"
+  },
+  "Watchdata": {
+    "sector": "Unknown",
+    "subSectors": [],
+    "confidence": "low",
+    "method": "no-usable-evidence",
+    "evidence": "Watchdata continually strives for integration and innovation in the digital world",
+    "note": "tagline only, no business line stated"
+  },
+  "WhatsApp": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "messaging",
+      "whatsapp-business"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "WhatsApp, a global messaging service owned by Meta, which also supports business messaging and in-app payments in some markets.  ||  useCases: [\"customer communication\"]"
+  },
+  "WhyMinds Global": {
+    "sector": "AI & Automation",
+    "subSectors": [
+      "agentic-ai",
+      "ai-platform",
+      "venture-building"
+    ],
+    "confidence": "medium",
+    "method": "whatTheyDo+useCases",
+    "evidence": "WhyMinds AI is the accountable AI venture co-builder. We co-build sovereign, agentic AI as one accountable system — strategy, execution, compliance and scale — assured on all six S's. Rooted in why, inspired by why not.  ||  useCases: [\"AML and compliance\", \"AI and automation\"]"
+  },
+  "Winjit Technologies": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "software-development",
+      "it-services"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Winjit Technologies empowers businesses through technology, with custom software development, AI/ML, IoT, and blockchain solutions.  ||  useCases: [\"AI and automation\", \"blockchain and tokenisation\"]"
+  },
+  "Wise": {
+    "sector": "Cross-Border & FX",
+    "subSectors": [
+      "remittances",
+      "cross-border-payments"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "Banks charge a lot for overseas transfers. We don't. Transfer money abroad easily and quickly with our low cost money transfers."
+  },
+  "Wizzmoni FInancial Services": {
+    "sector": "Cross-Border & FX",
+    "subSectors": [
+      "forex",
+      "remittances",
+      "travel-money"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Best foreign currency exchange, international money transfer, good air ticket rates & attractive tour packages. We Offer convenient, fast and efficient services.  ||  useCases: [\"trading and brokerage\"]"
+  },
+  "X Biz Techventures": {
+    "sector": "Cybersecurity",
+    "subSectors": [
+      "ai-security",
+      "red-teaming",
+      "penetration-testing"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Enterprise AI security for global enterprises. Automated AI Red Teaming, AI-Assisted Penetration Testing, AI Security Assessment, AI Supply Chain Security, LLM & RAG Security, AI Governance — aligned to OWASP LLM Top 10, NIST AI RMF, MITRE ATLAS, ISO/IEC 42001. CERT-In empaneled.  ||  useCases: [\"AI and automation\", \"cybersecurity\"]"
+  },
+  "Yalamanchili": {
+    "sector": "Payments",
+    "subSectors": [
+      "card-issuing",
+      "merchant-acquiring",
+      "prepaid",
+      "payments-infrastructure"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "YSP (Yalamanchili Solutions for Payments) is a globally recognized payments technology provider, offering solutions across Issuance, Acquiring, Debit Card, Prepaid Card, Credit Card, Merchant Management and Channel Management."
+  },
+  "Yubi": {
+    "sector": "Lending & Credit",
+    "subSectors": [
+      "lending-software",
+      "credit-decisioning",
+      "collections-recovery"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Yubi - Built for Billions, Designed for Trust. AI-driven lending, credit evaluation, and collections platform.  ||  useCases: [\"digital lending\", \"AI and automation\", \"collections and recovery\"]"
+  },
+  "YugabyteDB Inc.": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "database",
+      "cloud-infrastructure"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "YugabyteDB is the AI-ready, multi-modal, distributed PostgreSQL database for cloud native applications. Resilient, scalable, and flexible.  ||  useCases: [\"AI and automation\", \"cloud infrastructure\"]"
+  },
+  "Zaggle": {
+    "sector": "Spend & Business Finance",
+    "subSectors": [
+      "expense-management",
+      "corporate-spend"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Manage business payments, automate employee spends & gain better financial control with Zaggle’s spend management solutions.  ||  useCases: [\"expense management\"]"
+  },
+  "Zeta": {
+    "sector": "Banking Infrastructure & Core Systems",
+    "subSectors": [
+      "core-banking",
+      "banking-apis",
+      "banking-as-a-service"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Build modern banking and payment products and experiences with our one-stack modular, API-ready, cloud-native platform.  ||  useCases: [\"cloud infrastructure\"]"
+  },
+  "Zigram": {
+    "sector": "RegTech & Compliance",
+    "subSectors": [
+      "aml-screening",
+      "transaction-monitoring"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Anti Money Laundering India solution with AML compliance, transaction monitoring, and sanctions screening for banks and fintechs.  ||  useCases: [\"AML and compliance\"]"
+  },
+  "Zoho": {
+    "sector": "Enterprise Software & IT Services",
+    "subSectors": [
+      "business-software",
+      "crm"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo",
+    "evidence": "A unique and powerful software suite trusted by millions of businesses worldwide. Zoho covers your end-to-end business needs, from sales and marketing to finance, HR, and beyond."
+  },
+  "Zoven": {
+    "sector": "Fraud Prevention & Risk",
+    "subSectors": [
+      "merchant-risk",
+      "transaction-monitoring",
+      "fraud-detection"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Comprehensive risk management across merchant onboarding, transaction monitoring, and fraud detection powered by AI agents that work alongside your team.  ||  useCases: [\"KYC and onboarding\", \"fraud prevention\", \"risk management\", \"AI and automation\"]"
+  },
+  "Zrika": {
+    "sector": "Payments",
+    "subSectors": [
+      "merchant-payments",
+      "upi",
+      "payments-infrastructure",
+      "risk-management"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "Zrika is a leading fintech platform offering merchant solutions, fraud risk management, and payment innovations including UPI, IMPS, and digital banking technologies for seamless business transactions.  ||  useCases: [\"UPI payments\", \"fraud prevention\", \"risk management\"]"
+  },
+  "Zykrr": {
+    "sector": "Customer Engagement, CRM & CPaaS",
+    "subSectors": [
+      "customer-experience"
+    ],
+    "confidence": "high",
+    "method": "whatTheyDo+useCases",
+    "evidence": "ZYKRR- the new AI-native CX engine, turns NPS into revenue with board-ready answers.Run NPS across journeys, automate root-cause insights and  ||  useCases: [\"analytics and reporting\", \"AI and automation\"]"
+  }
+}

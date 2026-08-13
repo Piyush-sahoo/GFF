@@ -1,0 +1,45 @@
+{
+  "total": 316,
+  "classified": 283,
+  "unknown": 33,
+  "byMethod": {
+    "whatTheyDo+useCases": 207,
+    "whatTheyDo": 64,
+    "tier": 12
+  },
+  "byConfidence": {
+    "high": 237,
+    "medium": 28,
+    "low": 18
+  },
+  "bySector": {
+    "Payments": 40,
+    "Unknown": 33,
+    "Enterprise Software & IT Services": 26,
+    "AI & Automation": 24,
+    "Lending & Credit": 24,
+    "Ecosystem, Investors & Advisory": 21,
+    "Customer Engagement, CRM & CPaaS": 18,
+    "Wealth & Capital Markets": 17,
+    "Data & Analytics": 17,
+    "Banking Infrastructure & Core Systems": 16,
+    "Banking & Financial Institutions": 14,
+    "Identity & KYC": 11,
+    "RegTech & Compliance": 9,
+    "Cybersecurity": 8,
+    "Fraud Prevention & Risk": 6,
+    "Other Non-Fintech": 5,
+    "Insurance & Insurtech": 5,
+    "Regulator & Public Sector": 5,
+    "Diversified Financial Services": 4,
+    "Cross-Border & FX": 4,
+    "Loyalty & Rewards": 3,
+    "Credit Bureau & Risk Scoring": 3,
+    "Spend & Business Finance": 2,
+    "Hardware & Devices": 1
+  },
+  "unknownReason": {
+    "no-evidence": 13,
+    "no-usable-evidence": 20
+  }
+}

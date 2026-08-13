@@ -1,0 +1,464 @@
+{
+  "version": "1.0",
+  "notes": "Fintech sector taxonomy for GFF 2026 exhibitor classification. 'sector' is the single primary bucket used for filtering. 'subSectors' are additive tags drawn from the vocabulary below; a partner may carry subSectors that belong to other sectors' vocabularies (cross-cutting is expected and allowed).",
+  "sectors": {
+    "Payments": {
+      "definition": "Moving money between payers and payees: acquiring, gateways, cards, UPI/wallets, POS, payouts, billing, and the software/rails that banks and PSPs run payments on.",
+      "subSectors": [
+        "payment-gateway",
+        "merchant-acquiring",
+        "consumer-payments",
+        "upi",
+        "wallets",
+        "card-networks",
+        "card-issuing",
+        "card-acceptance",
+        "credit-cards",
+        "prepaid",
+        "pos-acceptance",
+        "mpos",
+        "payouts",
+        "subscription-billing",
+        "bill-payments",
+        "merchant-payments",
+        "payment-security",
+        "payments-infrastructure",
+        "offline-payments",
+        "reconciliation",
+        "settlements",
+        "emv-certification",
+        "payments-testing",
+        "omnichannel-payments",
+        "payment-processing",
+        "business-banking",
+        "money-movement",
+        "biometric-payments",
+        "payment-orchestration"
+      ]
+    },
+    "Cross-Border & FX": {
+      "definition": "International money movement: remittances, multi-currency accounts, foreign exchange, trade settlement.",
+      "subSectors": [
+        "cross-border-payments",
+        "remittances",
+        "forex",
+        "multicurrency-accounts",
+        "travel-money"
+      ]
+    },
+    "Lending & Credit": {
+      "definition": "Originating, underwriting, servicing or collecting credit — lenders (NBFC/HFC/fintech) and the loan software and decisioning stack they run on.",
+      "subSectors": [
+        "nbfc",
+        "consumer-lending",
+        "personal-loans",
+        "home-loans",
+        "education-loans",
+        "business-loans",
+        "retail-lending",
+        "merchant-lending",
+        "bnpl",
+        "personal-credit-line",
+        "lending-software",
+        "loan-origination",
+        "loan-servicing",
+        "credit-decisioning",
+        "underwriting-software",
+        "collections-recovery",
+        "loan-marketplace",
+        "trade-finance",
+        "supply-chain-finance",
+        "microfinance",
+        "financial-inclusion",
+        "autonomous-lending",
+        "p2p-lending"
+      ]
+    },
+    "Credit Bureau & Risk Scoring": {
+      "definition": "Credit bureaus and credit-data/scoring providers whose product is the credit information itself.",
+      "subSectors": [
+        "credit-bureau",
+        "credit-data",
+        "credit-scoring",
+        "credit-insights",
+        "alternative-data"
+      ]
+    },
+    "Banking & Financial Institutions": {
+      "definition": "Licensed deposit-taking and balance-sheet institutions: commercial banks, payments banks, development finance institutions.",
+      "subSectors": [
+        "retail-banking",
+        "corporate-banking",
+        "public-sector-bank",
+        "private-sector-bank",
+        "payments-bank",
+        "development-finance",
+        "rural-finance",
+        "treasury-services",
+        "trade-finance",
+        "digital-lending",
+        "wealth-management",
+        "financial-inclusion"
+      ]
+    },
+    "Banking Infrastructure & Core Systems": {
+      "definition": "Software and rails sold to banks/NBFCs: core banking, transaction banking, BaaS/embedded finance APIs, switches, agent-banking networks.",
+      "subSectors": [
+        "core-banking",
+        "digital-banking-software",
+        "transaction-banking",
+        "banking-as-a-service",
+        "embedded-finance",
+        "banking-apis",
+        "banking-infrastructure",
+        "agent-banking",
+        "business-correspondent",
+        "microfinance-software",
+        "lending-software",
+        "financial-inclusion",
+        "treasury",
+        "digital-identity",
+        "payments-infrastructure"
+      ]
+    },
+    "Wealth & Capital Markets": {
+      "definition": "Investing, broking, funds, market infrastructure (exchanges, depositories, RTAs) and wealth/financial planning.",
+      "subSectors": [
+        "retail-investing",
+        "wealth-management",
+        "financial-planning",
+        "robo-advisory",
+        "mutual-funds",
+        "asset-management",
+        "bond-platform",
+        "fixed-income",
+        "digital-gold",
+        "unlisted-shares",
+        "pre-ipo",
+        "equity-trading",
+        "derivatives",
+        "commodity-exchange",
+        "stock-exchange",
+        "securities-depository",
+        "demat",
+        "registrar-transfer-agent",
+        "market-infrastructure",
+        "market-data",
+        "listing",
+        "price-discovery",
+        "trust-and-fiduciary",
+        "tax-advisory",
+        "estate-planning",
+        "financial-record-keeping",
+        "fractional-real-estate",
+        "broking"
+      ]
+    },
+    "Diversified Financial Services": {
+      "definition": "Groups whose own description spans several financial verticals at once (e.g. investing plus insurance plus lending plus payments) with no single dominant line.",
+      "subSectors": [
+        "diversified-financial-group",
+        "investing",
+        "wealth-management",
+        "asset-management",
+        "insurance-distribution",
+        "financing",
+        "payments",
+        "e-governance",
+        "financial-services",
+        "digital-gold",
+        "credit-cards"
+      ]
+    },
+    "Insurance & Insurtech": {
+      "definition": "Insurance carriers, distributors, and the software platforms that issue, price, or service policies.",
+      "subSectors": [
+        "insurance-carrier",
+        "general-insurance",
+        "health-insurance",
+        "group-insurance",
+        "life-insurance",
+        "cyber-insurance",
+        "insurance-distribution",
+        "insurance-infrastructure",
+        "insurance-apis",
+        "claims"
+      ]
+    },
+    "RegTech & Compliance": {
+      "definition": "Meeting regulatory obligations: AML/CFT, regulatory reporting and interpretation, tax/GST compliance, GRC, consent & data protection, legaltech.",
+      "subSectors": [
+        "aml-screening",
+        "regulatory-reporting",
+        "regulatory-ai",
+        "compliance-automation",
+        "tax-compliance",
+        "gst",
+        "e-invoicing",
+        "grc",
+        "security-compliance",
+        "vendor-risk",
+        "data-protection",
+        "consent-management",
+        "esign",
+        "estamp",
+        "legaltech",
+        "document-automation",
+        "dispute-resolution",
+        "regulatory-publishing"
+      ]
+    },
+    "Fraud Prevention & Risk": {
+      "definition": "Detecting and stopping financial crime and abuse: transaction monitoring, merchant risk, scam/ad fraud, risk decisioning.",
+      "subSectors": [
+        "fraud-detection",
+        "transaction-monitoring",
+        "merchant-monitoring",
+        "merchant-risk",
+        "risk-management",
+        "scam-detection",
+        "ad-fraud",
+        "brand-protection",
+        "due-diligence"
+      ]
+    },
+    "Identity & KYC": {
+      "definition": "Proving who someone is: eKYC/video KYC, KYB, document and biometric verification, onboarding orchestration, digital identity.",
+      "subSectors": [
+        "kyc",
+        "video-kyc",
+        "kyb",
+        "identity-verification",
+        "digital-identity",
+        "government-identity",
+        "onboarding",
+        "background-verification",
+        "biometrics",
+        "caller-identity",
+        "esign",
+        "fraud-detection",
+        "dpdp-compliance",
+        "legal-entity-identifier",
+        "data-protection"
+      ]
+    },
+    "Cybersecurity": {
+      "definition": "Protecting systems and data: cloud/app security, PKI and encryption, offensive testing, AI security.",
+      "subSectors": [
+        "cloud-security",
+        "cnapp",
+        "threat-detection",
+        "zero-trust",
+        "application-security",
+        "mobile-app-security",
+        "pki",
+        "digital-signatures",
+        "encryption",
+        "hsm",
+        "ai-security",
+        "red-teaming",
+        "penetration-testing",
+        "cyber-insurance",
+        "security-compliance",
+        "grc",
+        "data-governance"
+      ]
+    },
+    "Crypto & Digital Assets": {
+      "definition": "Blockchain networks, tokenisation, digital-asset custody/exchange, CBDC.",
+      "subSectors": [
+        "blockchain-infrastructure",
+        "tokenisation",
+        "digital-asset-custody",
+        "cbdc",
+        "web3"
+      ]
+    },
+    "AI & Automation": {
+      "definition": "AI/ML platforms and agents sold as the core product: voice AI, agentic AI, RPA/document AI, process intelligence.",
+      "subSectors": [
+        "voice-ai",
+        "speech-recognition",
+        "speech-synthesis",
+        "speech-analytics",
+        "voice-biometrics",
+        "conversational-ai",
+        "agentic-ai",
+        "ai-agents",
+        "ai-platform",
+        "mlops",
+        "rpa",
+        "document-ai",
+        "document-automation",
+        "workflow-automation",
+        "process-intelligence",
+        "customer-support-ai",
+        "govtech",
+        "developer-apis"
+      ]
+    },
+    "Data & Analytics": {
+      "definition": "Turning data into decisions: BI and data engineering, customer data platforms, account aggregation/open finance, alternative and risk data, observability.",
+      "subSectors": [
+        "business-intelligence",
+        "data-engineering",
+        "data-governance",
+        "customer-data-platform",
+        "decisioning",
+        "financial-data-analytics",
+        "credit-underwriting",
+        "income-verification",
+        "account-aggregator",
+        "open-finance",
+        "alternative-data",
+        "risk-analytics",
+        "location-intelligence",
+        "sales-intelligence",
+        "wealth-intelligence",
+        "observability",
+        "financial-intelligence",
+        "enterprise-data"
+      ]
+    },
+    "Enterprise Software & IT Services": {
+      "definition": "Horizontal technology not specific to financial services: IT/consulting services, product engineering, databases and cloud infrastructure, devtools, design.",
+      "subSectors": [
+        "it-services",
+        "it-consulting",
+        "software-development",
+        "product-engineering",
+        "digital-transformation",
+        "database",
+        "cloud-infrastructure",
+        "data-infrastructure",
+        "devtools",
+        "software-testing",
+        "design-agency",
+        "digital-marketing",
+        "fintech-software",
+        "fintech-consulting",
+        "martech",
+        "e-governance",
+        "secure-file-transfer",
+        "bpo",
+        "business-software",
+        "govtech"
+      ]
+    },
+    "Customer Engagement, CRM & CPaaS": {
+      "definition": "Reaching and serving customers: CPaaS/messaging, WhatsApp business, contact centre, CRM, marketing automation.",
+      "subSectors": [
+        "cpaas",
+        "messaging",
+        "transactional-messaging",
+        "otp",
+        "whatsapp-business",
+        "chatbots",
+        "contact-center",
+        "customer-experience",
+        "customer-engagement",
+        "communication-orchestration",
+        "marketing-automation",
+        "crm",
+        "sales-automation"
+      ]
+    },
+    "Spend & Business Finance": {
+      "definition": "Corporate money management: expense and spend management, corporate cards, payroll, treasury, travel expense.",
+      "subSectors": [
+        "expense-management",
+        "corporate-spend",
+        "corporate-cards",
+        "travel-expense-management",
+        "corporate-travel",
+        "payroll",
+        "treasury"
+      ]
+    },
+    "Loyalty & Rewards": {
+      "definition": "Loyalty programmes, rewards, cashback, gifting and redemption marketplaces.",
+      "subSectors": [
+        "loyalty",
+        "loyalty-software",
+        "rewards",
+        "employee-rewards",
+        "corporate-gifting",
+        "digital-gifting",
+        "travel-rewards",
+        "marketplaces"
+      ]
+    },
+    "Hardware & Devices": {
+      "definition": "Physical devices and secure elements: POS terminals, smart cards, biometric capture devices, RFID, secure ID hardware.",
+      "subSectors": [
+        "pos-terminals",
+        "mpos",
+        "smart-cards",
+        "card-manufacturing",
+        "biometric-devices",
+        "rfid",
+        "secure-id-hardware",
+        "hsm",
+        "automotive-components"
+      ]
+    },
+    "Regulator & Public Sector": {
+      "definition": "Regulators, statutory authorities, government bodies and government-promoted financial infrastructure.",
+      "subSectors": [
+        "financial-regulator",
+        "government-body",
+        "statutory-authority",
+        "international-financial-centre",
+        "special-economic-zone",
+        "public-infrastructure"
+      ]
+    },
+    "Industry Body & Association": {
+      "definition": "Trade associations, self-regulatory organisations and industry councils.",
+      "subSectors": [
+        "trade-association",
+        "self-regulatory-organisation",
+        "industry-council"
+      ]
+    },
+    "Ecosystem, Investors & Advisory": {
+      "definition": "Accelerators, incubators, VCs and venture builders, trade/investment promotion agencies, country delegations, consultancies and professional advisory firms, industry media and community.",
+      "subSectors": [
+        "accelerator",
+        "incubator",
+        "venture-capital",
+        "venture-building",
+        "investor",
+        "investment-promotion",
+        "country-delegation",
+        "advisory",
+        "legal",
+        "tax",
+        "virtual-cfo",
+        "consulting",
+        "media",
+        "community",
+        "government-body"
+      ]
+    },
+    "Other Non-Fintech": {
+      "definition": "Real businesses whose stated activity sits outside financial services and financial technology entirely.",
+      "subSectors": [
+        "real-estate",
+        "proptech",
+        "telecom",
+        "hardware-manufacturing",
+        "industrial",
+        "healthcare",
+        "travel",
+        "publishing",
+        "advertising",
+        "media"
+      ]
+    },
+    "Unknown": {
+      "definition": "We hold no evidence — no whatTheyDo text, no useCases, and no informative partner tier — that states what this organisation does. Deliberately not guessed from the company name or from outside knowledge.",
+      "subSectors": []
+    }
+  }
+}
