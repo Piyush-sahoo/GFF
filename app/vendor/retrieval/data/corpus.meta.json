@@ -1,0 +1,17 @@
+{
+  "source": "raw:/Users/piyuzz/.ao/data/worktrees/scratch/workers/scratch-4",
+  "publishedCorpusAvailable": true,
+  "counts": {
+    "partner": 319,
+    "speaker": 487,
+    "session": 256
+  },
+  "total": 1062,
+  "skipped": 0,
+  "boothValuesSeen": 0,
+  "days": [
+    "2026-09-09",
+    "2026-09-10",
+    "2026-09-11"
+  ]
+}
