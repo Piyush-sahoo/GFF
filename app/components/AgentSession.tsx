@@ -269,8 +269,8 @@ export default function AgentSession() {
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="What are you trying to get out of GFF?"
-            aria-label="Message the planning agent"
+            placeholder="Ask anything, or tell me what you want from GFF…"
+            aria-label="Message the GFF AI agent"
             disabled={busy}
           />
           <button type="submit" disabled={busy || !input.trim()}>
