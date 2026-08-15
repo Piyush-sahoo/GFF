@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@google/genai": "^2.16.0",
+    "@types/bcryptjs": "^2.4.6",
+    "bcryptjs": "^3.0.3",
     "mongodb": "^7.5.0",
     "next": "^15.5.23",
     "react": "^19.2.8",

@@ -36,7 +36,6 @@ const BLANK: Profile = {
 
 export default function ProfileEditor() {
   const [email, setEmail] = useState<string | null>(null);
-  const [emailInput, setEmailInput] = useState("");
   const [p, setP] = useState<Profile>(BLANK);
   /**
    * The interests INPUT is held as the raw string the user typed. It must never
@@ -72,19 +71,6 @@ export default function ProfileEditor() {
   }
 
   useEffect(() => { load(); }, []);
-
-  async function signIn(e: React.FormEvent) {
-    e.preventDefault();
-    setErr(null);
-    const r = await fetch("/api/auth", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: emailInput }),
-    });
-    const d = await r.json();
-    if (!r.ok) return setErr(d.error);
-    await load();
-  }
 
   async function signOut() {
     await fetch("/api/auth", { method: "DELETE" });
@@ -132,22 +118,15 @@ export default function ProfileEditor() {
     return (
       <>
         {NotRegistration}
-        <form className="objform" onSubmit={signIn} style={{ maxWidth: 460 }}>
-          <label className="objlabel" htmlFor="em">Your email</label>
-          <input
-            id="em" className="search" type="email" value={emailInput}
-            onChange={(e) => setEmailInput(e.target.value)}
-            placeholder="you@company.com" style={{ paddingLeft: 16 }}
-          />
-          <div className="objrow">
-            <button type="submit" disabled={!emailInput.includes("@")}>Continue</button>
-          </div>
-          {err && <p className="mthin">{err}</p>}
-        </form>
+        <div className="objrow" style={{ maxWidth: 460 }}>
+          <Link className="mlink" href="/login?next=/profile">Sign in →</Link>
+          <Link className="mlink" href="/register">Create an account →</Link>
+        </div>
+        {err && <p className="mthin">{err}</p>}
         <p className="coverage" style={{ maxWidth: 620 }}>
-          There is no password and <strong>no verification</strong> — we do not send an email and we
-          cannot confirm the address belongs to you. It only identifies this browser so you can come back
-          to your own profile. Please don&apos;t put anything sensitive here.
+          Your profile is kept against your account. We send <strong>no verification email</strong>, so
+          an account confirms someone knows its password — never that they own the address. Please
+          don&apos;t put anything sensitive here.
         </p>
       </>
     );

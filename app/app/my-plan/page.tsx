@@ -1,16 +1,31 @@
 import type { Metadata } from "next";
 import Nav from "../../components/Nav";
-import MyPlan from "../../components/MyPlan";
+import MyPlan, { type SlimPartner, type SlimSpeaker } from "../../components/MyPlan";
 import { type SlimSession } from "../../components/AgendaList";
-import { DAYS, EVENT_YEAR, SESSIONS, dayLabel, speakersForSession } from "../../lib/content";
+import {
+  DAYS,
+  EVENT_YEAR,
+  PARTNERS,
+  SESSIONS,
+  SPEAKERS,
+  dayLabel,
+  speakerSlug,
+  speakersForSession,
+} from "../../lib/content";
 
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: `My Plan — Global Fintech Fest ${EVENT_YEAR}`,
-  description: `Your saved Global Fintech Fest ${EVENT_YEAR} sessions, grouped by day with overlap warnings. Stored in your browser only.`,
+  description: `Your saved Global Fintech Fest ${EVENT_YEAR} sessions, grouped by day with overlap warnings.`,
 };
 
+/**
+ * The whole published catalog is shipped to the client and the plan itself is
+ * fetched separately. Storing ids only in Atlas is what makes this the right
+ * shape: titles and halls come from the current dataset every render, so a
+ * rebuild can never leave a stale title sitting in someone's plan.
+ */
 const slim: SlimSession[] = SESSIONS.map((s) => ({
   agendaCode: s.agendaCode,
   title: s.title,
@@ -25,6 +40,24 @@ const slim: SlimSession[] = SESSIONS.map((s) => ({
   speakers: speakersForSession(s).slice(0, 4).map((x) => x.name),
 }));
 
+const slimSpeakers: SlimSpeaker[] = SPEAKERS.map((sp) => ({
+  nameKey: sp.nameKey,
+  slug: speakerSlug(sp),
+  name: sp.name,
+  title: sp.title,
+  org: sp.org,
+}));
+
+const slimPartners: SlimPartner[] = PARTNERS.map((p) => ({
+  slug: p.slug,
+  name: p.name,
+  tier: p.tier,
+  category: p.category,
+  website: p.website,
+}));
+
+const days = DAYS.map((d) => ({ day: d, label: dayLabel(d) }));
+
 export default function MyPlanPage() {
   return (
     <main className="shell">
@@ -34,17 +67,20 @@ export default function MyPlanPage() {
           My <em>plan</em>
         </h1>
         <p className="lede">
-          Sessions you saved from the agenda, grouped by day and ordered by start time, with a warning
-          when two overlap.
+          Everything you and the concierge have saved, one day at a time, ordered by start time and
+          flagged when two sessions overlap.
         </p>
       </header>
       <section className="section">
-        <MyPlan sessions={slim} />
+        <MyPlan sessions={slim} speakers={slimSpeakers} partners={slimPartners} days={days} />
       </section>
       <footer>
-        Your plan is stored in this browser using localStorage. There is no account, nothing is sent to a
-        server, and nothing is shared. Across {DAYS.length} days there are {SESSIONS.length} published
-        sessions to choose from; invite-only sessions cannot be saved.
+        Your plan is stored against your account, so the agenda&apos;s Save button and the concierge
+        both write to the same one and it is the same plan on every device you sign in on. The day is
+        always an explicit choice, never guessed from the clock, and nothing here claims a session is
+        happening now. Across {DAYS.length} days there are {SESSIONS.length} published sessions to
+        choose from; invite-only sessions cannot be saved. Exhibitors carry no location: GFF published
+        no 2026 floor plan.
       </footer>
     </main>
   );

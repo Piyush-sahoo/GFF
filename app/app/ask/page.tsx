@@ -1,46 +1,51 @@
 import type { Metadata } from "next";
 import Nav from "../../components/Nav";
-import Chat from "../../components/Chat";
-import Matcher from "../../components/Matcher";
-import { EVENT_YEAR, PARTNERS, SESSIONS, SPEAKERS } from "../../lib/content";
+import AgentSession from "../../components/AgentSession";
+import { catalogStats } from "../../lib/catalog";
+import { EVENT_YEAR } from "../../lib/content";
 
-export const dynamic = "force-static";
+/**
+ * One session, not two panels.
+ *
+ * This page used to hold a match form and a chat box that knew nothing about
+ * each other — you could get a ranked list and then ask a question that could
+ * not act on it. It is now a single persistent conversation that edits one plan.
+ *
+ * Dynamic because the conversation and plan belong to the signed-in account.
+ */
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: `Ask the concierge — Global Fintech Fest ${EVENT_YEAR}`,
-  description: `Ask questions about the Global Fintech Fest ${EVENT_YEAR} agenda, speakers and exhibitors, answered only from published GFF records.`,
+  title: `Plan your GFF — Global Fintech Fest ${EVENT_YEAR}`,
+  description: `Build a personal Global Fintech Fest ${EVENT_YEAR} plan in conversation — sessions, people worth meeting and exhibitors worth finding, all from published GFF records.`,
 };
 
 export default function AskPage() {
+  const stats = catalogStats();
+
   return (
     <main className="shell">
       <Nav active="Ask" />
       <header className="subhero">
         <h1 className="display sub">
-          Ask the <em>concierge</em>
+          Plan your <em>GFF</em>
         </h1>
         <p className="lede">
-          Two ways in: describe what you want to achieve and get ranked matches, or ask a direct question.
-          Both answer only from {SESSIONS.length} sessions, {SPEAKERS.length} speakers and{" "}
-          {PARTNERS.length} exhibitors published by GFF.
+          Tell the agent what you&apos;re here to achieve and it builds your three days — sessions first,
+          the people worth meeting at them, and exhibitors worth seeking out. It remembers the conversation
+          and edits one plan, so you can change your mind out loud.
         </p>
       </header>
 
-      <section className="section">
-        <div className="section-head">
-          <h2 className="sec">Match me to GFF</h2>
-          <span className="count">Ranked results with reasons</span>
-        </div>
-        <Matcher />
-      </section>
-
-      <Chat />
+      <AgentSession />
 
       <footer>
-        Recommendations are computed from published records, and every one states which of your words it
-        matched and where. Nothing is invented: if a match is weak it is omitted rather than given a
-        manufactured reason. Invite-only sessions are never recommended. GFF has not published a floor
-        plan, so no exhibitor booth locations are given.
+        The agent chooses from all {stats.sessions} attendable sessions, {stats.speakers} speakers and{" "}
+        {stats.partners} exhibitors published by GFF, and every record it returns is checked against that
+        list before it reaches your plan — anything it can&apos;t back with a real record is dropped rather
+        than shown. The {stats.excludedSessions} invite-only sessions are removed before the agent sees the
+        catalogue, so they can never be planned. GFF has published no floor plan for {EVENT_YEAR}, so no
+        exhibitor stand locations are given.
       </footer>
     </main>
   );

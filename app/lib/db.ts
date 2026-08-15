@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import { MongoClient, type Collection, type Db } from "mongodb";
 import { PARTNERS, SPEAKERS, getSession, isBookmarkable } from "./content";
 import type {
@@ -106,6 +107,98 @@ export async function calls(): Promise<Collection<CallRecord>> {
     c.createIndex({ email: 1, requestedAt: -1 }),
   );
   return c;
+}
+
+/* ------------------------------------------------------------------ *
+ * Accounts. The plaintext password exists only inside these two       *
+ * functions and is never logged, returned, or written anywhere.       *
+ * ------------------------------------------------------------------ */
+
+/** bcrypt work factor. 12 is ~200ms here — slow enough to matter offline. */
+const BCRYPT_COST = 12;
+
+export const PASSWORD_MIN = 10;
+
+/** E.164: a leading +, a non-zero country digit, 7-14 more. */
+const E164 = /^\+[1-9]\d{7,14}$/;
+
+export function isE164(phone: string): boolean {
+  return E164.test(phone);
+}
+
+/** Deliberately permissive — we cannot verify an address, only its shape. */
+export function normaliseEmail(email: string): string | null {
+  const e = String(email || "").trim().toLowerCase();
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) && e.length <= 254 ? e : null;
+}
+
+/**
+ * Create an account. Returns null when the email is already taken, so the
+ * caller can answer 409 without a second round trip.
+ */
+export async function createAccount(
+  email: string,
+  password: string,
+  phone: string,
+): Promise<Account | null> {
+  const col = await accounts();
+  const doc: Account = {
+    email,
+    passwordHash: await bcrypt.hash(password, BCRYPT_COST),
+    phone,
+    createdAt: new Date().toISOString(),
+    lastLoginAt: null,
+  };
+  try {
+    await col.insertOne({ ...doc });
+  } catch (e) {
+    // 11000 is the unique index on email doing its job.
+    if ((e as { code?: number }).code === 11000) return null;
+    throw e;
+  }
+  return doc;
+}
+
+/**
+ * True only for a real account with a matching password.
+ *
+ * When no such account exists we still run a bcrypt comparison against a
+ * throwaway hash. Returning early would make a miss measurably faster than a
+ * wrong password, which is exactly the signal the generic error text on the
+ * login form is there to deny.
+ */
+export async function verifyCredentials(email: string, password: string): Promise<boolean> {
+  const acct = await (await accounts()).findOne({ email });
+  if (!acct) {
+    await bcrypt.compare(password, dummyHash());
+    return false;
+  }
+  return bcrypt.compare(password, acct.passwordHash);
+}
+
+let DUMMY_HASH: string | null = null;
+function dummyHash(): string {
+  // Built on first miss, not at import: hashing at cost 12 takes ~200ms and
+  // nothing else in this module should pay that just to read a plan.
+  if (!DUMMY_HASH) DUMMY_HASH = bcrypt.hashSync("not-a-real-password", BCRYPT_COST);
+  return DUMMY_HASH;
+}
+
+export async function touchLastLogin(email: string): Promise<void> {
+  await (await accounts()).updateOne(
+    { email },
+    { $set: { lastLoginAt: new Date().toISOString() } },
+  );
+}
+
+export async function accountExists(email: string): Promise<boolean> {
+  return Boolean(await (await accounts()).findOne({ email }, { projection: { _id: 1 } }));
+}
+
+/** Phone for the outbound call. Never exposes the hash. */
+export async function accountPhone(email: string): Promise<string | null> {
+  const a = await (await accounts()).findOne({ email }, { projection: { _id: 0, phone: 1 } });
+  return a?.phone ?? null;
 }
 
 /* ------------------------------------------------------------------ *

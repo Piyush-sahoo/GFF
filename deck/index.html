@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GFF 2026 Concierge</title>
+<style>
+:root{
+  --ink:#0a0b0f; --ink-2:#101219; --panel:#14171f; --panel-2:#191d27;
+  --line:#262b38; --line-2:#333949;
+  --text:#eef0f5; --muted:#99a0b3; --dim:#6c7488;
+  --saffron:#f5a524; --saffron-dim:#b87b16; --teal:#4fd1c5;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--ink);color:var(--text);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow:hidden;height:100%}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;left:50%;top:50%;width:1280px;height:720px;
+  transform-origin:center center;transform:translate(-50%,-50%) scale(1)}
+.cell{position:absolute;inset:0}
+.cell:not(.on) .slide{visibility:hidden}
+.cell:not(.on){pointer-events:none;opacity:0}
+.cell.on{opacity:1}
+.slide{position:absolute;inset:0;width:1280px;height:720px;background:var(--ink);
+  padding:74px 96px 64px;display:flex;flex-direction:column;overflow:hidden}
+
+/* ---------- type ---------- */
+.kicker{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--dim)}
+h1{font-family:var(--serif);font-weight:400;font-size:60px;line-height:1.04;letter-spacing:-.02em;
+  margin:20px 0 0;max-width:19ch}
+h1 em{font-style:italic;color:var(--saffron)}
+h1.sm{font-size:48px;max-width:24ch}
+.lede{margin:22px 0 0;max-width:68ch;font-size:20px;line-height:1.6;color:var(--muted)}
+.lede strong{color:var(--text);font-weight:600}
+.foot{margin-top:auto;padding-top:22px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.foot.plain{font-family:var(--sans);font-size:16px;letter-spacing:0;text-transform:none;
+  line-height:1.55;color:var(--muted)}
+.note{margin:18px 0 0;font-size:16px;line-height:1.6;color:var(--dim);max-width:74ch}
+em.t{font-style:normal;color:var(--teal)}
+b.s{color:var(--saffron);font-weight:600}
+
+/* ---------- title slide ---------- */
+.title-slide{justify-content:center;padding-top:0}
+.title-slide::before{content:"";position:absolute;top:-260px;left:50%;width:1000px;height:520px;
+  transform:translateX(-50%);
+  background:radial-gradient(ellipse at center,rgba(245,165,36,.17),transparent 68%);
+  pointer-events:none}
+.eyebrow{position:relative;align-self:flex-start;margin-top:auto;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--saffron);border:1px solid rgba(245,165,36,.28);background:rgba(245,165,36,.06);
+  padding:7px 14px;border-radius:999px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--saffron)}
+.title-slide h1{font-size:78px;max-width:17ch;margin-top:26px;position:relative}
+.title-slide .lede{position:relative;font-size:21px}
+
+/* ---------- factbar ---------- */
+.factbar{display:flex;margin-top:30px;border:1px solid var(--line);border-radius:12px;
+  background:linear-gradient(180deg,var(--panel),var(--ink-2));overflow:hidden;position:relative}
+.fact{flex:1;padding:18px 22px;border-right:1px solid var(--line)}
+.fact:last-child{border-right:none}
+.fact .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.fact .v{margin-top:8px;font-family:var(--serif);font-size:36px;line-height:1;letter-spacing:-.02em}
+.fact .v small{font-family:var(--sans);font-size:15px;color:var(--muted);letter-spacing:0;margin-left:4px}
+
+/* ---------- panels / lists ---------- */
+.cols{display:grid;gap:16px;margin-top:28px}
+.cols.c2{grid-template-columns:1fr 1fr}
+.cols.c3{grid-template-columns:repeat(3,1fr)}
+.cols.c4{grid-template-columns:repeat(4,1fr)}
+.panel{border:1px solid var(--line);border-radius:14px;padding:22px;
+  background:linear-gradient(180deg,var(--panel),var(--ink-2))}
+.panel h3{margin:0;font-family:var(--serif);font-weight:400;font-size:23px;line-height:1.25;
+  letter-spacing:-.01em}
+.panel p{margin:11px 0 0;font-size:16px;line-height:1.6;color:var(--muted)}
+.panel .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--saffron);margin-bottom:12px}
+.panel .k.teal{color:var(--teal)}
+.panel .k.dim{color:var(--dim)}
+
+ul.pts{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:15px;max-width:92ch}
+ul.pts li{position:relative;padding-left:26px;font-size:19px;line-height:1.55;color:var(--muted)}
+ul.pts li::before{content:"";position:absolute;left:0;top:11px;width:7px;height:7px;
+  border-radius:50%;background:var(--saffron-dim)}
+ul.pts li strong{color:var(--text);font-weight:600}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
+.step{border:1px solid var(--line);border-radius:14px;padding:22px;
+  background:linear-gradient(180deg,var(--panel),var(--ink-2));display:flex;flex-direction:column}
+.step .n{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--saffron)}
+.step h3{margin:14px 0 0;font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.15}
+.step p{margin:10px 0 0;font-size:15px;line-height:1.55;color:var(--muted)}
+
+/* ---------- big number ---------- */
+.bignum{font-family:var(--serif);font-size:112px;line-height:1;letter-spacing:-.03em;
+  margin-top:8px;color:var(--text)}
+.bignum span{color:var(--saffron);font-style:italic}
+.bigsub{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--dim);margin-top:14px}
+
+/* ---------- code ---------- */
+.code{margin-top:20px;border:1px solid var(--line);border-radius:12px;background:var(--panel-2);
+  padding:18px 20px;font-family:var(--mono);font-size:15px;line-height:1.7;color:var(--muted);
+  white-space:pre-wrap}
+.code b{color:var(--text);font-weight:400}
+.code .c{color:var(--dim)}
+.code .s{color:var(--saffron)}
+.code .t{color:var(--teal)}
+
+/* ---------- query -> result ---------- */
+.qbox{margin-top:26px;border:1px solid var(--line-2);border-radius:12px;background:var(--panel-2);
+  padding:18px 22px;font-size:21px;line-height:1.4;font-family:var(--serif);font-style:italic}
+.arrow{font-family:var(--mono);font-size:13px;letter-spacing:.14em;color:var(--saffron);
+  margin:16px 0 0;text-transform:uppercase}
+.rbox{margin-top:12px;border:1px solid rgba(245,165,36,.34);border-radius:12px;
+  background:rgba(245,165,36,.05);padding:20px 22px}
+.rbox .id{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--saffron)}
+.rbox h3{margin:9px 0 0;font-family:var(--serif);font-weight:400;font-size:27px;line-height:1.2}
+.rbox .meta{margin-top:10px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--dim)}
+
+/* ---------- coverage bars ---------- */
+.cov{margin-top:24px;display:grid;gap:11px;max-width:1000px}
+.covrow{display:grid;grid-template-columns:250px 1fr 118px;gap:18px;align-items:center}
+.covrow .lbl{font-size:16px;color:var(--muted)}
+.covrow .lbl i{font-style:normal;color:var(--dim);font-family:var(--mono);font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:2px}
+.bar{height:9px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--saffron-dim)}
+.bar.full i{background:var(--teal)}
+.bar.thin i{background:var(--saffron)}
+.covrow .num{font-family:var(--mono);font-size:14px;color:var(--text);text-align:right}
+.covrow .num span{color:var(--dim)}
+
+/* ---------- status ---------- */
+.status{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+.status .panel{padding:20px}
+.status ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.status li{position:relative;padding-left:18px;font-size:15px;line-height:1.45;color:var(--muted)}
+.status li::before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%}
+.status .built li::before{background:var(--teal)}
+.status .wip li::before{background:var(--saffron)}
+.status .unv li::before{background:var(--dim)}
+
+/* ---------- fragments ---------- */
+.frag{opacity:0;transition:opacity .28s ease,transform .28s ease;transform:translateY(6px)}
+.frag.show{opacity:1;transform:none}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;left:0;top:0;height:2px;background:var(--saffron);width:0;
+  transition:width .3s ease;z-index:60}
+#counter{position:fixed;right:22px;bottom:18px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.14em;color:var(--dim);z-index:60}
+#counter b{color:var(--muted);font-weight:400}
+#hint{position:fixed;left:22px;bottom:18px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--dim);z-index:60;
+  transition:opacity .6s ease}
+#hint.gone{opacity:0}
+
+/* ---------- overview ---------- */
+body.ov{overflow:auto}
+body.ov #stage{position:static;width:auto;height:auto;transform:none!important;
+  display:grid;grid-template-columns:repeat(4,244px);gap:18px;justify-content:center;padding:34px 0 60px}
+body.ov .cell{position:relative;inset:auto;width:244px;height:137px;overflow:hidden;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;opacity:1;pointer-events:auto;
+  transition:border-color .14s}
+body.ov .cell:hover{border-color:var(--saffron-dim)}
+body.ov .cell.on{border-color:var(--saffron)}
+body.ov .cell::after{content:attr(data-n);position:absolute;left:7px;bottom:5px;
+  font-family:var(--mono);font-size:9px;color:var(--dim)}
+body.ov .slide{visibility:visible!important;transform:scale(.1906);transform-origin:top left}
+body.ov .frag{opacity:1;transform:none}
+body.ov #bar,body.ov #hint{display:none}
+
+/* ---------- print ---------- */
+@media print{
+  @page{size:13.3333in 7.5in;margin:0}
+  html,body{overflow:visible;height:auto;background:#0a0b0f}
+  #bar,#counter,#hint{display:none!important}
+  #stage{position:static;width:1280px;height:auto;transform:none!important;display:block;padding:0}
+  .cell{position:relative;inset:auto;width:1280px;height:720px;opacity:1!important;
+    page-break-after:always;break-after:page;overflow:hidden;border:none;border-radius:0}
+  .cell:last-child{page-break-after:auto;break-after:auto}
+  .cell .slide{visibility:visible!important;position:absolute;inset:0;transform:none!important}
+  .frag{opacity:1!important;transform:none!important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div id="stage">
+
+<!-- 1 ─────────────────────────────────────────────────────────── -->
+<div class="cell"><section class="slide title-slide">
+  <span class="eyebrow"><span class="dot"></span>Hackathon build · August 2026</span>
+  <h1>A concierge for <em>GFF&nbsp;2026</em></h1>
+  <p class="lede">One conversation that turns 1,059 published records into a three-day plan —
+     then phones you and reads that day out loud.</p>
+  <div class="foot">Global Fintech Fest · 9–11 September 2026 · Static-first · Grounded by construction · Outbound voice</div>
+</section></div>
+
+<!-- 2 ─────────────────────────────────────────────────────────── -->
+<div class="cell"><section class="slide">
+  <div class="kicker">The ground truth</div>
+  <h1>1,059 records. <em>Three</em> days. One attendee.</h1>
+  <div class="factbar">
+    <div class="fact"><div class="k">Exhibitors</div><div class="v">316</div></div>
+    <div class="fact"><div class="k">Speakers</div><div class="v">487</div></div>
+    <div class="fact"><div class="k">Sessions</div><div class="v">256</div></div>
+    <div class="fact"><div class="k">Dates</div><div class="v">9–11<small>Sept 2026</small></div></div>
+  </div>
+  <ul class="pts">
+    <li><strong>222 sessions are public. 34 are invite-only.</strong> Every one of the 256 carries a hall, a start time and an end time — so clashes are computable, not guesswork.</li>
+    <li>There is no version of this agenda that a human reads the night before. That is the whole problem.</li>
+  </ul>
+  <div class="foot">Counts measured from the vendored 2026 dataset, not estimated</div>
+</section></div>
+
+<!-- 3 ─────────────────────────────────────────────────────────── -->
+<div class="cell"><section class="slide">
+  <div class="kicker">The demo, end to end</div>
+  <h1>Register, talk, <em>plan</em>, ring.</h1>
+  <div class="steps">
+    <div class="step"><div class="n">01</div><h3>Register</h3>
+      <p>Email, password, your own phone number. That number is the only one the system will ever dial.</p></div>
+    <div class="step"><div class="n">02</div><h3>Talk</h3>
+      <p>Say what you are there to achieve. One persistent conversation, not a search box.</p></div>
+    <div class="step"><div class="n">03</div><h3>One plan</h3>
+      <p>Sessions first, then the people worth meeting at them, then exhibitors worth finding.</p></div>
+    <div class="step"><div class="n">04</div><h3>Call me</h3>
+      <p>Pick a day, tap once. The phone rings and the agent reads that day's plan back to you.</p></div>
+  </div>
+  <div class="foot plain">The plan is edited by explicit <b class="s">add</b> / <b class="s">remove</b> operations — so a session
+    you saved by hand survives everything the agent does next.</div>
+</section></div>
+
+<!-- 4 ─────────────────────────────────────────────────────────── -->
+<div class="cell"><section class="slide">
+  <div class="kicker">Architecture</div>
+  <h1>Reads never touch a <em>database</em>.</h1>
+  <ul class="pts">
+    <li class="frag"><strong>Static-first.</strong> Every read — directory, agenda, speakers, the agent's catalog — is served from JSON vendored into the app at build time.</li>
+    <li class="frag"><strong>Atlas holds writes only.</strong> Database <em class="t">gff</em> on cluster <em class="t">zukii</em>: <em class="t">accounts</em>, <em class="t">profiles</em>, <em class="t">plans</em>, <em class="t">conversations</em>, <em class="t">calls</em>. Nothing a visitor reads lives there.</li>
+    <li class="frag"><strong>So the venue wifi cannot take the site down.</strong> Neither can an Atlas outage. The worst failure is that you cannot save — the festival still renders.</li>
+  </ul>
+  <div class="foot">Conference wifi is a threat model, not an inconvenience</div>
+</section></div>
+
+<!-- 5 ─────────────────────────────────────────────────────────── -->
+<div class="cell"><section class="slide">
+  <div class="kicker">The technical heart</div>
+  <h1 class="sm">The entire catalog is <em>93,844</em> characters.</h1>
+  <div class="bignum">≈&nbsp;<span>25k</span> tokens</div>
+  <div class="bigsub">222 sessions · 344 speakers · 316 exhibitors — measured, not estimated</div>
+  <p class="lede">The whole festival fits inside the model's context in one shot. There is no retrieval
+     step at request time, no embedding lookup, no top-<em class="t">k</em> that can quietly drop the right answer.
+     The model reads everything and picks records <strong>by id</strong>.</p>
+  <div class="foot">Every id it returns is then checked against the real id set — see next slide but one</div>
+</section></div>
+
+<!-- 6 ─────────────────────────────────────────────────────────── -->
+<div class="cell"><section class="slide">
+  <div class="kicker">Why context beats keywords</div>
+  <h1 class="sm"><em>Zero</em> words in common.</h1>
+  <div class="qbox">“we do fraud detection for banks”</div>
+  <div class="arrow">↓ the agent returns an id</div>
+  <div class="rbox">
+    <div class="id">A0343</div>
+    <h3>Beyond Transaction Monitoring: Hunting Mule Networks in Real Time</h3>
+    <div class="meta">The Studio · 9 Sept 2026 · 11:00–11:40 · Panel Discussion</div>
+  </div>
+  <p class="note">The title shares no word with the question. The link is made semantically, in the
+     model's head, because the whole catalog is in front of it — not by an index looking for
+     matching strings.</p>
+  <div class="foot">A real record from the 2026 dataset · agendaCode A0343</div>
+</section></div>
+
+<!-- 7 ─────────────────────────────────────────────────────────── -->
+<div class="cell"><section class="slide">
+  <div class="kicker">The grounding guarantee</div>
+  <h1>Hallucination is <em>structurally</em> impossible.</h1>
+  <ul class="pts">
+    <li class="frag"><strong>The model returns ids, never titles.</strong> Its entire output surface for facts is a list of short codes.</li>
+    <li class="frag"><strong>Every id is looked up in the real id set. Unknown ids are dropped.</strong> Not fuzzy-matched, not repaired — a near-miss corrected into a real session is still a recommendation nobody made.</li>
+    <li class="frag"><strong>Titles, halls and times are resolved from the dataset afterwards.</strong> Nothing the model wrote ever reaches your screen as a fact.</li>
+  </ul>
+  <div class="code frag"><span class="c">// lib/catalog.ts — the grounding gate</span>
+<b>validateIds(</b>ids<b>)</b> → { sessions, people, partners, <span class="s">dropped</span> }</div>
+  <div class="foot">Discouraged is not the same as impossible</div>
+</section></div>
+
+<!-- 8 ─────────────────────────────────────────────────────────── -->
+<div class="cell"><section class="slide">
+  <div class="kicker">Defence in depth</div>
+  <h1><em>34</em> sessions it can never plan.</h1>
+  <div class="cols c2">
+    <div class="panel">
+      <div class="k">Layer 1 — the catalog</div>
+      <h3>It never sees them</h3>
+      <p>The 34 invite-only sessions are filtered out before the catalog text is built, so they are
+         not in the model's context at all. It cannot recommend what it was never shown.</p>
+      <p><span style="font-family:var(--mono);font-size:13px;color:var(--dim)">lib/catalog.ts</span></p>
+    </div>
+    <div class="panel">
+      <div class="k teal">Layer 2 — the write path</div>
+      <h3>It could not save them anyway</h3>
+      <p><span style="font-family:var(--mono);color:var(--teal)">classifyId()</span> returns
+         <span style="font-family:var(--mono);color:var(--teal)">null</span> for an invite-only code at the
+         database write layer — so even an id typed in by hand is refused.</p>
+      <p><span style="font-family:var(--mono);font-size:13px;color:var(--dim)">lib/db.ts</span></p>
+    </div>
+  </div>
+  <p class="note">Two independent layers. Either one alone would be enough; neither one alone is trusted.
+     They are listed in the public directory — they are simply never planned.</p>
+  <div class="foot">The prompt is not a security boundary — the code is</div>
+</section></div>
+
+<!-- 9 ─────────────────────────────────────────────────────────── -->
+<div class="cell"><section class="slide">
+  <div class="kicker">Coverage, stated honestly</div>
+  <h1 class="sm">A gap is shown as a <em>gap</em>.</h1>
+  <div class="cov">
+    <div class="covrow"><div class="lbl"><i>Exhibitor</i>What they do</div>
+      <div class="bar"><i style="width:92.1%"></i></div><div class="num">291<span>/316</span></div></div>
+    <div class="covrow"><div class="lbl"><i>Exhibitor</i>Use cases</div>
+      <div class="bar thin"><i style="width:65.8%"></i></div><div class="num">208<span>/316</span></div></div>
+    <div class="covrow"><div class="lbl"><i>Speaker</i>Biography</div>
+      <div class="bar"><i style="width:87.3%"></i></div><div class="num">425<span>/487</span></div></div>
+    <div class="covrow"><div class="lbl"><i>Speaker</i>LinkedIn</div>
+      <div class="bar thin"><i style="width:40.9%"></i></div><div class="num">199<span>/487</span></div></div>
+    <div class="covrow"><div class="lbl"><i>Speaker</i>Session codes</div>
+      <div class="bar"><i style="width:70.8%"></i></div><div class="num">345<span>/487</span></div></div>
+    <div class="covrow"><div class="lbl"><i>Session</i>Description</div>
+      <div class="bar"><i style="width:92.2%"></i></div><div class="num">236<span>/256</span></div></div>
+    <div class="covrow"><div class="lbl"><i>Session</i>Hall · start · end</div>
+      <div class="bar full"><i style="width:100%"></i></div><div class="num">256<span>/256</span></div></div>
+  </div>
+  <div class="foot plain">Missing fields are printed as missing. Never <b class="s">“N/A”</b>, never a plausible
+    guess written in by a model. The coverage is on the page because the honesty is the product.</div>
+</section></div>
+
+<!-- 10 ────────────────────────────────────────────────────────── -->
+<div class="cell"><section class="slide">
+  <div class="kicker">Deliberate refusals</div>
+  <h1>What it will <em>not</em> do.</h1>
+  <ul class="pts">
+    <li><strong>No booth or floor locations.</strong> GFF published no floor plan for 2026 — so the app shows none, infers none, and strips them out of scraped text rather than guessing a hall for a stand.</li>
+    <li><strong>Never recommends the 34 invite-only sessions.</strong> Two independent layers, as above.</li>
+    <li><strong>No cold calling.</strong> There are <b class="s">zero</b> phone numbers in the GFF dataset. The agent can only dial the number you registered yourself.</li>
+    <li><strong>No back-filled fields.</strong> An empty bio stays empty.</li>
+    <li><strong>2026 only.</strong> The 2025 archive never reaches the app or the agent.</li>
+  </ul>
+  <div class="foot">Each refusal is enforced in code, not in a prompt</div>
+</section></div>
+
+<!-- 11 ────────────────────────────────────────────────────────── -->
+<div class="cell"><section class="slide">
+  <div class="kicker">Voice — outbound only</div>
+  <h1 class="sm">It calls <em>you</em>. It cannot be called.</h1>
+  <div class="code"><span class="c">// lib/bolna.ts</span>
+<b>POST</b> https://api.bolna.ai/call
+{ <span class="t">agent_id</span>, <span class="t">recipient_phone_number</span>, <span class="t">user_data</span> }</div>
+  <ul class="pts" style="margin-top:22px">
+    <li>One day of your plan is injected through <em class="t">user_data</em> into <em class="t">{placeholders}</em> in the agent's prompt — the call is grounded in the same validated ids as the screen.</li>
+    <li><strong>No inbound number, no SIP, no webhook, no public URL.</strong> Nothing to expose, nothing to secure at the venue.</li>
+    <li>A personal agent, not a dialler.</li>
+  </ul>
+  <div class="foot">Bolna credentials are not yet configured — no live call has been placed</div>
+</section></div>
+
+<!-- 12 ────────────────────────────────────────────────────────── -->
+<div class="cell"><section class="slide">
+  <div class="kicker">Status at the time of writing · 15 Aug 2026</div>
+  <h1 class="sm">What is <em>actually</em> built.</h1>
+  <div class="status">
+    <div class="panel built">
+      <div class="k teal">Built &amp; committed</div>
+      <ul>
+        <li>Scrape → normalise → export pipeline for the full 2026 dataset</li>
+        <li>Static site: home, exhibitors, agenda, speakers, profile</li>
+        <li>Embedding index and retrieval module</li>
+        <li>Atlas types and collection accessors</li>
+      </ul>
+    </div>
+    <div class="panel wip">
+      <div class="k">In progress · written, not yet committed</div>
+      <ul>
+        <li>Register / sign-in and the session cookie</li>
+        <li>One persistent plan per account, add / remove ops</li>
+        <li>The agent loop: catalog, pick-by-id, grounding gate</li>
+        <li>The single-session <em class="t">/ask</em> page</li>
+        <li>The outbound call route</li>
+      </ul>
+    </div>
+    <div class="panel unv">
+      <div class="k dim">Not yet verified live</div>
+      <ul>
+        <li><strong style="color:var(--muted)">The phone call.</strong> Bolna credentials are not configured yet — no real call has been placed</li>
+        <li>The full register → plan → call run, start to finish</li>
+        <li>Everything left of here typechecks clean; that is not the same as working</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot plain">This slide is deliberately unflattering. A deck that overclaims and then dies in the
+    live demo is worse than one that tells you where the edges are.</div>
+</section></div>
+
+<!-- 13 ────────────────────────────────────────────────────────── -->
+<div class="cell"><section class="slide">
+  <div class="kicker">The point</div>
+  <h1>A concierge that can only tell the <em>truth</em>.</h1>
+  <div class="cols c3">
+    <div class="panel">
+      <div class="k">Whole festival in context</div>
+      <p>25k tokens, no retrieval step. It can reason about what you actually do, not match the words you used.</p>
+    </div>
+    <div class="panel">
+      <div class="k teal">Every id validated</div>
+      <p>It returns codes; the codes are checked; unknowns are dropped. Invention is not discouraged, it is impossible.</p>
+    </div>
+    <div class="panel">
+      <div class="k dim">Static reads</div>
+      <p>The festival renders from vendored JSON. Venue wifi and database outages cannot take it down.</p>
+    </div>
+  </div>
+  <div class="foot">GFF 2026 Concierge · Global Fintech Fest · 9–11 September 2026</div>
+</section></div>
+
+</div>
+
+<div id="counter"><b>1</b> / 13</div>
+<div id="hint">Click or → · esc for overview</div>
+
+<script>
+(function(){
+  var stage = document.getElementById('stage');
+  var cells = Array.prototype.slice.call(document.querySelectorAll('.cell'));
+  var bar = document.getElementById('bar');
+  var counter = document.getElementById('counter');
+  var hint = document.getElementById('hint');
+  var i = 0, f = 0, ov = false;
+
+  cells.forEach(function(c, n){ c.setAttribute('data-n', n + 1); });
+
+  function frags(n){ return Array.prototype.slice.call(cells[n].querySelectorAll('.frag')); }
+
+  function render(){
+    cells.forEach(function(c, n){ c.classList.toggle('on', n === i); });
+    frags(i).forEach(function(el, k){ el.classList.toggle('show', k < f); });
+    bar.style.width = ((i + 1) / cells.length * 100) + '%';
+    counter.innerHTML = '<b>' + (i + 1) + '</b> / ' + cells.length;
+    if (history.replaceState) history.replaceState(null, '', '#' + (i + 1));
+    else location.hash = '#' + (i + 1);
+  }
+
+  function go(n, showAll){
+    i = Math.max(0, Math.min(cells.length - 1, n));
+    f = showAll ? frags(i).length : 0;
+    render();
+  }
+
+  function next(){
+    if (f < frags(i).length) { f++; render(); return; }
+    if (i < cells.length - 1) go(i + 1, false);
+  }
+
+  function prev(){
+    if (f > 0) { f--; render(); return; }
+    if (i > 0) go(i - 1, true);
+  }
+
+  function overview(on){
+    ov = on;
+    document.body.classList.toggle('ov', ov);
+    if (!ov) { fit(); cells[i].scrollIntoView ? null : null; }
+  }
+
+  function fit(){
+    if (ov) return;
+    var s = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    stage.style.transform = 'translate(-50%,-50%) scale(' + s + ')';
+  }
+
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if (k === 'Escape') { e.preventDefault(); overview(!ov); return; }
+    if (ov) {
+      if (k === 'Enter' || k === ' ') { e.preventDefault(); overview(false); return; }
+      if (k === 'ArrowRight' || k === 'ArrowDown') { e.preventDefault(); go(i + 1, true); return; }
+      if (k === 'ArrowLeft' || k === 'ArrowUp') { e.preventDefault(); go(i - 1, true); return; }
+      return;
+    }
+    if (k === 'ArrowRight' || k === ' ' || k === 'PageDown' || k === 'Enter') { e.preventDefault(); next(); }
+    else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'Backspace') { e.preventDefault(); prev(); }
+    else if (k === 'Home') { go(0, false); }
+    else if (k === 'End') { go(cells.length - 1, true); }
+  });
+
+  cells.forEach(function(c, n){
+    c.addEventListener('click', function(e){
+      if (!ov) return;
+      e.stopPropagation();
+      go(n, true);
+      overview(false);
+    });
+  });
+
+  document.addEventListener('click', function(){ if (!ov) next(); });
+
+  window.addEventListener('resize', fit);
+  window.addEventListener('hashchange', function(){
+    var n = parseInt(location.hash.slice(1), 10);
+    if (n && n - 1 !== i) go(n - 1, true);
+  });
+
+  var start = parseInt(location.hash.slice(1), 10);
+  go(start ? start - 1 : 0, false);
+  fit();
+  setTimeout(function(){ hint.classList.add('gone'); }, 6000);
+})();
+</script>
+</body>
+</html>
