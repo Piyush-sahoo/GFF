@@ -1,40 +1,18 @@
-import { MongoClient, type Collection, type Db } from "mongodb";
+import type { Collection } from "mongodb";
+import { db } from "./db";
 
 /**
  * USER-GENERATED WRITES ONLY.
  *
- * Mongo is deliberately confined to data users create: profiles, and later
- * saved plans. Partners, speakers and sessions stay static from vendored JSON
- * at build time — that was chosen so venue wifi or an Atlas outage cannot take
- * the directory or agenda down, and it still holds. Nothing in the read path
- * for GFF content should ever import this file.
+ * Mongo is deliberately confined to data users create: profiles, accounts,
+ * plans, conversations and calls. Partners, speakers and sessions stay static
+ * from vendored JSON at build time — that was chosen so venue wifi or an Atlas
+ * outage cannot take the directory or agenda down, and it still holds. Nothing
+ * in the read path for GFF content should ever import this file.
+ *
+ * The connection itself now lives in lib/db.ts, which owns every collection.
  */
-const uri = process.env.MONGODB_URI;
-const dbName = process.env.MONGODB_DB || "gff";
-
-export const PROFILES_ENABLED = Boolean(uri);
-
-let clientPromise: Promise<MongoClient> | null = null;
-
-function client(): Promise<MongoClient> {
-  if (!uri) throw new Error("MONGODB_URI is not set");
-  if (!clientPromise) {
-    clientPromise = new MongoClient(uri, {
-      serverSelectionTimeoutMS: 6000,
-      maxPoolSize: 5,
-    })
-      .connect()
-      .catch((e) => {
-        clientPromise = null;
-        throw e;
-      });
-  }
-  return clientPromise;
-}
-
-async function db(): Promise<Db> {
-  return (await client()).db(dbName);
-}
+export { PROFILES_ENABLED } from "./db";
 
 export type Profile = {
   /** Login identity. Not verified — no email is ever sent. */

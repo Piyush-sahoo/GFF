@@ -647,6 +647,10 @@ Conflict policy across two browsers is **Decision D2**.
 
 ## 9. Dependency-ordered build sequence
 
+> Stages 0–5 below cover Part I (§1–§8). Part II adds stages 6–9 — see
+> **§15.1** for the merged sequence including accounts, the conversational planner, and
+> voice.
+
 **Stage 0 — data wiring (blocks almost everything)**
 1. Extend `app/sync-data.sh` to vendor `rag/sectors/sectors-2026.json` (and
    `coverage.json`) into `app/data/`. Build-time copy only; static-first is preserved.
@@ -700,6 +704,8 @@ person→org links inside the plan; benefits from 2 for the day view)
 
 ## 10. Decisions needed from the user
 
+> D1–D5 are Part I. **D6–D12 are in §15.2**, covering accounts, extraction, and voice.
+
 **D1 — the "Beer Booth Partner" tier URL.**
 One of the 20 tier strings contains the word *Booth*. It is a sponsorship name, not a
 location, and it already renders as a filter chip in the directory today. Minting
@@ -736,3 +742,560 @@ does not show an empty festival. Confirm that is the intent.
 `speakers-2026.json`, `sessions-2026.json`, and `rag/sectors/sectors-2026.json` in this
 repository. Where a figure differs from the original brief, the measured value is used and
 the difference is called out inline.*
+
+---
+---
+
+# Part II — Accounts, the planning agent, and the voice call
+
+> **Status: reconciled to the eight locked decisions** in
+> `docs/gff-contract.md` (the shared build contract). Where Part I disagrees with this
+> Part, **Part II wins**. Two Part I passages are explicitly superseded:
+> **§7.4's "localStorage stays the anonymous store"** — localStorage planning is retired,
+> Atlas is the only store and login is required to plan; and **§4's `/now` live view** —
+> there is no live clock, only an explicit day picker.
+>
+> The locked decisions, in one line each: voice is **Bolna outbound only** (no inbound,
+> no SIP, no number purchase, no `vobiz`); the call **delivers one day of an existing
+> plan** via `user_data` and makes no callback; **no fake clock**, an explicit day picker
+> defaulting to Day 1 (2026-09-09); identity is **email + password + phone** captured at
+> registration, `email` stays the key; **the LLM picks records by id** from the full
+> catalog and every id is validated against the real id set; **one persistent plan per
+> account**, mutated by explicit add/remove ops; **Atlas only, login required**; and the
+> plan is **sessions first**, people attached to the session that makes them reachable,
+> exhibitors a separate list that never claims a location.
+
+## Two facts verified before anything else was written
+
+**1. There are no phone numbers anywhere in the GFF dataset.** Measured across all three
+files — every field name in every record, plus a regex sweep for phone-shaped strings in
+*any* field value:
+
+| File | Rows | Fields | Contact/phone fields | Phone-shaped strings anywhere |
+|---|---:|---:|---|---:|
+| `partners-2026.json` | 319 | 17 | **none** | **0** |
+| `speakers-2026.json` | 487 | 12 | **none** | **0** |
+| `sessions-2026.json` | 256 | 20 | **none** | **0** |
+
+The full speaker field list is `bio, country, headshotUrl, linkedin, name, nameKey, org,
+sessionCodes, sessionTitle, sourceUrl, title, year` — no contact channel of any kind
+except a self-published LinkedIn URL (199/487).
+
+**This is now the reason the voice agent has exactly one possible recipient: the
+registered attendee's own number.** There is nobody else to call. Cold-calling a speaker
+or an exhibitor is not a gap to be filled in a later pass — the source does not publish it
+and we do not acquire it.
+
+**2. Logout already exists.** `app/app/api/auth/route.ts` has `POST` (sets the cookie) and
+`DELETE` (clears it, `maxAge: 0`), and `app/components/ProfileEditor.tsx:90` already calls
+`fetch("/api/auth", { method: "DELETE" })`. §11 is **rebuilding sign-in around real
+credentials**, not inventing logout.
+
+---
+
+## The end-to-end flow
+
+```
+ ┌─ ANONYMOUS — browse only, no planning ─────────────────────────────────────┐
+ │  /  →  /exhibitors  /speakers  /agenda  /topics                            │
+ │  Static, CDN-served, no Atlas. Works if the database is down.              │
+ │  Save buttons prompt: "sign in to plan".      ← localStorage is RETIRED    │
+ └───────────────────────────────────┬────────────────────────────────────────┘
+                                     │
+ ┌─ REGISTER / LOGIN  §11 ───────────▼────────────────────────────────────────┐
+ │  POST /api/auth/register { email, password, phone }  → 201 { email }       │
+ │  POST /api/auth          { email, password }         → 200 { email }       │
+ │  DELETE /api/auth                                    → 204                 │
+ │                                                                            │
+ │  phone is captured HERE, at registration — it is what the call dials.      │
+ │  email is the key in every collection.                                     │
+ └───────────────────────────────────┬────────────────────────────────────────┘
+                                     │
+ ┌─ THE AGENT  §12 ──────────────────▼────────────────────────────────────────┐
+ │  POST /api/agent { message } → { reply, ops:{add[],remove[]}, plan }       │
+ │                                                                            │
+ │  catalog built in code:  222 public sessions + 487 speakers + 316 partners │
+ │      └─ the 34 invite-only sessions are removed BEFORE the model sees them │
+ │  model picks records BY ID and returns add/remove ops                      │
+ │      └─ every id validated against the real id set; unknown ids DROPPED    │
+ │  no GEMINI_API_KEY?  →  lib/match.ts produces the ops instead              │
+ └───────────────────────────────────┬────────────────────────────────────────┘
+                                     │
+ ┌─ THE PLAN  §12.5 ─────────────────▼────────────────────────────────────────┐
+ │  ONE doc per email. Never silently regenerated — only add/remove.          │
+ │  plans { email, objective, sessions[], people[], partners[],               │
+ │          source{id→agent|manual}, why{id→reason}, updatedAt }              │
+ │                                                                            │
+ │  Sessions first · people attached to the session that makes them reachable │
+ │  · exhibitors a separate list with NO location, ever.                      │
+ │                                                                            │
+ │  The agenda Save button (POST /api/plan) writes the SAME doc.              │
+ └───────────────────────────────────┬────────────────────────────────────────┘
+                                     │
+ ┌─ THE CALL  §13 ───────────────────▼────────────────────────────────────────┐
+ │  Day picker: ● Day 1 (2026-09-09)  ○ Day 2  ○ Day 3     ← no fake clock    │
+ │  POST /api/call { day } → { executionId }                                  │
+ │                                                                            │
+ │  server reads the plan for that day → flattens to Bolna user_data          │
+ │  → POST https://api.bolna.ai/call                                          │
+ │       { agent_id, recipient_phone_number: <YOUR OWN NUMBER>, user_data }   │
+ │                                                                            │
+ │  The call READS OUT one day. It does not plan, and it does not call back.  │
+ └────────────────────────────────────────────────────────────────────────────┘
+```
+
+**The seams, and the rule that holds each closed:**
+
+| # | Seam | Rule |
+|---|---|---|
+| 1 | anonymous → account | Nothing is lost, because nothing was stored. localStorage planning is retired outright rather than migrated |
+| 2 | agent → plan | The model returns **ids only**; unknown ids are dropped before any write |
+| 3 | agent ↔ Save button | Both call the same plan helpers and write the same one document. `source` records which added what |
+| 4 | plan → storage | **Ids only, never content.** A rebuilt dataset must not leave a stale title in Atlas |
+| 5 | plan → call | The call reads an existing plan. It never creates or edits one, so a phone line can never mutate an account |
+
+---
+
+## 11. Auth — email + password + phone
+
+Hackathon-grade and deliberately small: enough to be a real credential, not a full identity
+system.
+
+### 11.1 What exists, what changes
+
+| Piece | Today | After |
+|---|---|---|
+| `lib/session.ts` | `gff_email` cookie holding the **raw email**, `httpOnly`, `sameSite=lax`, no `secure` | Signed/opaque session cookie; `secure` in production |
+| `POST /api/auth` | Accepts any string with `@`. No password | Verifies the password |
+| `DELETE /api/auth` | Clears the cookie. **Works** | Unchanged behaviour |
+| `Profile.email` | Already the identity key | **Unchanged — which is why nothing migrates** |
+
+### 11.2 `accounts`
+
+```ts
+{ email: string,          // lowercase, UNIQUE index, the identity key
+  passwordHash: string,   // bcrypt cost >= 12, or argon2id. NEVER logged or returned
+  phone: string,          // E.164, e.g. "+919876543210". REQUIRED at registration
+  createdAt: string, lastLoginAt: string | null }
+```
+
+`phone` lives on the **account**, not the profile: it is a credential-adjacent field
+captured once at registration, and it is the only number the system will ever dial.
+
+### 11.3 Endpoints
+
+```
+POST /api/auth/register  { email, password, phone } -> 201 { email } | 400 | 409
+POST /api/auth           { email, password }        -> 200 { email } | 401
+DELETE /api/auth                                     -> 204
+```
+
+- Password minimum **10 characters**; reject the email's local part and the obvious
+  site vocabulary (`gff`, `fintech`). No composition rules.
+- Phone validated as E.164 at registration. **No OTP** — hackathon scope.
+- Login failure is a single generic message.
+- **Registration returns 409 on a duplicate email, which is enumerable by design.** That
+  is an accepted hackathon trade-off, made knowingly rather than overlooked.
+- Adding a hashing library is the one dependency the contract pre-authorises.
+
+### 11.4 The caveat that still stands
+
+**Nothing verifies that the registrant owns the email address or the phone number.** No
+confirmation mail, no OTP. The bound on the damage is decision 1: **the only number the
+system ever dials is the one on the caller's own account, at their own explicit request,
+from a logged-in session.** There is no path by which this system phones a third party, so
+an unverified number can only ever inconvenience the person who typed it.
+
+### 11.5 Degraded
+
+`MONGODB_URI` unset ⇒ `PROFILES_ENABLED` false ⇒ registration, login, plans,
+conversations and calls all disable with a clear message. The directory, agenda, speakers
+and topics keep working — they are static and never touch Atlas.
+
+---
+
+## 12. The planning agent
+
+### 12.1 The architecture: the model picks, code validates
+
+Part I (§7.2) specified withholding the catalog and letting the deterministic matcher
+choose. **That is superseded.** The catalog is small enough to hand over whole:
+
+| Catalog | Records |
+|---|---:|
+| Sessions, invite-only already removed **in code** | **222** |
+| Speakers | 487 |
+| Partners | 316 |
+| | **≈21k tokens — fits comfortably in context** |
+
+**So the model sees everything and picks records by id.** Safety does not come from
+withholding data; it comes from **validating what comes back**:
+
+1. The model returns `ops: { add: string[], remove: string[] }` — `agendaCode`,
+   speaker `nameKey`, or partner `slug`.
+2. Every id is checked against the real id set. **Unknown id ⇒ dropped silently before any
+   write.** A hallucinated id cannot enter a plan because it does not exist to be added.
+3. The 34 invite-only sessions are filtered out of the catalog **in code, before the model
+   ever sees them** — never by prompt instruction. They cannot be picked because they are
+   not there.
+4. Booth fields never enter the catalog at all.
+
+This is a better guarantee than the previous design: it fails closed on *identity* rather
+than depending on the model's restraint about *content*.
+
+**Fallback:** with no `GEMINI_API_KEY`, `lib/match.ts` produces the ops instead — the same
+deterministic grounded matcher, still returning real ids with grounded reasons. `match.ts`
+must keep working; it is the no-key path, not dead code.
+
+### 12.2 What to ask
+
+The agent still has to turn "I want leads" into something specific. Measured against the
+real tokenizer, the fallback path needs this badly — `QUERY_NOISE` strips self-description
+words, so "I am a founder looking for partners for my startup" compiles to **`[]`,
+zero terms, zero recommendations**. The LLM path is more forgiving, but a vague objective
+still produces a vague plan.
+
+Four questions, one at a time, skipping anything the profile already answers:
+
+| # | Question | Feeds |
+|---|---|---|
+| Q1 | "In one sentence — what does your organisation actually build or do?" | objective |
+| Q2 | "What would make these three days worth it — selling, buying, raising, learning, or policy?" | ordering |
+| Q3 | "Which capability specifically?" — offered as chips from the real top topics (Financial Inclusion 13, Digital Public Infrastructure 11, Agentic AI 7, Digital Identity 7, Cross-Border Payments 7) | objective |
+| Q4 | "Which days are you here — 9th, 10th, 11th?" | which day the plan and the call cover |
+
+Stop as soon as the plan has something real on each day the attendee is attending. Do not
+keep asking to seem thorough.
+
+> **`tokenize()` drops tokens of length ≤2**, so `ai` and `ml` match nothing — affecting
+> **86 sessions, 78 partners and 54 speakers** containing the standalone word "AI". This
+> now only degrades the **fallback** path, not the LLM path. Still worth fixing. **D6.**
+
+### 12.3 The system prompt — verbatim
+
+```text
+You are the Global Fintech Fest 2026 planning agent. You help one signed-in
+attendee build and refine ONE persistent plan for the festival: 9, 10 and 11
+September 2026.
+
+## How you work
+
+You are given the FULL CATALOG of the festival in your context: every session,
+speaker and exhibitor, each with an id. You choose records from it yourself.
+
+You return two things:
+  1. reply — what you say to the attendee, in plain language.
+  2. ops   — { "add": [ids], "remove": [ids] } — the exact records to add to or
+             remove from their plan.
+
+Ids are: a session's agendaCode, a speaker's nameKey, an exhibitor's slug.
+Use ONLY ids that appear in the catalog you were given. Never construct,
+guess, or adapt an id. An id you invent will be discarded by the server and
+the attendee will silently not get what you promised — so if you cannot find
+a real record, say so instead.
+
+Never claim you added something you did not put in ops.
+
+## The plan's shape
+
+Sessions are the backbone. Build the plan around sessions first.
+
+Attach a person to the session that makes them reachable — "Priya is on the
+10:40 panel in Lotus 2" is useful; a name with no way to encounter them is not.
+Only add a speaker when they are actually appearing, or when the attendee asks
+for them by name.
+
+Exhibitors are a separate "worth finding" list. You know what they do, their
+sector, and their website. You do NOT know where they are.
+
+## The hard rules — absolute
+
+1. NEVER state, guess, imply, or offer to find an exhibitor's booth, stall,
+   floor position, zone, or location. GFF has not published a floor plan for
+   2026. If asked, say: "GFF hasn't published a floor plan for 2026, so I don't
+   have exhibitor locations." Then offer what you do have: what they do, their
+   sector, their website, and whether anyone from them is speaking.
+
+2. Session halls ARE published and may be given FOR SESSIONS ONLY — "that panel
+   is in Jasmine 3". Never present a session hall as an exhibitor's location and
+   never use one to infer where a company is. A hall tells the attendee where to
+   sit, never where to find an organisation.
+
+3. Invite-only sessions are not in your catalog. You cannot add one. If the
+   attendee asks about one, you may say it exists and is invite-only. Never
+   suggest how to get in.
+
+4. GFF 2026 only. You know nothing about 2025 or any earlier edition.
+
+5. NEVER invent a session, a speaker, an organisation, a time, a hall or a
+   statistic. Everything you say about a record must come from that record in
+   the catalog. "I don't have that" is always a better answer than a guess.
+
+6. NEVER say what is happening "now" or "next". You do not know the time or the
+   date. Talk about Day 1, Day 2 and Day 3, or the dates themselves.
+
+## Editing, not regenerating
+
+The attendee has ONE plan and it persists. You are editing it.
+
+Add what they ask for. Remove what they reject. Never wipe and rebuild the plan
+because it seems untidy — they may have added things themselves, and those are
+theirs to keep. If they ask for a fresh start, remove explicitly, by id.
+
+If two sessions in the plan overlap in time, SAY SO, name both, and let them
+choose. Never silently drop one.
+
+## Asking
+
+Ask ONE question at a time, under two sentences, no numbered lists. Push warmly
+for the subject rather than the self-description:
+
+  Attendee: "I'm a founder looking for partners."
+  You: "Got it — what does your company actually build? Say it the way you'd
+        say it to another engineer, not the way you'd say it in a pitch."
+
+Stop asking once the plan has something real on each day they're attending.
+
+## Honesty about gaps
+
+Be specific rather than padding:
+  - "Day 2 is thin for you — only one session really matches."
+  - "No exhibitor matched 'quantum'. 108 of the 316 publish no use cases, so
+     the match is thinner than the directory looks."
+
+## Tone
+
+Direct, warm, brief. No "Great question!". No emoji. Short sentences. A
+well-briefed colleague who has read the whole programme.
+```
+
+### 12.4 Objective and conversation state
+
+The compiled objective is stored on the plan (`plans.objective`) and is what `match.ts`
+consumes on the fallback path — the same shape `/api/profile` already builds today from
+`[lookingFor, ...interests]`. Show it to the attendee and let them edit it.
+
+`conversations` holds one doc per email: `turns[]` of `{role, text, at, ops?}`. Storing the
+ops alongside each turn means the plan's history is reconstructable — useful when someone
+asks "why is this in my plan?".
+
+### 12.5 The plan document
+
+```ts
+{ email, objective, sessions: string[], people: string[], partners: string[],
+  source: Record<string, "agent"|"manual">, why: Record<string,string>, updatedAt }
+```
+
+**One doc per email, ids only, mutated only by add/remove.** `source` records who added
+each id, so a plan the attendee curated by hand is visibly theirs. `why` holds a one-line
+grounded reason per id.
+
+`POST /api/plan { add?, remove? }` is the manual Save button and marks `source: "manual"`.
+`POST /api/agent` applies the validated ops and marks `source: "agent"`. **Same document,
+same helpers.**
+
+Empty states are Part I's, unchanged: a partner with no `useCases` (108 of 316) shows no
+use-case block; a speaker with no session (142 of 487) is not attachable to one and the
+agent should say so rather than adding them loose.
+
+### 12.6 Failure modes
+
+| Condition | Behaviour |
+|---|---|
+| No `GEMINI_API_KEY` | `match.ts` produces the ops. A plan without conversation is still a plan |
+| Model returns an unknown id | Dropped before the write. Never surfaced as a fake entry |
+| Model returns no ops | The reply still renders; the plan is untouched |
+| Atlas unreachable | Planning disabled with a clear message; directories unaffected |
+
+### 12.7 Profile extraction
+
+`Profile.x` and `Profile.linkedin` are self-declared and unverified. **LinkedIn scraping is
+not specced** — against their ToS. X/Twitter requires a paid API tier (**D7**). The
+default is the attendee pasting their own bio, or the agent simply asking, which Q1 does
+anyway. Extracted `org`/`role` is **shown for confirmation before it is written**, never
+silently saved, and **never guessed from an email domain**.
+
+---
+
+## 13. The voice call — Bolna, outbound only
+
+### 13.1 What this is, and what it is not
+
+**One thing: the attendee presses a button, picks a day, and their phone rings with that
+day's plan read out.**
+
+| | |
+|---|---|
+| **Direction** | **Outbound only.** No inbound agent, no SIP trunk, no number purchase, no public URL, no webhook |
+| **Recipient** | **The registered attendee's own number**, from their own account, at their own request. There is no other possible recipient — §"Two facts" measured that the dataset contains no phone numbers at all |
+| **Purpose** | **Deliver one day of an existing plan.** The call does not build a plan, does not edit one, and makes no callback to our server |
+| **Trigger** | Explicit — a button press in a logged-in session. Not scheduled, not automatic |
+| **Telephony** | Bolna's own. **`vobiz` is not involved anywhere in this design** |
+
+Because the call is user-triggered, one-way, and dials only the caller's own verified-by-
+possession number, there is no consent web to build: no opt-in flag, no OTP, no DND
+screening obligation for third-party marketing, no mutual-intro brokering. **Pressing the
+button is the consent, and it only ever affects the person pressing it.**
+
+### 13.2 No fake clock
+
+The system does not know what time it is at the venue and must never pretend to.
+
+- The UI is an **explicit day picker**: Day 1 (2026-09-09) **default**, Day 2, Day 3.
+- Before the festival, Day 1 is the default. During it, the real IST date may preselect the
+  matching day — but the picker is still shown and still explicit.
+- **The agent says "your Day 1 plan", never "happening now" or "coming up next."**
+
+This supersedes Part I §4's `/now` live view.
+
+### 13.3 The Bolna call
+
+Verified against Bolna's current docs (`/websites/bolna_ai`), base `https://api.bolna.ai`,
+bearer auth.
+
+```
+POST /api/call { day: "2026-09-09" | "2026-09-10" | "2026-09-11" }
+  -> 200 { executionId } | 400 { error } | 503 { error }
+```
+
+The server resolves the plan for that day and flattens it into `user_data`, then calls:
+
+```
+POST https://api.bolna.ai/call
+{
+  "agent_id": "<BOLNA_AGENT_ID>",
+  "recipient_phone_number": "<the caller's own E.164 number from accounts.phone>",
+  "user_data": { ...one day of the plan, as flat prompt variables... }
+}
+```
+
+- `user_data` is Bolna's documented mechanism for dynamic variables referenced in the agent
+  prompt. **This is the entire integration** — the day's plan goes out with the call.
+- **No `webhook_url`, no callback.** The call is fire-and-read-out.
+- No `scheduled_at`: the call is immediate and user-triggered.
+- `retry_config` is unnecessary for a call the user just asked for; if set at all, use
+  `{enabled: false}`.
+- **Never** `bypass_call_guardrails`.
+- `BOLNA_API_KEY` lives in `.env`; `.env.example` gets the key name with an empty value.
+
+**Flattening rule:** `user_data` carries only what the voice agent should say — session
+titles, times, halls, and the people attached to them. **No booth, no exhibitor location,
+no invite-only session** (they cannot be in the plan to begin with). Exhibitors go across
+as name + what they do, never a location.
+
+### 13.4 The voice agent's own rules
+
+The Bolna agent's prompt carries a non-overridable prefix with the same hard rules as §12.3
+— no booth or exhibitor location; halls for sessions only; 2026 only; nothing invented; and
+**no "now"/"next" language**, only "your Day 1 plan". Plus:
+
+- It **identifies itself as an AI in its first sentence.**
+- It reads the day and stops. It takes no actions, changes nothing, and asks for nothing.
+- If the plan for the requested day is empty, it says exactly that rather than improvising.
+
+### 13.5 `calls`
+
+```ts
+{ email, day: "2026-09-09"|"2026-09-10"|"2026-09-11",
+  bolnaAgentId, executionId, status, requestedAt, phoneAtDial }
+```
+
+`phoneAtDial` records the number as it was at request time — the audit trail for what was
+actually dialled. No transcript is stored.
+
+### 13.6 Degraded
+
+| Condition | Behaviour |
+|---|---|
+| `BOLNA_API_KEY` missing | `503` with a clear message. The plan page is unaffected |
+| Bolna returns an error | Surface it; do not retry silently |
+| Plan empty for that day | **Refuse before dialling.** Do not place a call that has nothing to say |
+| Atlas unreachable | No plan to read ⇒ no call |
+
+---
+
+## 14. Atlas — the collections
+
+All Mongo access stays behind `app/lib/db.ts` and `app/lib/profiles.ts`. **No other file
+imports `mongodb` directly.** Sessions, speakers and partners are still read from vendored
+JSON at build time — **Atlas never enters the read path for event content**, so the
+directory and agenda survive an Atlas outage.
+
+**Ids only. Never denormalised session, speaker or partner content.**
+
+| Collection | Shape | Indexes |
+|---|---|---|
+| **`accounts`** | `{ email, passwordHash, phone, createdAt, lastLoginAt }` | `{email:1}` unique |
+| **`profiles`** | `{ email, slug, name, org, role, linkedin, x, interests[], lookingFor, consentPublic, createdAt, updatedAt }` — existing shape, unchanged | `{email:1}` unique, `{slug:1}` unique |
+| **`plans`** | `{ email, objective, sessions[], people[], partners[], source{}, why{}, updatedAt }` — **one per email** | `{email:1}` unique |
+| **`conversations`** | `{ email, turns[{role,text,at,ops?}], updatedAt }` — **one per email** | `{email:1}` unique |
+| **`calls`** | `{ email, day, bolnaAgentId, executionId, status, requestedAt, phoneAtDial }` | `{email:1, requestedAt:-1}` |
+
+**`passwordHash` is excluded from every projection** and never logged or returned.
+
+**Deletion cascade:** removing an account removes its profile, plan, conversation and call
+records. One identity key (`email`) across every collection is what makes that a single
+operation rather than five hopeful ones.
+
+**Keeping the single write path:** `content.ts` must never import from `lib/db.ts` or
+`lib/profiles.ts`. That one assertion *is* the static-first architecture and is cheap to
+test in CI.
+
+---
+
+## 15. Build order, decisions, risks
+
+### 15.1 Order
+
+Part I stages 0–4 (pages) are independent of this and can proceed in parallel. Part II:
+
+| Stage | What | Blocked by |
+|---|---|---|
+| **A** | `lib/db.ts`, `lib/types.ts`, the five collections and their indexes | — |
+| **B** | Register + login + logout against `accounts` (§11) | A |
+| **C** | `plans` helpers + `POST /api/plan` + the agenda Save button writing Atlas; **localStorage removed** | A, B |
+| **D** | `lib/catalog.ts` — the invite-only-filtered catalog and the id-validation set | A |
+| **E** | `POST /api/agent` — model picks ids, validator drops unknowns, ops applied. **`match.ts` fallback working first** | C, D |
+| **F** | Day picker + `POST /api/call` + `lib/bolna.ts` | C |
+
+**Before the first real call:** a plan exists for the chosen day; `accounts.phone` is
+E.164; `BOLNA_API_KEY` set; empty-plan refusal works; and a test asserts no booth string and
+no invite-only `agendaCode` can reach `user_data`.
+
+### 15.2 Decisions still open
+
+Part I's D1–D5 stand. Renumbered from there; everything the contract settled has been cut
+rather than re-argued.
+
+**D6 — the `ai`/`ml` tokenizer gap.** `tokenize()` drops tokens of length ≤2, so "AI"
+matches nothing across 86 sessions, 78 partners and 54 speakers. Now only affects the
+`match.ts` fallback path. *Recommend:* lower the floor to ≥2 with a tightened stopword list.
+Small change, wide blast radius — your call on timing.
+
+**D7 — X/Twitter extraction.** Needs a paid API tier. *Recommend:* ship the
+paste-your-own-bio path; treat X as a later add-on only if you already hold a tier.
+
+**D8 — call recording.** If Bolna records by default, the agent must disclose it in the
+opening line. *Recommend:* recording off for the hackathon; nothing to disclose beyond
+being an AI.
+
+### 15.3 Risks
+
+| Risk | Mitigation |
+|---|---|
+| Model returns a plausible but non-existent id | Validated against the real id set and dropped before any write. This is the core safety property |
+| Model recommends an invite-only session | It cannot — they are filtered from the catalog **in code**, before the model sees them |
+| Model states an exhibitor location | Booth fields never enter the catalog; the rule is in the prompt; a test asserts no booth string reaches `user_data` |
+| Agent wipes a hand-curated plan | Add/remove ops only; never regenerate. `source` marks what the attendee added themselves |
+| Someone registers another person's email/phone | Unverified, and accepted at hackathon scope — bounded because the **only** number ever dialled is the account's own, on that account holder's own button press |
+| Registration enumerates emails via 409 | Known and accepted (§11.3) |
+| Stale titles in Atlas after a data rebuild | Ids only; an unresolvable id is dropped with a visible note |
+| Bolna down mid-demo | The call is additive. The plan page, agenda and directories are unaffected |
+| Plaintext password leaks into a log | bcrypt/argon2id at the boundary; `passwordHash` excluded from every projection; never logged |
+
+---
+
+*Part II is reconciled to the eight locked decisions in the shared build contract. The
+Bolna endpoint and `user_data` mechanism in §13.3 were fetched from `/websites/bolna_ai`;
+the phone-number and tokenizer findings were measured from the committed data. Planning
+only — no application code, routes, or components were changed by this document.*
