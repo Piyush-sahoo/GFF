@@ -203,6 +203,17 @@ export type ConversationTurn = {
   text: string;
   at: string;
   ops?: PlanOps;
+  /**
+   * Ids the reply cited but did not add to the plan, so citation chips
+   * survive a reload instead of existing only on the live turn.
+   *
+   * IDS ONLY, like everywhere else — persisting the resolved titles would
+   * denormalise catalog content into Atlas and leave stale names behind
+   * after a dataset rebuild. Resolve these through content.ts on replay,
+   * exactly as the live path does. Optional, so turns written before this
+   * existed simply have none, which is already how they render today.
+   */
+  refs?: string[];
 };
 
 /** ONE doc per email. The agent's memory across page loads. */
