@@ -29,6 +29,8 @@ export type Profile = {
   lookingFor: string | null;
   /** Explicit opt-in. false => invisible to everyone else, everywhere. */
   consentPublic: boolean;
+  /** Seeded demo attendee. Badged in the UI and deletable in one query. */
+  isDemo?: boolean;
   createdAt: string;
   updatedAt: string;
 };
@@ -93,6 +95,8 @@ export async function upsert(email: string, patch: Partial<Profile>): Promise<Pr
     interests: patch.interests ?? existing?.interests ?? [],
     lookingFor: patch.lookingFor ?? existing?.lookingFor ?? null,
     consentPublic: patch.consentPublic ?? existing?.consentPublic ?? false,
+    // Carried through the rebuild so a demo profile keeps its badge if edited.
+    ...(existing?.isDemo ? { isDemo: true } : {}),
     createdAt: existing?.createdAt ?? now,
     updatedAt: now,
   };

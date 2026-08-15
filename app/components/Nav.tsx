@@ -11,6 +11,7 @@ export default function Nav({ active }: { active?: string }) {
     { href: "/ask", label: "AI Agent" },
     { href: "/my-plan", label: "My Plan" },
     { href: "/people", label: "People" },
+    { href: "/meet", label: "Meet" },
     { href: "/profile", label: "Profile" },
   ];
   return (

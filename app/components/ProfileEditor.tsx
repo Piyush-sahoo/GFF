@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import PlanSharing from "./PlanSharing";
 
 type Profile = {
   slug: string; name: string; org: string | null; role: string | null;
@@ -210,6 +211,8 @@ export default function ProfileEditor() {
             email is never shown. Leave this unticked and your profile stays private to you.
           </span>
         </label>
+
+        <PlanSharing />
 
         <div className="objrow">
           <button type="submit" disabled={saving || !p.name.trim()}>{saving ? "Saving…" : "Save profile"}</button>

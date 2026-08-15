@@ -98,6 +98,16 @@ export type PublicAccount = Pick<Account, "email" | "phone" | "createdAt" | "las
 export type PlanSource = "agent" | "manual";
 
 /**
+ * Whether other attendees may read this plan.
+ *
+ * DEFAULT "private", and it must stay that way. Profile.consentPublic is
+ * consent to be *listed* — it is not consent to publish your movements. A
+ * plan says where a named person physically is, at a given time, for three
+ * days. That is a different disclosure and it takes its own opt-in.
+ */
+export type PlanVisibility = "private" | "shared";
+
+/**
  * ONE persistent plan per account, mutated by explicit add/remove ops.
  * Never silently regenerated — a manual pick must survive an agent edit.
  * Ids only: no denormalised session, speaker or partner content, so a
@@ -117,7 +127,52 @@ export type Plan = {
   source: Record<string, PlanSource>;
   /** id -> one-line grounded reason. */
   why: Record<string, string>;
+  /** Absent on plans written before sharing existed — treat absent as private. */
+  visibility?: PlanVisibility;
+  /** Seeded demo attendee. Badged in the UI and safe to delete wholesale. */
+  isDemo?: boolean;
   updatedAt: string;
+};
+
+/** A shared plan as another attendee may see it. Never carries an email. */
+export type SharedPlanSummary = {
+  slug: string;
+  name: string;
+  role: string | null;
+  org: string | null;
+  isDemo: boolean;
+  /** agendaCode[] — ids only, resolved against the static catalog on render. */
+  sessions: string[];
+  partners: string[];
+  objective: string | null;
+};
+
+/** A stretch of a festival day when nobody selected has anything booked. */
+export type FreeWindow = {
+  day: string;
+  /** "14:30" */
+  start: string;
+  end: string;
+  minutes: number;
+};
+
+/** Something more than one selected person has in their plan. */
+export type CommonInterest = {
+  label: string;
+  kind: "topic" | "exhibitor";
+  /** How many of the selected people it appears for. */
+  count: number;
+};
+
+// GET /api/meet?slugs=a,b,c -> 200 { people, sharedSessions, freeWindows, commonInterests }
+export type MeetResponse = {
+  people: SharedPlanSummary[];
+  /** agendaCode[] every selected person already has. The strongest answer. */
+  sharedSessions: string[];
+  freeWindows: FreeWindow[];
+  commonInterests: CommonInterest[];
+  /** Slugs asked for that had no shared plan, so the UI can say which. */
+  unavailable: string[];
 };
 
 export type ConversationTurn = {

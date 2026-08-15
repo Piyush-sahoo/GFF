@@ -1,14 +1,18 @@
 import bcrypt from "bcryptjs";
 import { MongoClient, type Collection, type Db } from "mongodb";
-import { PARTNERS, SPEAKERS, getSession, isBookmarkable } from "./content";
+import { DAYS, PARTNERS, SESSIONS, SPEAKERS, getSession, isBookmarkable, toMinutes } from "./content";
 import type {
   Account,
   CallRecord,
+  CommonInterest,
   Conversation,
   ConversationTurn,
+  FreeWindow,
   Plan,
   PlanOps,
   PlanSource,
+  PlanVisibility,
+  SharedPlanSummary,
 } from "./types";
 
 /**
@@ -215,8 +219,32 @@ export function emptyPlan(email: string): Plan {
     partners: [],
     source: {},
     why: {},
+    // Private until the owner says otherwise, every time, with no exception.
+    visibility: "private",
     updatedAt: new Date().toISOString(),
   };
+}
+
+/**
+ * Plans written before sharing existed have no visibility field. They must
+ * read as private — defaulting the other way would publish the movements of
+ * everyone who planned before the choice existed.
+ */
+export function isShared(plan: Pick<Plan, "visibility"> | null | undefined): boolean {
+  return plan?.visibility === "shared";
+}
+
+export async function setPlanVisibility(
+  email: string,
+  visibility: PlanVisibility,
+): Promise<Plan | null> {
+  const col = await plans();
+  const r = await col.findOneAndUpdate(
+    { email },
+    { $set: { visibility, updatedAt: new Date().toISOString() } },
+    { returnDocument: "after", projection: { _id: 0 } },
+  );
+  return r ?? null;
 }
 
 export type PlanBucket = "sessions" | "people" | "partners";
@@ -300,6 +328,148 @@ export async function mutatePlan(
   if (extra && extra.objective !== undefined) next = { ...next, objective: extra.objective };
   await col.replaceOne({ email }, next, { upsert: true });
   return next;
+}
+
+/* ------------------------------------------------------------------ *
+ * Shared plans. Two independent gates, and BOTH must be open:         *
+ * the profile is consentPublic, and the plan is visibility "shared".  *
+ * Revoking either one hides the plan everywhere on the next read —    *
+ * there is no cache and no copy to go stale.                          *
+ * ------------------------------------------------------------------ */
+
+/**
+ * Everyone who has opted in twice, keyed by profile slug. Emails never leave
+ * this function: the slug is the public handle for a person everywhere else.
+ */
+export async function listSharedPlans(): Promise<SharedPlanSummary[]> {
+  const profileCol = (await db()).collection<{
+    email: string;
+    slug: string;
+    name: string;
+    role: string | null;
+    org: string | null;
+    consentPublic: boolean;
+    isDemo?: boolean;
+  }>("profiles");
+
+  const consented = await profileCol
+    .find({ consentPublic: true }, { projection: { _id: 0 } })
+    .toArray();
+  if (!consented.length) return [];
+
+  const shared = await (await plans())
+    .find(
+      { email: { $in: consented.map((p) => p.email) }, visibility: "shared" },
+      { projection: { _id: 0 } },
+    )
+    .toArray();
+
+  const byEmail = new Map(shared.map((p) => [p.email, p]));
+  return consented
+    .filter((p) => byEmail.has(p.email))
+    .map((p) => {
+      const plan = byEmail.get(p.email)!;
+      return {
+        slug: p.slug,
+        name: p.name,
+        role: p.role ?? null,
+        org: p.org ?? null,
+        isDemo: Boolean(p.isDemo || plan.isDemo),
+        // Invite-only sessions can never be in a plan, but filter on read too:
+        // a plan seeded or written before that rule would otherwise leak one.
+        sessions: plan.sessions.filter((c) => {
+          const s = getSession(c);
+          return s && isBookmarkable(s);
+        }),
+        partners: plan.partners,
+        objective: plan.objective,
+      };
+    });
+}
+
+/** Festival hours, taken from the real schedule rather than assumed. */
+export function festivalHours(day: string): { start: number; end: number } | null {
+  const day_ = SESSIONS.filter((s) => s.day === day);
+  if (!day_.length) return null;
+  return {
+    start: Math.min(...day_.map((s) => toMinutes(s.startTime))),
+    end: Math.max(...day_.map((s) => toMinutes(s.endTime))),
+  };
+}
+
+function hhmm(mins: number): string {
+  return `${String(Math.floor(mins / 60)).padStart(2, "0")}:${String(mins % 60).padStart(2, "0")}`;
+}
+
+/** A window shorter than this is not a meeting, it is a corridor collision. */
+const MIN_WINDOW_MINUTES = 20;
+
+/**
+ * Stretches of each day when NOBODY selected has anything booked.
+ *
+ * Union every selected person's sessions into one busy set, then return the
+ * gaps inside published festival hours. If two people are both free but at
+ * opposite ends of the venue that is still their problem — we say when, and
+ * deliberately never say where, because GFF published no 2026 floor plan.
+ */
+export function mutualFreeWindows(sessionSets: string[][]): FreeWindow[] {
+  const out: FreeWindow[] = [];
+
+  for (const day of DAYS) {
+    const hours = festivalHours(day);
+    if (!hours) continue;
+
+    const busy: [number, number][] = [];
+    for (const set of sessionSets) {
+      for (const code of set) {
+        const s = getSession(code);
+        if (!s || s.day !== day) continue;
+        busy.push([toMinutes(s.startTime), toMinutes(s.endTime)]);
+      }
+    }
+    busy.sort((a, b) => a[0] - b[0]);
+
+    // Walk the merged busy intervals; whatever is not covered is free.
+    let cursor = hours.start;
+    for (const [start, end] of busy) {
+      if (start > cursor) {
+        const minutes = start - cursor;
+        if (minutes >= MIN_WINDOW_MINUTES) {
+          out.push({ day, start: hhmm(cursor), end: hhmm(start), minutes });
+        }
+      }
+      cursor = Math.max(cursor, end);
+    }
+    if (hours.end > cursor && hours.end - cursor >= MIN_WINDOW_MINUTES) {
+      out.push({ day, start: hhmm(cursor), end: hhmm(hours.end), minutes: hours.end - cursor });
+    }
+  }
+
+  return out;
+}
+
+/** Topics and exhibitors that show up in more than one of the selected plans. */
+export function commonInterests(people: SharedPlanSummary[]): CommonInterest[] {
+  const topic = new Map<string, number>();
+  const exhibitor = new Map<string, number>();
+
+  for (const p of people) {
+    // Count once per person, not once per session, or a topic someone has
+    // four sessions of outranks one that three different people share.
+    const theirTopics = new Set<string>();
+    for (const code of p.sessions) for (const t of getSession(code)?.topics ?? []) theirTopics.add(t);
+    for (const t of theirTopics) topic.set(t, (topic.get(t) ?? 0) + 1);
+    for (const slug of new Set(p.partners)) exhibitor.set(slug, (exhibitor.get(slug) ?? 0) + 1);
+  }
+
+  const out: CommonInterest[] = [];
+  for (const [label, count] of topic) if (count > 1) out.push({ label, kind: "topic", count });
+  for (const [slug, count] of exhibitor) {
+    if (count < 2) continue;
+    const p = PARTNERS.find((x) => x.slug === slug);
+    if (p) out.push({ label: p.name, kind: "exhibitor", count });
+  }
+  return out.sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
 }
 
 /* ------------------------- Conversation ---------------------------- */

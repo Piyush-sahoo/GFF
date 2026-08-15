@@ -3,6 +3,8 @@ import Link from "next/link";
 import Nav from "../../components/Nav";
 import { EVENT_YEAR } from "../../lib/content";
 import { listPublic, PROFILES_ENABLED } from "../../lib/profiles";
+import { listSharedPlans } from "../../lib/db";
+import PeopleDirectory from "./PeopleDirectory";
 
 export const dynamic = "force-dynamic";
 
@@ -13,10 +15,14 @@ export const metadata: Metadata = {
 
 export default async function PeoplePage() {
   let people: Awaited<ReturnType<typeof listPublic>> = [];
+  /** Slugs whose owner ALSO opted in to sharing the plan itself. */
+  let sharedSlugs: string[] = [];
   let error: string | null = null;
   if (PROFILES_ENABLED) {
-    try { people = await listPublic(); }
-    catch { error = "The people directory is temporarily unreachable."; }
+    try {
+      people = await listPublic();
+      sharedSlugs = (await listSharedPlans()).map((p) => p.slug);
+    } catch { error = "The people directory is temporarily unreachable."; }
   } else {
     error = "The people directory is not configured on this server.";
   }
@@ -60,27 +66,26 @@ export default async function PeoplePage() {
             </p>
           </div>
         ) : (
-          <div className="spgrid">
-            {people.map((p) => (
-              <Link className="spcard" href={`/people/${p.slug}`} key={p.slug}>
-                <span className="sphead placeholder">{(p.name || "?").slice(0, 1).toUpperCase()}</span>
-                <div className="spbody">
-                  <h3>{p.name}</h3>
-                  {(p.role || p.org) && <div className="sprole">{[p.role, p.org].filter(Boolean).join(" · ")}</div>}
-                  {p.lookingFor && <p className="spbio">{p.lookingFor}</p>}
-                  {p.interests?.length > 0 && (
-                    <div className="spfoot">{p.interests.slice(0, 4).map((i) => <span key={i}>{i}</span>)}</div>
-                  )}
-                </div>
-              </Link>
-            ))}
-          </div>
+          <PeopleDirectory
+            people={people.map((p) => ({
+              slug: p.slug,
+              name: p.name,
+              role: p.role,
+              org: p.org,
+              lookingFor: p.lookingFor,
+              interests: p.interests ?? [],
+              isDemo: Boolean(p.isDemo),
+              hasSharedPlan: sharedSlugs.includes(p.slug),
+            }))}
+          />
         )}
       </section>
 
       <footer>
         Self-declared, unverified, opt-in. People can remove themselves at any time, which also removes
-        them from recommendations shown to others.
+        them from recommendations shown to others. Being listed here is <strong>not</strong> the same as
+        sharing a plan: a plan says where a named person is at a given time for three days, so it takes
+        its own separate opt-in and most people here have not given it.
       </footer>
     </main>
   );
