@@ -82,9 +82,11 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         error:
-          kind === "MODEL_BAD_OUTPUT"
-            ? "The agent returned something I couldn't read. Nothing was changed in your plan — try again."
-            : "The agent couldn't reach the model. Nothing was changed in your plan — try again.",
+          kind === "MODEL_TRUNCATED"
+            ? "That was too much to plan in one go — the agent ran out of room mid-answer. Nothing was changed in your plan. Try asking for one day, or a smaller batch, at a time."
+            : kind === "MODEL_BAD_OUTPUT"
+              ? "The agent returned something I couldn't read. Nothing was changed in your plan — try again."
+              : "The agent couldn't reach the model. Nothing was changed in your plan — try again.",
       },
       { status: 502 },
     );
@@ -126,5 +128,8 @@ export async function POST(req: Request) {
     removed: resolveItems(outcome.ops.remove),
     degraded: outcome.degraded,
     droppedCount: outcome.dropped.length,
+    // Real sessions withheld to avoid a double-booking. Surfaced, not swallowed:
+    // the attendee asked for these and is owed an explanation.
+    clashes: outcome.clashes,
   });
 }

@@ -370,12 +370,12 @@ body.ov #bar,body.ov #hint{display:none}
     <li><strong>No inbound number, no SIP, no webhook, no public URL.</strong> Nothing to expose, nothing to secure at the venue.</li>
     <li>A personal agent, not a dialler.</li>
   </ul>
-  <div class="foot">Bolna credentials are not yet configured — no live call has been placed</div>
+  <div class="foot">The call route refuses an unauthenticated request — it has no other number to dial</div>
 </section></div>
 
 <!-- 12 ────────────────────────────────────────────────────────── -->
 <div class="cell"><section class="slide">
-  <div class="kicker">Status at the time of writing · 15 Aug 2026</div>
+  <div class="kicker">Status · checked 15 Aug 2026, ~19 days before the festival</div>
   <h1 class="sm">What is <em>actually</em> built.</h1>
   <div class="status">
     <div class="panel built">
@@ -383,31 +383,31 @@ body.ov #bar,body.ov #hint{display:none}
       <ul>
         <li>Scrape → normalise → export pipeline for the full 2026 dataset</li>
         <li>Static site: home, exhibitors, agenda, speakers, profile</li>
-        <li>Embedding index and retrieval module</li>
-        <li>Atlas types and collection accessors</li>
+        <li>Register / sign-in, signed session cookie, Atlas-backed plans</li>
+        <li>The agent loop: catalog, pick-by-id, grounding gate</li>
+        <li>The <em class="t">/ask</em> page and the outbound call route</li>
       </ul>
     </div>
     <div class="panel wip">
-      <div class="k">In progress · written, not yet committed</div>
+      <div class="k">Verified while building this deck</div>
       <ul>
-        <li>Register / sign-in and the session cookie</li>
-        <li>One persistent plan per account, add / remove ops</li>
-        <li>The agent loop: catalog, pick-by-id, grounding gate</li>
-        <li>The single-session <em class="t">/ask</em> page</li>
-        <li>The outbound call route</li>
+        <li>Typechecks clean, no errors</li>
+        <li>Every page returns 200 on the local dev server</li>
+        <li><em class="t">/api/plan</em> and <em class="t">/api/call</em> refuse an unauthenticated request with a 401</li>
+        <li>Every figure in this deck re-measured from the dataset, not copied from a spec</li>
       </ul>
     </div>
     <div class="panel unv">
-      <div class="k dim">Not yet verified live</div>
+      <div class="k dim">Not verified — assume nothing</div>
       <ul>
-        <li><strong style="color:var(--muted)">The phone call.</strong> Bolna credentials are not configured yet — no real call has been placed</li>
-        <li>The full register → plan → call run, start to finish</li>
-        <li>Everything left of here typechecks clean; that is not the same as working</li>
+        <li><strong style="color:var(--muted)">A live phone call.</strong> Credentials are configured and the route is wired, but no ring was observed during this build</li>
+        <li>The full register → plan → call run, start to finish, by a real person</li>
+        <li>Anything about load, or a venue network</li>
       </ul>
     </div>
   </div>
-  <div class="foot plain">This slide is deliberately unflattering. A deck that overclaims and then dies in the
-    live demo is worse than one that tells you where the edges are.</div>
+  <div class="foot plain">This slide is deliberately unflattering, and it was true at the minute it was written —
+    the build moved twice while this deck was being made. Re-check it before presenting.</div>
 </section></div>
 
 <!-- 13 ────────────────────────────────────────────────────────── -->

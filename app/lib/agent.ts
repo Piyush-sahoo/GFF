@@ -26,6 +26,7 @@
  */
 import { GoogleGenAI } from "@google/genai";
 import { buildCatalog, resolveItems, validateIds } from "./catalog";
+import { dayLabel, getSession, overlaps } from "./content";
 import { match, reason } from "./match";
 import type { ConversationTurn, Plan, PlanOps } from "./types";
 
@@ -47,6 +48,8 @@ export type AgentOutcome = {
   degraded: boolean;
   /** Ids the model returned that matched no record. Logged, never shown as real. */
   dropped: string[];
+  /** Real sessions left out because they double-booked the attendee. Reported. */
+  clashes: ClashDrop[];
 };
 
 /* ------------------------------------------------------------------ *
@@ -68,7 +71,8 @@ You are given the ENTIRE published catalog. It is your whole universe of facts.
 - Choose records by their id from that catalog. Nothing else exists.
 - Reason about MEANING, not keyword overlap. If someone says "we're raising a Series A", the right picks are the investor and funding-track sessions and the VCs speaking at them, even if the words "Series A" appear nowhere. This is the entire reason you are given the full catalog — use it.
 - Prefer a small, sharp plan over a broad one. Five sessions the attendee will genuinely attend beat fifteen they will ignore.
-- Watch the clock: sessions on the same day at overlapping times cannot both be attended. If you suggest a clash, say which one you would drop and why.
+- Watch the clock: sessions on the same day at overlapping times cannot both be attended. Check every pick against the times already in the plan AND against the other picks in the same reply. Back-to-back is fine (10:00–10:50 then 10:50–11:40 does not clash).
+- Order your \`add\` list best-first. If two of your picks collide, the system keeps the earlier one and drops the later — so your ranking decides which survives. It also drops any pick that collides with a session already in the plan. Getting the order right is how you keep the one you actually meant.
 - Spread picks across all three days unless the attendee tells you they are only there for some of them.
 
 ## Grounding — the rules that matter most
@@ -176,6 +180,120 @@ function renderHistory(turns: ConversationTurn[]): string {
 }
 
 /* ------------------------------------------------------------------ *
+ * Clash filtering — agent adds only
+ * ------------------------------------------------------------------ */
+
+export type ClashDrop = {
+  id: string;
+  label: string;
+  /** The session it collides with — already in the plan, or earlier in this batch. */
+  clashesWith: { id: string; label: string };
+  day: string;
+  time: string;
+};
+
+/**
+ * NO TWO SESSIONS THE AGENT ADDS MAY OVERLAP.
+ *
+ * Enforced here in code rather than left to the prompt, because "watch the
+ * clock" is exactly the kind of instruction a model follows most of the time —
+ * and a plan that quietly double-books an attendee is worse than one that is
+ * one session shorter.
+ *
+ * Scope is deliberately narrow: this runs ONLY on the agent's proposed adds, in
+ * this file. It is not in lib/db.ts#applyOps, because a person may knowingly
+ * save two overlapping sessions to choose between later, and /my-plan already
+ * shows them an overlap warning for that case. A human's double-booking is a
+ * decision; the agent's is a mistake.
+ *
+ * First proposed wins, so the agent's own ranking survives: it puts its best
+ * pick first, and a later collision yields to it rather than displacing it.
+ *
+ * `overlaps` compares with strict inequality, so back-to-back sessions
+ * (10:00–10:50 then 10:50–11:40) do not collide.
+ */
+export function filterClashes(
+  addIds: string[],
+  plan: Plan | null,
+  /**
+   * Ids being removed in the SAME batch. These must not count as obstacles.
+   *
+   * Without this, a swap destroys both sides: the agent says "drop A, take B",
+   * we apply the removal of A but judge B against a plan that still contains A,
+   * drop B as a clash, and the attendee ends up with neither. Ops are applied
+   * together, so the baseline has to be the plan as it will be, not as it was.
+   */
+  removeIds: string[] = [],
+): { keep: string[]; dropped: ClashDrop[] } {
+  const keep: string[] = [];
+  const dropped: ClashDrop[] = [];
+
+  const removing = new Set(removeIds);
+  // Sessions that will still be in the plan after this batch are fixed points;
+  // a new pick yields to them, never the other way around.
+  const accepted = (plan?.sessions ?? [])
+    .filter((id) => !removing.has(id))
+    .map(getSession)
+    .filter((s): s is NonNullable<typeof s> => Boolean(s));
+  const alreadyInPlan = new Set((plan?.sessions ?? []).filter((id) => !removing.has(id)));
+
+  for (const id of addIds) {
+    const candidate = getSession(id);
+    // Speakers and exhibitors have no time and cannot clash.
+    if (!candidate) {
+      keep.push(id);
+      continue;
+    }
+    // Re-adding something already planned is a no-op, not a collision with itself.
+    if (alreadyInPlan.has(id)) {
+      keep.push(id);
+      continue;
+    }
+
+    const hit = accepted.find((s) => s.agendaCode !== id && overlaps(s, candidate));
+    if (hit) {
+      dropped.push({
+        id,
+        label: candidate.title,
+        clashesWith: { id: hit.agendaCode, label: hit.title },
+        day: dayLabel(candidate.day),
+        time: `${candidate.startTime}–${candidate.endTime}`,
+      });
+      continue;
+    }
+
+    keep.push(id);
+    accepted.push(candidate);
+  }
+
+  return { keep, dropped };
+}
+
+/**
+ * Say it out loud.
+ *
+ * An invented id is dropped silently because it never named anything real. A
+ * clash-dropped session is the opposite: it exists, and the attendee just asked
+ * for it. Staying quiet would read as the agent ignoring the request, so the
+ * reply states what was left out and what it collided with.
+ *
+ * Written deterministically from resolved records rather than by asking the
+ * model again — the note has to be true, and it costs nothing extra.
+ */
+export function clashNote(dropped: ClashDrop[]): string {
+  if (!dropped.length) return "";
+  const lines = dropped.map(
+    (d) =>
+      `• "${d.label}" (${d.day}, ${d.time}) — it clashes with "${d.clashesWith.label}", which is already in your plan.`,
+  );
+  return (
+    `\n\nI left ${dropped.length === 1 ? "one session" : `${dropped.length} sessions`} out to avoid double-booking you:\n` +
+    lines.join("\n") +
+    `\n\nSay the word if you'd rather have ${dropped.length === 1 ? "it" : "one of them"} and I'll swap out what it collides with.`
+  );
+}
+
+/* ------------------------------------------------------------------ *
  * Output guard
  * ------------------------------------------------------------------ */
 
@@ -225,8 +343,15 @@ function fallback(message: string, plan: Plan | null): AgentOutcome {
   ]);
   const fresh = picks.filter((p) => !known.has(p.id));
   const valid = validateIds(fresh.map((p) => p.id));
-  const keep = new Set([...valid.sessions, ...valid.people, ...valid.partners]);
-  const add = fresh.filter((p) => keep.has(p.id));
+  const validSet = new Set([...valid.sessions, ...valid.people, ...valid.partners]);
+  // The matcher can rank two overlapping sessions highly for the same terms, so
+  // the fallback needs the same clash guard as the model path.
+  const { keep, dropped: clashes } = filterClashes(
+    fresh.filter((p) => validSet.has(p.id)).map((p) => p.id),
+    plan,
+  );
+  const keepSet = new Set(keep);
+  const add = fresh.filter((p) => keepSet.has(p.id));
 
   const why: Record<string, string> = {};
   for (const p of add) why[p.id] = p.why;
@@ -239,12 +364,13 @@ function fallback(message: string, plan: Plan | null): AgentOutcome {
     : `The conversational agent is offline (no model key configured), and matching your words against the catalog directly turned up nothing above the confidence threshold. I'd rather tell you that than add the nearest unrelated sessions.\n\nTry naming a topic — "cross-border payments", "lending", "regulation" — or set GEMINI_API_KEY to get the conversational agent back.`;
 
   return {
-    reply,
+    reply: reply + clashNote(clashes),
     ops: { add: add.map((p) => p.id), remove: [] },
     why,
     objective: plan?.objective ?? (message.trim() ? message.trim().slice(0, 200) : null),
     degraded: true,
     dropped: valid.dropped,
+    clashes,
   };
 }
 
@@ -274,6 +400,7 @@ export async function runAgent(input: {
   ].join("\n\n");
 
   let raw = "";
+  let truncated = false;
   try {
     const response = await ai.models.generateContent({
       model: MODEL,
@@ -283,21 +410,38 @@ export async function runAgent(input: {
         responseMimeType: "application/json",
         responseJsonSchema: RESPONSE_SCHEMA,
         temperature: 0.4,
-        maxOutputTokens: 4000,
+        /**
+         * Generous on purpose. This model's reasoning tokens are drawn from the
+         * same budget as the visible output, so a request like "pack my day with
+         * 14 sessions" can spend the allowance thinking and emit JSON that stops
+         * mid-object. That surfaced as an unexplained parse failure at 4000.
+         */
+        maxOutputTokens: 16000,
       },
     });
     raw = (response.text ?? "").trim();
+    truncated = response.candidates?.[0]?.finishReason === "MAX_TOKENS";
   } catch (err) {
     console.error("[agent] model call failed:", err);
     throw new Error("MODEL_UNREACHABLE");
+  }
+
+  // Distinguished from malformed output because the fix is different: a
+  // truncated answer means ask for less, not try again.
+  if (truncated && !raw) {
+    console.error("[agent] hit MAX_TOKENS with no usable output");
+    throw new Error("MODEL_TRUNCATED");
   }
 
   let parsed: { reply?: unknown; add?: unknown; remove?: unknown; objective?: unknown };
   try {
     parsed = JSON.parse(raw);
   } catch {
-    console.error("[agent] model returned non-JSON:", raw.slice(0, 400));
-    throw new Error("MODEL_BAD_OUTPUT");
+    console.error(
+      `[agent] model returned unparseable JSON (truncated=${truncated}, ${raw.length} chars):`,
+      raw.slice(0, 400),
+    );
+    throw new Error(truncated ? "MODEL_TRUNCATED" : "MODEL_BAD_OUTPUT");
   }
 
   // --- Gate 2: every id checked against the real id set, unknowns dropped. ---
@@ -315,13 +459,24 @@ export async function runAgent(input: {
   const removeKeep = [...removeValid.sessions, ...removeValid.people, ...removeValid.partners];
 
   const why: Record<string, string> = {};
-  const add: string[] = [];
+  const validated: string[] = [];
   for (const p of proposed) {
-    if (!addKeep.has(p.id) || add.includes(p.id)) continue;
-    add.push(p.id);
+    if (!addKeep.has(p.id) || validated.includes(p.id)) continue;
+    validated.push(p.id);
     // A pick with no stated reason keeps the record but not a manufactured
     // rationale — an empty `why` renders as nothing, which is honest.
     if (p.why) why[p.id] = p.why;
+  }
+
+  // --- Gate 2b: no double-booking. Order is the model's own ranking. ---
+  // Removes from this same turn are passed in so a deliberate swap survives.
+  const { keep: add, dropped: clashes } = filterClashes(validated, plan, removeKeep);
+  for (const c of clashes) delete why[c.id];
+  if (clashes.length) {
+    console.warn(
+      `[agent] dropped ${clashes.length} clashing session(s): ` +
+        clashes.map((c) => `${c.id} vs ${c.clashesWith.id}`).join(", "),
+    );
   }
 
   const dropped = [...addValid.dropped, ...removeValid.dropped];
@@ -333,11 +488,12 @@ export async function runAgent(input: {
   const objective = String(parsed.objective ?? "").trim();
 
   return {
-    reply: reply || "I didn't manage to put that into words. Try asking again.",
+    reply: (reply || "I didn't manage to put that into words. Try asking again.") + clashNote(clashes),
     ops: { add, remove: removeKeep },
     why,
     objective: objective || plan?.objective || null,
     degraded: false,
     dropped,
+    clashes,
   };
 }

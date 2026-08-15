@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import type { CSSProperties } from "react";
 import type { Plan } from "../lib/types";
 
 export type SlimSession = {
@@ -13,9 +14,41 @@ export type SlimSession = {
   endTime: string;
   hall: string | null;
   format: string | null;
+  /** Still rendered on the row and still searchable — just no longer a facet. */
   track: string | null;
+  /** Optional so the component renders even before a caller passes it through. */
+  topics?: string[];
   closedDoor: boolean;
   speakers: string[];
+};
+
+/**
+ * Track was removed as a facet: 170 distinct values, 168 of them matching a
+ * single session, one reading "Capital Markets, Algorithmic Trading,, Market
+ * Integrity" straight from the CMS. A facet where nearly every option matches
+ * one session is the session list reprinted as buttons, so it is gone. Track is
+ * still shown on each row and still reachable from the search box.
+ *
+ * Topic replaces it, but only above this threshold — it is what separates the 23
+ * clean, genuinely shared topics from the long tail of one-off CMS strings.
+ */
+const MIN_TOPIC_SESSIONS = 3;
+
+/** Mirrors GROUP_SELECT in ExhibitorDirectory so the two filters read as one system. */
+const TOPIC_SELECT: CSSProperties = {
+  appearance: "none",
+  WebkitAppearance: "none",
+  padding: "7px 32px 7px 13px",
+  borderRadius: 999,
+  border: "1px solid var(--line)",
+  background:
+    "var(--panel) url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236c7488' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\") no-repeat right 12px center",
+  color: "var(--text)",
+  fontSize: 13,
+  fontFamily: "inherit",
+  cursor: "pointer",
+  maxWidth: "100%",
+  colorScheme: "dark",
 };
 
 /**
@@ -140,7 +173,7 @@ export default function AgendaList({
 }) {
   const [day, setDay] = useState(initialDay && days.some((d) => d.day === initialDay) ? initialDay : days[0]?.day);
   const [q, setQ] = useState("");
-  const [track, setTrack] = useState<string | null>(null);
+  const [topic, setTopic] = useState<string | null>(null);
   const [format, setFormat] = useState<string | null>(null);
   const plan = usePlan();
 
@@ -157,11 +190,29 @@ export default function AgendaList({
 
   const dayList = useMemo(() => sessions.filter((s) => s.day === day), [sessions, day]);
 
-  const tracks = useMemo(() => {
+  /**
+   * The eligible vocabulary is decided across the whole festival, so a topic
+   * does not appear on one day and vanish on the next purely because that day
+   * happens to hold two of its sessions.
+   */
+  const topicVocab = useMemo(() => {
     const c = new Map<string, number>();
-    for (const s of dayList) if (s.track) c.set(s.track, (c.get(s.track) ?? 0) + 1);
+    for (const s of sessions) for (const t of s.topics ?? []) c.set(t, (c.get(t) ?? 0) + 1);
+    return new Set(
+      Array.from(c.entries())
+        .filter(([, n]) => n >= MIN_TOPIC_SESSIONS)
+        .map(([t]) => t),
+    );
+  }, [sessions]);
+
+  /** Counts are for the selected day, since this sits under the day tabs. */
+  const topicOptions = useMemo(() => {
+    const c = new Map<string, number>();
+    for (const s of dayList) for (const t of s.topics ?? []) if (topicVocab.has(t)) c.set(t, (c.get(t) ?? 0) + 1);
     return Array.from(c.entries()).sort((a, b) => b[1] - a[1]);
-  }, [dayList]);
+  }, [dayList, topicVocab]);
+
+  const dayTagged = useMemo(() => dayList.filter((s) => (s.topics ?? []).length > 0).length, [dayList]);
 
   const formats = useMemo(() => {
     const c = new Map<string, number>();
@@ -172,18 +223,19 @@ export default function AgendaList({
   const shown = useMemo(() => {
     const needle = q.trim().toLowerCase();
     return dayList.filter((s) => {
-      if (track && s.track !== track) return false;
+      if (topic && !(s.topics ?? []).includes(topic)) return false;
       if (format && s.format !== format) return false;
       if (!needle) return true;
-      return [s.title, s.hall, s.format, s.track, ...s.speakers]
+      // Track stays in the haystack: it is still worth searching, just not worth faceting.
+      return [s.title, s.hall, s.format, s.track, ...(s.topics ?? []), ...s.speakers]
         .filter(Boolean)
         .join(" ")
         .toLowerCase()
         .includes(needle);
     });
-  }, [dayList, q, track, format]);
+  }, [dayList, q, topic, format]);
 
-  const activeFilters = [track, format].filter(Boolean) as string[];
+  const activeFilters = [topic, format].filter(Boolean) as string[];
 
   return (
     <>
@@ -195,7 +247,7 @@ export default function AgendaList({
             data-on={day === d.day}
             onClick={() => {
               setDay(d.day);
-              setTrack(null);
+              setTopic(null);
               setFormat(null);
             }}
           >
@@ -220,17 +272,22 @@ export default function AgendaList({
           />
         </div>
 
-        {tracks.length > 0 && (
+        {topicOptions.length > 0 && (
           <div className="filterrow">
-            <span className="filterlabel">Track</span>
-            <button className="chip" data-on={track === null} onClick={() => setTrack(null)}>
-              All
-            </button>
-            {tracks.map(([t, n]) => (
-              <button key={t} className="chip" data-on={track === t} onClick={() => setTrack(track === t ? null : t)}>
-                {t} <span className="chip-n">{n}</span>
-              </button>
-            ))}
+            <span className="filterlabel">Topic</span>
+            <select
+              style={TOPIC_SELECT}
+              value={topic ?? ""}
+              onChange={(e) => setTopic(e.target.value || null)}
+              aria-label="Filter by topic"
+            >
+              <option value="">All</option>
+              {topicOptions.map(([t, n]) => (
+                <option key={t} value={t}>
+                  {t} ({n})
+                </option>
+              ))}
+            </select>
           </div>
         )}
 
@@ -250,17 +307,26 @@ export default function AgendaList({
       </div>
 
       <p className="coverage">
-        <strong>{shown.length}</strong> of {dayList.length} sessions on this day
+        <strong>{shown.length}</strong> of{" "}
+        {topic ? <>{dayTagged} topic-tagged</> : dayList.length} sessions on this day
         {activeFilters.length > 0 && (
           <>
             {" "}
             — filtered by {activeFilters.map((f) => <span key={f} className="term">{f}</span>)}
-            <button className="clearfilters" onClick={() => { setTrack(null); setFormat(null); }}>
+            <button className="clearfilters" onClick={() => { setTopic(null); setFormat(null); }}>
               clear
             </button>
           </>
         )}
-        . Invite-only sessions are shown but cannot be added to your plan.
+        .{" "}
+        {topic && (
+          <>
+            Only {dayTagged} of this day&apos;s {dayList.length} sessions carry topic tags at all, so a
+            topic filter can never reach the other {dayList.length - dayTagged} — they are untagged in the
+            published data, not uninteresting.{" "}
+          </>
+        )}
+        Invite-only sessions are shown but cannot be added to your plan.
       </p>
 
       {plan.status === "anon" && <SignInToPlan next="/agenda" />}

@@ -20,6 +20,7 @@ const slim: SlimSession[] = SESSIONS.map((s) => ({
   hall: s.hall,
   format: s.format,
   track: s.track,
+  topics: s.topics,
   closedDoor: s.isClosedDoor || s.accessType === "invite-only",
   speakers: speakersForSession(s).slice(0, 4).map((x) => x.name),
 }));
