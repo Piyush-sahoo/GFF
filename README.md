@@ -9,7 +9,8 @@ three-day plan out of it. Every record it recommends is a real published record 
 because the model was asked nicely, but because anything it returns that isn't in the
 published dataset is dropped before you ever see it.
 
-**Live: <https://gff-concierge.vercel.app>**
+**Live:** <https://gff-concierge.vercel.app>  
+**Demo video:** [Introducing GFF Concierge — your AI event planner](https://www.tella.tv/video/introducing-gff-concierge-your-ai-event-planner-eyob)
 
 ---
 
