@@ -1,0 +1,98 @@
+{
+  "outputFile": "/Users/piyuzz/.ao/data/worktrees/scratch/workers/scratch-5/corpus.jsonl",
+  "sourceSnapshot": {
+    "dir": "/Users/piyuzz/.ao/data/worktrees/scratch/workers/scratch-5/snapshot",
+    "recordCounts": {
+      "partners": 319,
+      "speakers": 487,
+      "sessions": 256
+    }
+  },
+  "droppedNonCompanyRecords": [
+    {
+      "slug": "fcc-logo",
+      "name": "FCC logo",
+      "note": "Logo placeholder in the GFF CMS altText field, not a partner organisation. Exclude from directory, counts and AI answers."
+    },
+    {
+      "slug": "npci-logo",
+      "name": "NPCI logo",
+      "note": "Logo placeholder in the GFF CMS altText field, not a partner organisation. Exclude from directory, counts and AI answers."
+    },
+    {
+      "slug": "pci-logo",
+      "name": "PCI logo",
+      "note": "Logo placeholder in the GFF CMS altText field, not a partner organisation. Exclude from directory, counts and AI answers."
+    }
+  ],
+  "totalChunks": 1059,
+  "byType": {
+    "partner": {
+      "records": 316,
+      "chunks": 316,
+      "text_poor": 25,
+      "split": 0
+    },
+    "speaker": {
+      "records": 487,
+      "chunks": 487,
+      "text_poor": 188,
+      "split": 0
+    },
+    "session": {
+      "records": 256,
+      "chunks": 256,
+      "text_poor": 25,
+      "split": 0
+    }
+  },
+  "rejectedPartnerDescriptions": [
+    {
+      "slug": "netwin",
+      "name": "Netwin",
+      "reason": "booth/stall location"
+    }
+  ],
+  "droppedNonProseFields": {
+    "speaker.bio": {
+      "unresolved-placeholder-token": 124,
+      "placeholder-value": 1,
+      "link-only-no-prose": 1
+    },
+    "session.description": {
+      "unresolved-placeholder-token": 5
+    }
+  },
+  "textPoorExamples": {
+    "partner": [
+      "AFN",
+      "Association of Mutual Funds in India",
+      "Bank of India",
+      "CIBE",
+      "Financial Technology Association",
+      "Fino Payments",
+      "FinStep Asia",
+      "FinTech Armenia"
+    ],
+    "speaker": [
+      "Dr. Anuradha Bhatia",
+      "Dr. Debadatta Chand",
+      "Dr. Innocent Matshe",
+      "Dr. Kisukyabo Simwaka",
+      "Dr. Kopal Vyas Dhage",
+      "Dr. Nigel Fulchan",
+      "Dr. Ruchi Chojer",
+      "Dr. Vijayakumar Bharathi S"
+    ],
+    "session": [
+      "A0349 MuleHunter Workshop",
+      "A1120 The Intelligent Financial System: How AI Will Redefine Banking",
+      "A0015 Tokenisation of Financial Assets",
+      "A0019 Exporting India's Digital Future: Fintech, AI and the Rise of Digital Services",
+      "A0926 Fundraising: A Science or an Art?",
+      "A1103 Banking Beyond Boundaries: Building the Future of Inclusive Finance",
+      "A0013 Emerging Tech in Finance - Promise, Prudence and Policy",
+      "A1057 Seeing the Unseen: Agentic Security & Observability"
+    ]
+  }
+}

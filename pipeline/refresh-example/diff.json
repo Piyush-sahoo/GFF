@@ -1,0 +1,26 @@
+[
+ {
+  "collection": "sessions",
+  "incoming": 254,
+  "existing": 256,
+  "added": [],
+  "disappeared": [],
+  "changed": []
+ },
+ {
+  "collection": "speakers",
+  "incoming": 487,
+  "existing": 487,
+  "added": [],
+  "disappeared": [],
+  "changed": []
+ },
+ {
+  "collection": "partners",
+  "incoming": 316,
+  "existing": 316,
+  "added": [],
+  "disappeared": [],
+  "changed": []
+ }
+]

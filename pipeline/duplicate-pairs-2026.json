@@ -1,0 +1,102 @@
+[
+ {
+  "scratch2": "Cockroach Labs",
+  "ours": "Cockroach labs",
+  "reason": "exact-dup"
+ },
+ {
+  "scratch2": "DevRev",
+  "ours": "Devrev",
+  "reason": "exact-dup"
+ },
+ {
+  "scratch2": "ElevenLabs",
+  "ours": "Eleven Labs",
+  "reason": "case/spacing only"
+ },
+ {
+  "scratch2": "Finarkein Analytics",
+  "ours": "Finarkein",
+  "reason": "one name is a prefix/superset of the other"
+ },
+ {
+  "scratch2": "HDFC Bank",
+  "ours": "HDFC",
+  "reason": "one name is a prefix/superset of the other"
+ },
+ {
+  "scratch2": "Hitachi Payment Services",
+  "ours": "Hitachi Payments",
+  "reason": "one name is a prefix/superset of the other"
+ },
+ {
+  "scratch2": "Intellect Design Arena",
+  "ours": "Intellect Design Arena Ltd",
+  "reason": "one name is a prefix/superset of the other"
+ },
+ {
+  "scratch2": "JCB International",
+  "ours": "JCB International Co. Ltd.",
+  "reason": "one name is a prefix/superset of the other"
+ },
+ {
+  "scratch2": "Jio Financial Services",
+  "ours": "Jio Financial Services Limited",
+  "reason": "one name is a prefix/superset of the other"
+ },
+ {
+  "scratch2": "Mindgate Solutions",
+  "ours": "Mindgate",
+  "reason": "one name is a prefix/superset of the other"
+ },
+ {
+  "scratch2": "Montran",
+  "ours": "Montran Corporation India",
+  "reason": "one name is a prefix/superset of the other"
+ },
+ {
+  "scratch2": "Navi Technologies",
+  "ours": "Navi Technologies Limited",
+  "reason": "one name is a prefix/superset of the other"
+ },
+ {
+  "scratch2": "NTT DATA",
+  "ours": "NTT Data (ADAPTIS)",
+  "reason": "one name is a prefix/superset of the other"
+ },
+ {
+  "scratch2": "OnFinance AI",
+  "ours": "OnFinance",
+  "reason": "one name is a prefix/superset of the other"
+ },
+ {
+  "scratch2": "Protean eGov Technologies",
+  "ours": "Protean eGov Technologies Limited",
+  "reason": "one name is a prefix/superset of the other"
+ },
+ {
+  "scratch2": "Red Hat",
+  "ours": "Redhat",
+  "reason": "case/spacing only"
+ },
+ {
+  "scratch2": "SafeGold",
+  "ours": "Safegold",
+  "reason": "exact-dup"
+ },
+ {
+  "scratch2": "ScoreMe Solutions",
+  "ours": "ScoreMe",
+  "reason": "one name is a prefix/superset of the other"
+ },
+ {
+  "scratch2": "TrackWizz",
+  "ours": "Trackwizz",
+  "reason": "exact-dup"
+ },
+ {
+  "scratch2": "TransUnion CIBIL",
+  "ours": "Transunion CIBIL",
+  "reason": "exact-dup"
+ }
+]

@@ -1,0 +1,9 @@
+{
+  "records": 1059,
+  "dim": 1536,
+  "model": "gemini-embedding-2",
+  "tokensThisRun": 141061,
+  "corpusSha": "08b337af841c3b91",
+  "vectorBytes": 1626624,
+  "manifestBytes": 90632
+}

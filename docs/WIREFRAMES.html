@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GFF 2026 Concierge — Wireframes</title>
+<style>
+:root{
+  --bg:#f6f6f4; --panel:#fff; --ink:#16181d; --dim:#6b7280; --line:#d3d5da;
+  --box:#eceef1; --box2:#e2e5ea; --accent:#1d4ed8; --accent-soft:#e6edff;
+  --warn:#b45309; --warn-soft:#fff4e0; --bad:#b91c1c; --bad-soft:#fdecec;
+  --ok:#15803d; --ok-soft:#e8f5ec; --new:#7c3aed; --new-soft:#f1e9ff;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#101215; --panel:#181b20; --ink:#e8eaed; --dim:#9aa1ab; --line:#2f343c;
+    --box:#22262c; --box2:#2b3038; --accent:#7ea2ff; --accent-soft:#1b2540;
+    --warn:#e2a03f; --warn-soft:#2e2312; --bad:#f28b82; --bad-soft:#2e1717;
+    --ok:#7ee0a0; --ok-soft:#13291c; --new:#c4a6ff; --new-soft:#241a3a;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.55 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;}
+.wrap{max-width:1180px;margin:0 auto;padding:32px 20px 90px}
+h1{font-size:31px;letter-spacing:-.02em;margin:0 0 6px}
+h2{font-size:23px;letter-spacing:-.01em;margin:0 0 4px}
+h3{font-size:16px;margin:0 0 10px}
+.sub{color:var(--dim);margin:0 0 26px;max-width:70ch}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 30px}
+.tag{font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em;
+  text-transform:uppercase;padding:5px 8px;border-radius:4px;white-space:nowrap}
+.t-new{background:var(--new-soft);color:var(--new)}
+.t-exist{background:var(--box2);color:var(--dim)}
+.t-ok{background:var(--ok-soft);color:var(--ok)}
+.t-warn{background:var(--warn-soft);color:var(--warn)}
+.t-bad{background:var(--bad-soft);color:var(--bad)}
+
+/* journey section */
+section.j{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:24px;margin:0 0 30px}
+.jhead{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:4px}
+.jnum{font:700 12px/1 ui-monospace,Menlo,monospace;background:var(--accent);color:#fff;
+  padding:6px 9px;border-radius:5px}
+.goal{background:var(--accent-soft);border-left:3px solid var(--accent);padding:10px 14px;
+  border-radius:0 6px 6px 0;margin:12px 0 20px;font-style:italic}
+
+/* flow strip */
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:0 0 24px;overflow-x:auto;padding-bottom:4px}
+.step{flex:1 1 150px;min-width:140px;background:var(--box);border:1px solid var(--line);
+  border-radius:8px;padding:11px 12px}
+.step .n{font:700 10px/1 ui-monospace,Menlo,monospace;color:var(--dim);letter-spacing:.05em}
+.step .r{font:600 12.5px/1.35 ui-monospace,Menlo,monospace;margin:5px 0 4px;word-break:break-all}
+.step .d{font-size:12px;color:var(--dim);line-height:1.4}
+.arrow{display:flex;align-items:center;padding:0 7px;color:var(--dim);font-size:18px;flex:0 0 auto}
+
+/* wireframe canvas */
+.wf{border:2px solid var(--line);border-radius:10px;background:var(--panel);
+  overflow:hidden;margin:0 0 8px}
+.wf-bar{display:flex;align-items:center;gap:8px;background:var(--box2);
+  border-bottom:1px solid var(--line);padding:7px 12px;
+  font:600 12px/1 ui-monospace,Menlo,monospace;color:var(--dim)}
+.dots{display:flex;gap:4px}.dots i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
+.wf-body{padding:16px}
+.wfgrid{display:grid;gap:14px}
+.two{grid-template-columns:1fr 1fr}
+.side{grid-template-columns:2fr 1fr}
+@media(max-width:760px){.two,.side{grid-template-columns:1fr}}
+
+/* generic wireframe primitives */
+.blk{background:var(--box);border:1px dashed var(--line);border-radius:6px;padding:10px 12px}
+.blk.solid{border-style:solid}
+.ln{height:9px;background:var(--box2);border-radius:3px;margin:6px 0}
+.ln.w90{width:90%}.ln.w70{width:70%}.ln.w50{width:50%}.ln.w35{width:35%}
+.sq{background:var(--box2);border:1px dashed var(--line);border-radius:6px;
+  display:flex;align-items:center;justify-content:center;color:var(--dim);
+  font:600 11px/1 ui-monospace,Menlo,monospace;text-align:center;padding:4px}
+.h-lg{font:700 19px/1.2 ui-sans-serif;margin:0 0 4px}
+.h-md{font:600 14px/1.3 ui-sans-serif;margin:0 0 3px}
+.meta{font:11.5px/1.4 ui-monospace,Menlo,monospace;color:var(--dim)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.chip{font:600 11px/1 ui-sans-serif;padding:5px 9px;border-radius:99px;
+  background:var(--box2);border:1px solid var(--line);color:var(--dim)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn{display:inline-block;font:600 12px/1 ui-sans-serif;padding:8px 13px;border-radius:6px;
+  background:var(--accent);color:#fff}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--dim)}
+.btn.dead{background:var(--box2);color:var(--dim);text-decoration:line-through}
+
+/* annotation callout */
+.note{border-left:3px solid var(--line);padding:3px 0 3px 11px;margin:9px 0;
+  font-size:12.5px;color:var(--dim)}
+.note b{color:var(--ink);font-weight:600}
+.note.warn{border-color:var(--warn)}
+.note.bad{border-color:var(--bad)}
+.note.ok{border-color:var(--ok)}
+.note.new{border-color:var(--new)}
+.pin{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;
+  border-radius:50%;background:var(--accent);color:#fff;
+  font:700 10px/1 ui-monospace,Menlo,monospace;margin-right:6px;flex:0 0 auto;
+  vertical-align:1px}
+.pin.w{background:var(--warn)}.pin.b{background:var(--bad)}.pin.g{background:var(--ok)}
+
+/* empty state box */
+.empty{background:var(--bad-soft);border:1px dashed var(--bad);border-radius:6px;
+  padding:10px 12px;color:var(--bad);font-size:12.5px}
+.empty b{display:block;margin-bottom:2px}
+.absent{background:repeating-linear-gradient(45deg,transparent,transparent 6px,var(--box) 6px,var(--box) 12px);
+  border:1px dashed var(--line);border-radius:6px;padding:9px 12px;
+  font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--dim);text-align:center}
+
+/* time grid mock */
+.grid-mock{display:grid;grid-template-columns:52px repeat(5,1fr);gap:3px;font-size:10px}
+.gh{background:var(--box2);border-radius:4px;padding:5px 3px;text-align:center;
+  font:600 10px/1.2 ui-monospace,Menlo,monospace;color:var(--dim)}
+.gt{font:10px/1 ui-monospace,Menlo,monospace;color:var(--dim);padding:4px 2px;text-align:right}
+.gs{background:var(--accent-soft);border:1px solid var(--accent);border-radius:4px;
+  padding:4px 5px;font:600 10px/1.25 ui-sans-serif;color:var(--accent);overflow:hidden}
+.gs.inv{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+.gs.gap{background:transparent;border:none}
+
+/* pipeline */
+.pipe{display:flex;flex-direction:column;gap:0;margin:14px 0}
+.pstep{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--box)}
+.pstep.det{border-left:4px solid var(--ok)}
+.pstep.llm{border-left:4px solid var(--warn)}
+.pstep .pt{font:700 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--dim);margin-bottom:5px}
+.pdown{text-align:center;color:var(--dim);font-size:17px;line-height:1;padding:5px 0}
+
+table{width:100%;border-collapse:collapse;font-size:12.5px;margin:10px 0}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 11px/1 ui-monospace,Menlo,monospace;text-transform:uppercase;
+  letter-spacing:.04em;color:var(--dim)}
+td.num{text-align:right;font-family:ui-monospace,Menlo,monospace;white-space:nowrap}
+code{font:12.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--box2);
+  padding:2px 5px;border-radius:3px}
+.scroll{overflow-x:auto}
+.dec{background:var(--warn-soft);border:1px solid var(--warn);border-radius:8px;
+  padding:14px 16px;margin:0 0 12px}
+.dec h3{color:var(--warn);margin-bottom:5px}
+hr{border:none;border-top:1px solid var(--line);margin:34px 0}
+.foot{color:var(--dim);font-size:12.5px;margin-top:34px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>GFF 2026 Concierge — wireframes</h1>
+<p class="sub">The same five journeys as <code>docs/JOURNEYS.md</code>, drawn instead of described.
+Each journey shows the <b>path between screens</b> first, then the screens themselves.
+Grey blocks are content; every callout is a real measured number from the committed 2026 data.</p>
+
+<div class="legend">
+  <span class="tag t-new">purple = new route</span>
+  <span class="tag t-exist">grey = already exists</span>
+  <span class="tag t-ok">green = safe / fully covered</span>
+  <span class="tag t-warn">amber = partial coverage, needs an empty state</span>
+  <span class="tag t-bad">red = the block disappears entirely</span>
+</div>
+
+<!-- ============ JOURNEY 1 ============ -->
+<section class="j">
+  <div class="jhead"><span class="jnum">JOURNEY 1</span><h2>Exhibitor depth</h2></div>
+  <div class="goal">"I saw this company in the directory. Who are they, what do they do,
+  and is anyone from them speaking?"</div>
+
+  <h3>The path</h3>
+  <div class="flow">
+    <div class="step"><div class="n">TODAY — DEAD END</div><div class="r">/exhibitors</div>
+      <div class="d">316 cards. Tapping one does nothing. There is no detail page.</div></div>
+    <div class="arrow">→</div>
+    <div class="step" style="border-color:var(--new)"><div class="n">NEW</div><div class="r">/exhibitors/[slug]</div>
+      <div class="d">316 pages. Who they are, sector, use cases, their speakers.</div></div>
+    <div class="arrow">→</div>
+    <div class="step" style="border-color:var(--new)"><div class="n">NEW</div><div class="r">/exhibitors/sector/[s]</div>
+      <div class="d">24 real sectors from <code>rag/sectors</code>.</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="n">EXISTS</div><div class="r">/speakers/[slug]</div>
+      <div class="d">Only reachable for 81 of 316 partners — see Journey 4.</div></div>
+  </div>
+
+  <h3>Screen: <code>/exhibitors/[slug]</code> — the new partner page</h3>
+  <div class="wf">
+    <div class="wf-bar"><span class="dots"><i></i><i></i><i></i></span>
+      gff-concierge.app/exhibitors/razorpay</div>
+    <div class="wf-body">
+      <div class="wfgrid side">
+        <div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div class="sq" style="width:88px;height:88px;flex:0 0 88px">LOGO<br>316/316</div>
+            <div style="flex:1">
+              <div class="h-lg">Partner name</div>
+              <div class="chips">
+                <span class="chip on">Gold Partner</span>
+                <span class="chip">Payments</span>
+                <span class="chip">upi · payment-gateway</span>
+              </div>
+              <div class="meta">tier 316/316 · sector 283/316 · sub-sectors from rag/sectors</div>
+            </div>
+          </div>
+
+          <div class="blk" style="margin-top:14px">
+            <div class="h-md">What they do</div>
+            <div class="ln w90"></div><div class="ln"></div><div class="ln w70"></div>
+          </div>
+
+          <div class="blk" style="margin-top:12px">
+            <div class="h-md">Use cases</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px">
+              <span class="chip">use case</span><span class="chip">use case</span><span class="chip">use case</span>
+            </div>
+          </div>
+
+          <div class="blk" style="margin-top:12px">
+            <div class="h-md">People from this organisation speaking at GFF 2026</div>
+            <div style="display:flex;gap:10px;margin-top:8px">
+              <div class="sq" style="width:44px;height:44px">FACE</div>
+              <div class="sq" style="width:44px;height:44px">FACE</div>
+              <div style="flex:1"><div class="ln w50"></div><div class="ln w35"></div></div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px"><span class="btn">Website ↗</span></div>
+
+          <div class="absent" style="margin-top:16px">
+            ✕ no booth · ✕ no stall · ✕ no hall · ✕ no map · ✕ no "find them at"<br>
+            this region of the page does not exist and must never be added
+          </div>
+        </div>
+
+        <div>
+          <div class="note"><span class="pin">1</span><b>Sector</b> comes from
+            <code>rag/sectors/sectors-2026.json</code>, not <code>partner.category</code>.
+            The stored category is <b>195/316 = 61.7% "other"</b> — useless as a facet.
+            The real taxonomy classifies <b>283/316 (89.6%)</b> into 24 sectors.
+            Joins on exact <code>name</code>, verified <b>316/316</b>.</div>
+
+          <div class="note warn"><span class="pin w">2</span><b>Description — 291/316.</b>
+            25 partners have none → show <i>"Description not yet available."</i>
+            Never generate one.</div>
+
+          <div class="note bad"><span class="pin b">3</span><b>Use cases — 208/316.</b>
+            <b>108 partners have none.</b> The whole block is removed — no empty heading,
+            no placeholder chips.</div>
+
+          <div class="note bad"><span class="pin b">4</span><b>Speakers — only 81 of 316
+            partners</b> have a speaker whose org resolves to them. For the other 235 this
+            block does not render. See Journey 4 for why.</div>
+
+          <div class="note warn"><span class="pin w">5</span><b>Website — 292/316.</b>
+            24 partners show plain text <i>"No website listed"</i>, not a dead button.</div>
+
+          <div class="note ok"><span class="pin g">6</span><b>Logo — 316/316.</b>
+            The only field with perfect coverage. It is what carries the page visually.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Sponsor tiers — why not one page per tier</h3>
+  <div class="wfgrid two">
+    <div class="wf"><div class="wf-bar">/exhibitors/tier</div><div class="wf-body">
+      <div class="h-md">Headline tiers</div>
+      <div class="chips">
+        <span class="chip">Diamond 3</span><span class="chip">Platinum 2</span>
+        <span class="chip">Gold 24</span><span class="chip">Silver 23</span>
+        <span class="chip">Bronze 36</span><span class="chip">Exhibitor 165</span>
+        <span class="chip">Ecosystem 12</span><span class="chip">Supporter 7</span>
+        <span class="chip">Brought To You By 5</span>
+      </div>
+      <div class="h-md" style="margin-top:14px">Named partnerships</div>
+      <div class="ln w90"></div><div class="ln w70"></div><div class="ln w50"></div>
+      <div class="meta" style="margin-top:6px">11 tiers with 1–2 members — listed as rows, not pages</div>
+    </div></div>
+    <div>
+      <div class="note"><b>20 distinct tier strings exist.</b> Ten have exactly one member.
+      A page per tier would produce ten single-card pages — worse than a row in a list.</div>
+      <div class="note bad"><b>Decision D1.</b> One tier is literally called
+      <code>"Beer Booth Partner"</code>. It is a sponsorship name, not a location, and the
+      booth regex does not strip it (it needs a digit) — so it already renders as a filter
+      chip today. But minting <code>/exhibitors/tier/beer-booth-partner</code> puts the word
+      <i>booth</i> in a URL on a site whose whole policy is that booths do not exist here.
+      <b>Recommendation: no URL for it.</b> It falls in the list-row group anyway.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JOURNEY 2 ============ -->
+<section class="j">
+  <div class="jhead"><span class="jnum">JOURNEY 2</span><h2>At-the-fest navigation</h2></div>
+  <div class="goal">"It's 14:20 on day two. What's on right now, what starts next, and what's
+  in the hall I'm standing outside?"</div>
+
+  <p class="note ok" style="border-left-width:3px"><b>This is the journey the data supports best.</b>
+  <code>day</code>, <code>startTime</code>, <code>endTime</code> and <code>hall</code> are
+  <b>100% populated on all 256 sessions</b>. Nothing on these screens is inferred.</p>
+
+  <h3>The path</h3>
+  <div class="flow">
+    <div class="step" style="border-color:var(--new)"><div class="n">NEW · PHONE</div><div class="r">/now</div>
+      <div class="d">Live now + starting next + your saved sessions.</div></div>
+    <div class="arrow">→</div>
+    <div class="step" style="border-color:var(--new)"><div class="n">NEW · DESKTOP</div><div class="r">/agenda/grid</div>
+      <div class="d">Time × hall grid for one day.</div></div>
+    <div class="arrow">→</div>
+    <div class="step" style="border-color:var(--new)"><div class="n">NEW</div><div class="r">/halls/[hall]</div>
+      <div class="d">17 halls, full three-day run.</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="n">EXISTS</div><div class="r">/agenda/[code]</div>
+      <div class="d">Session detail → save to plan.</div></div>
+  </div>
+
+  <div class="wfgrid side">
+    <div>
+      <h3>Screen: <code>/now</code> (phone)</h3>
+      <div class="wf" style="max-width:340px">
+        <div class="wf-bar"><span class="dots"><i></i><i></i><i></i></span> /now</div>
+        <div class="wf-body">
+          <div class="meta">Thu 10 Sep · 14:20 IST</div>
+
+          <div class="h-md" style="margin-top:12px">● Live now</div>
+          <div class="blk solid" style="border-color:var(--ok)">
+            <div class="h-md">Session title</div>
+            <div class="meta">14:00–14:40 · Lotus 1 · Panel Discussion</div>
+            <div class="ln w70"></div>
+          </div>
+
+          <div class="h-md" style="margin-top:14px">Starting next — 14:40</div>
+          <div class="blk"><div class="h-md">Session title</div>
+            <div class="meta">14:40–15:20 · Hall 204 A&amp;B</div></div>
+          <div class="blk" style="margin-top:8px;border-color:var(--warn)">
+            <div class="h-md">Session title <span class="chip" style="background:var(--warn-soft);color:var(--warn);border-color:var(--warn)">Invite only</span></div>
+            <div class="meta">14:40–15:40 · Hall 102</div>
+            <span class="btn dead">Save</span>
+          </div>
+
+          <div class="h-md" style="margin-top:14px">Your plan, next up</div>
+          <div class="blk"><div class="ln w90"></div><div class="ln w50"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="note bad"><span class="pin b">1</span><b>The clock is the one real risk.</b>
+        The site is <code>force-static</code> and CDN-served, so a server-rendered "now" is
+        frozen at build time. <b>All time logic runs client-side after mount</b> — exactly as
+        <code>AgendaList</code> already does for its <code>?day=</code> deep link.</div>
+
+      <div class="note warn"><span class="pin w">2</span><b>Pin to IST (UTC+05:30)</b>, not the
+        device zone — an attendee's phone on a foreign carrier would otherwise show an empty
+        festival. <b>Decision D5.</b></div>
+
+      <div class="note warn"><span class="pin w">3</span><b>Outside 9–11 Sep</b> the page shows a
+        countdown and day one's opening, and says the festival isn't running. It never pretends
+        something is live.</div>
+
+      <div class="note"><span class="pin">4</span><b>Invite-only rows are shown, badged, and
+        unsaveable</b> — <code>isBookmarkable()</code> already returns false. They never appear
+        framed as a suggestion.</div>
+
+      <div class="note"><span class="pin">5</span>Before mount: a skeleton, never
+        "nothing is on".</div>
+    </div>
+  </div>
+
+  <h3>Screen: <code>/agenda/grid</code> — time × hall</h3>
+  <div class="wf">
+    <div class="wf-bar">/agenda/grid?day=2026-09-10</div>
+    <div class="wf-body">
+      <div class="chips"><span class="chip">Wed 9 · 92</span><span class="chip on">Thu 10 · 93</span>
+        <span class="chip">Fri 11 · 71</span><span class="chip">Hide invite-only</span>
+        <span class="chip">Format ▾</span></div>
+      <div class="scroll"><div class="grid-mock" style="min-width:560px;margin-top:10px">
+        <div class="gt"></div>
+        <div class="gh">Lotus 1</div><div class="gh">Lotus 2</div><div class="gh">Jasmine 3</div>
+        <div class="gh">Hall 204</div><div class="gh">Hall 102</div>
+
+        <div class="gt">10:00</div>
+        <div class="gs" style="grid-row:span 2">Session · 40min</div>
+        <div class="gs">Session</div><div class="gs gap"></div>
+        <div class="gs" style="grid-row:span 2">Session</div><div class="gs inv">Invite only</div>
+
+        <div class="gt">10:30</div>
+        <div class="gs gap"></div><div class="gs">Session</div>
+        <div class="gs" style="grid-row:span 2">Session</div><div class="gs gap"></div><div class="gs gap"></div>
+
+        <div class="gt">11:00</div>
+        <div class="gs">Session</div><div class="gs gap"></div><div class="gs gap"></div>
+        <div class="gs">Session</div><div class="gs inv">Invite only</div>
+      </div></div>
+      <div class="meta" style="margin-top:10px">columns = halls active that day (15 / 16 / 14) · empty cells stay empty and unlabelled</div>
+    </div>
+  </div>
+  <div class="wfgrid two">
+    <div>
+      <div class="note ok"><b>The grid is computable exactly.</b> All 64 distinct start times land
+      on 5-minute boundaries; 08:00–22:00. Position blocks by <b>absolute minute offset</b> in a
+      CSS grid, not by row snapping, so a 40-minute session (167 of 256) is exactly 40 minutes tall.</div>
+      <div class="note"><b>Densest column is 10 sessions</b> (Lotus 1, day 1) — nothing overflows.</div>
+    </div>
+    <div>
+      <div class="note bad"><b>Kill the track filter here.</b> <code>session.track</code> has
+      <b>86 nulls</b>, and the 170 populated values contain <b>169 distinct strings</b> — one is
+      literally <code>"Capital Markets, Algorithmic Trading,, Market Integrity"</code> (double comma).
+      <code>AgendaList</code> renders 169 chips off this today. Facets here: day, format
+      (12 values, 100% covered), hall, hide-invite-only.</div>
+      <div class="note warn"><b>Mobile falls back to the existing list.</b> A 16-column
+      horizontally-scrolling grid is not a phone experience — <code>/now</code> is.</div>
+    </div>
+  </div>
+
+  <h3>Screen: <code>/halls/[hall]</code></h3>
+  <div class="wfgrid side">
+    <div class="wf"><div class="wf-bar">/halls/hall-104-a-b</div><div class="wf-body">
+      <div class="h-lg">Hall 104 A&amp;B</div>
+      <div class="empty"><b>All 4 sessions in this hall are invite-only.</b>
+        This page leads with that, rather than reading as four sessions you can attend.</div>
+      <div class="blk" style="margin-top:10px"><div class="meta">Wed 9 Sep</div>
+        <div class="ln w90"></div><div class="ln w70"></div></div>
+      <div class="blk" style="margin-top:8px"><div class="meta">Thu 10 Sep</div>
+        <div class="ln w50"></div></div>
+      <div class="blk" style="margin-top:8px"><div class="meta">Fri 11 Sep — no sessions in this hall</div></div>
+    </div></div>
+    <div>
+      <div class="note warn"><b>Invite-only clusters by hall:</b> Hall 102 7/10 · Hall 206 A&amp;B 6/16 ·
+        Hall 103 6/14 · <b>Hall 104 A&amp;B 4/4 = 100%</b>. Lead with it where it dominates.</div>
+      <div class="note warn"><b>Two "halls" are restaurants.</b> Indian Accent (1 session) and
+        Taftoon (1) each host a single Networking Dinner. Real pages, but grouped under
+        "Other venues" — not shown as equals in a hall grid.</div>
+      <div class="note"><b>Name strings verbatim:</b> it is <code>"The Grand Theatre"</code>,
+        not "Grand Theatre".</div>
+      <div class="note bad"><b>Hard boundary.</b> A hall page carries no partner list, no
+        "exhibitors near this hall". <code>/halls/*</code> and <code>/exhibitors/*</code> must not
+        share any component that renders a location line. This is the likeliest accidental
+        breach of the no-floor-plan rule in the whole plan.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JOURNEY 3 ============ -->
+<section class="j">
+  <div class="jhead"><span class="jnum">JOURNEY 3</span><h2>Topic &amp; discovery hubs</h2></div>
+  <div class="goal">"I care about cross-border payments. Show me everything at GFF about it."</div>
+
+  <div class="wfgrid side">
+    <div>
+      <h3>Screen: <code>/topics/[topic]</code> — three rails</h3>
+      <div class="wf"><div class="wf-bar">/topics/cross-border-payments</div><div class="wf-body">
+        <div class="h-lg">Cross-Border Payments</div>
+        <div class="meta">7 sessions</div>
+
+        <div class="h-md" style="margin-top:14px">Sessions</div>
+        <div class="blk"><div class="ln w90"></div><div class="ln w50"></div></div>
+        <div class="blk" style="margin-top:6px;border-color:var(--warn)">
+          <div class="ln w70"></div><span class="chip" style="background:var(--warn-soft);color:var(--warn);border-color:var(--warn)">Invite only</span></div>
+
+        <div class="h-md" style="margin-top:14px">Speakers</div>
+        <div style="display:flex;gap:8px">
+          <div class="sq" style="width:46px;height:46px">FACE</div>
+          <div class="sq" style="width:46px;height:46px">FACE</div>
+          <div class="sq" style="width:46px;height:46px">FACE</div>
+        </div>
+
+        <div class="h-md" style="margin-top:14px">Partners — matched, not tagged</div>
+        <div class="blk"><div class="ln w70"></div>
+          <div class="meta">matched "cross-border", "payments" in their use cases</div></div>
+        <div class="meta" style="margin-top:8px">Matched from partner descriptions and use cases.
+          108 of 316 partners publish no use cases and cannot be matched this way.</div>
+      </div></div>
+    </div>
+
+    <div>
+      <div class="note bad"><b>The finding the brief did not have.</b> Topics are clean at the head
+        and very thin in the tail:
+        <table style="margin-top:8px">
+          <tr><td>distinct topic strings</td><td class="num">346</td></tr>
+          <tr><td>appear on exactly 1 session</td><td class="num"><b>270</b></td></tr>
+          <tr><td>appear on ≥2 sessions</td><td class="num">76</td></tr>
+          <tr><td>appear on ≥3 sessions</td><td class="num">23</td></tr>
+          <tr><td>sessions with no topic at all</td><td class="num"><b>86</b></td></tr>
+        </table>
+        A page per topic gives <b>270 pages containing one row</b>. Case-folding changes nothing
+        (346 either way).</div>
+
+      <div class="note warn"><b>Spec: generate only the 76 topics with ≥2 sessions.</b>
+        The other 270 stay as plain unlinked text on the session page. Never link to a page that
+        would read as broken. <b>Decision D4.</b></div>
+
+      <div class="note bad"><b>The index must disclose its own gap:</b> "86 of 256 sessions carry no
+        topic tag and are not reachable from this page." The same 86 sessions that have no track —
+        they are invisible to every facet the app has.</div>
+
+      <div class="note"><b>There is no topic field on partners.</b> The partner rail is <i>derived</i>
+        by running the topic through the existing grounded matcher, showing the literal matched terms.
+        It says "matched these words", never "works in this topic". If it yields nothing, the rail is
+        removed — not captioned "no partners", which would read as a claim about GFF rather than
+        about our data.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JOURNEY 4 ============ -->
+<section class="j">
+  <div class="jhead"><span class="jnum">JOURNEY 4</span><h2>Networking cross-links</h2></div>
+  <div class="goal">"This speaker was good. Who are they, where do they work, what else are they
+  on, and can I save it?"</div>
+
+  <h3>The chain — and where it breaks</h3>
+  <div class="flow">
+    <div class="step"><div class="n">EXISTS</div><div class="r">/speakers/[slug]</div>
+      <div class="d">487 speakers, all with a headshot and an org.</div></div>
+    <div class="arrow">→</div>
+    <div class="step" style="border-color:var(--bad)"><div class="n">BREAKS HERE</div><div class="r">org → partner</div>
+      <div class="d"><b>only 130 of 487</b> speakers have an org that is a partner</div></div>
+    <div class="arrow">→</div>
+    <div class="step" style="border-color:var(--new)"><div class="n">NEW</div><div class="r">/exhibitors/[slug]</div>
+      <div class="d">…so this link exists on 26.7% of speaker pages.</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="n">EXISTS</div><div class="r">/my-plan</div>
+      <div class="d">Save the session.</div></div>
+  </div>
+
+  <div class="wfgrid side">
+    <div class="wf"><div class="wf-bar">/speakers/some-speaker</div><div class="wf-body">
+      <div style="display:flex;gap:14px">
+        <div class="sq" style="width:84px;height:84px;flex:0 0 84px">HEADSHOT<br>487/487</div>
+        <div style="flex:1">
+          <div class="h-lg">Speaker name</div>
+          <div class="h-md">Role, title</div>
+          <div class="meta">Organisation — <span style="color:var(--accent)">linked only if it is a partner</span></div>
+          <div style="margin-top:8px">
+            <span class="btn ghost">in LinkedIn</span>
+            <span class="meta"> ← secondary, 199/487 only</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="blk" style="margin-top:14px">
+        <div class="h-md">Bio</div><div class="ln w90"></div><div class="ln w70"></div>
+      </div>
+
+      <div class="h-md" style="margin-top:14px">Sessions</div>
+      <div class="empty"><b>No session listed for this speaker in the published 2026 agenda.</b>
+        Shown on <b>142 of 487</b> speaker pages. Stated plainly, not hidden.</div>
+    </div></div>
+
+    <div>
+      <div class="note bad"><span class="pin b">1</span><b>The org→partner join, measured.</b>
+        <table style="margin-top:6px">
+          <tr><td>speakers</td><td class="num">487</td></tr>
+          <tr><td>with an org</td><td class="num">487 (100%)</td></tr>
+          <tr><td>org matches a partner <b>exactly</b></td><td class="num">104</td></tr>
+          <tr><td>after normalisation<sup>*</sup></td><td class="num"><b>130 (26.7%)</b></td></tr>
+          <tr><td>distinct orgs / partners covered</td><td class="num">81 of 384 / 81 of 316</td></tr>
+        </table>
+        <sup>*</sup>case, punctuation, and dropping Pvt/Ltd/Limited/Inc/LLP/Technologies/India.
+        <b>357 speakers (73.3%) work somewhere that is not an exhibitor</b> — RBI, NPCI, academics,
+        foreign regulators. That is not a data defect; those orgs simply aren't partners.</div>
+
+      <div class="note"><span class="pin">2</span><b>So: link only when it resolves.</b> Plain text
+        otherwise. No "search for this org" fallback that lands on an empty page.
+        No substring matching — it produces false joins like "Bank of X" → "X".</div>
+
+      <div class="note bad"><span class="pin b">3</span><b>LinkedIn is 199/487 = 40.9%.</b>
+        As a primary CTA it would be a missing button on 288 of 487 pages, which makes every one of
+        them look broken. Demote to a small secondary link.</div>
+
+      <div class="note warn"><span class="pin w">4</span><b>Bio 425/487</b> — 62 pages omit the block
+        entirely. The page still has name, role, org, sessions.</div>
+
+      <div class="note ok"><span class="pin g">5</span><b>The session join is solid.</b> All 345
+        speakers with <code>sessionCodes</code> resolve to a real session — zero dangling codes.
+        The gap is the 142 who have no codes at all.</div>
+
+      <div class="note"><span class="pin">6</span>On the partner side the wording is exact:
+        <b>"People from {org} speaking at GFF 2026"</b> — an attribution about individuals, never
+        a claim that the partner runs the session. <b>There is no partner→session field in the
+        data at all.</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JOURNEY 5 ============ -->
+<section class="j">
+  <div class="jhead"><span class="jnum">JOURNEY 5</span><h2>The login-gated planning agent</h2>
+    <span class="tag t-new">the one you said is essential</span></div>
+  <div class="goal">"I'm a Series-A lending founder looking for a bank partner and a credit-risk
+  vendor. Three days, 256 sessions — tell me who to meet and what to attend, and let me keep it."</div>
+
+  <h3>How the agent layers on the matcher that already exists</h3>
+  <p class="note"><code>app/lib/match.ts</code> is already a <b>deterministic grounded matcher</b>.
+  It calls no model. Every reason it returns is built only from terms that literally occur in
+  <i>both</i> the objective and the record. Its own header says the point: <i>"there is no path by
+  which a rationale can be invented — the honesty rule is enforced by construction rather than by
+  instruction."</i> <b>An LLM that re-ranks or re-explains those results throws that away.</b>
+  So the model never retrieves — it only phrases a set that is already fixed and already grounded.</p>
+
+  <div class="pipe">
+    <div class="pstep det"><div class="pt">✓ deterministic — no model</div>
+      <b>objective</b> — <code>profile.lookingFor</code> + <code>interests[]</code></div>
+    <div class="pdown">↓</div>
+    <div class="pstep det"><div class="pt">✓ deterministic — no model</div>
+      <b>match() + retrieve()</b> → candidate set, each item carrying
+      <code>{id, record, why.terms[], why.fields[]}</code>. Invite-only already excluded here.</div>
+    <div class="pdown">↓</div>
+    <div class="pstep det"><div class="pt">✓ deterministic — no model</div>
+      <b>scheduler</b> — drop invite-only (asserted again), resolve time clashes via
+      <code>overlaps()</code>, cap ~3–4 sessions/day, spread across days</div>
+    <div class="pdown">↓ <span class="meta">— the plan is already complete and shippable at this point —</span></div>
+    <div class="pstep llm"><div class="pt">⚠ the only model call — optional, removable</div>
+      <b>narrator</b> — sees <i>only</i> the scheduled items and their <code>why.terms</code>.
+      May reorder and write an outreach note. <b>May not introduce an entity, a fact, or a reason.</b></div>
+    <div class="pdown">↓</div>
+    <div class="pstep det"><div class="pt">✓ deterministic — mandatory gate</div>
+      <b>validator</b> — drops any entity id not in the candidate set · drops any quoted term not in
+      that item's <code>why.terms</code> · runs the booth/hall regex over all prose ·
+      <b>on any failure, ships the deterministic plan unchanged</b></div>
+  </div>
+  <p class="note ok"><b>The degraded path is the grounded path.</b> That is what makes this safe to
+  ship — and it mirrors how <code>/api/chat</code> already returns 503 rather than guessing when
+  <code>GEMINI_API_KEY</code> is missing.</p>
+
+  <h3>Screen: <code>/plan</code></h3>
+  <div class="wfgrid side">
+    <div class="wf"><div class="wf-bar">/plan — signed in</div><div class="wf-body">
+      <div class="blk solid"><div class="h-md">Your objective</div>
+        <div class="ln w90"></div><div class="meta">from your profile · editable inline</div></div>
+
+      <div class="h-md" style="margin-top:14px">Who to meet</div>
+      <div class="blk"><div style="display:flex;gap:10px">
+        <div class="sq" style="width:40px;height:40px">FACE</div>
+        <div style="flex:1"><div class="ln w70"></div>
+          <div class="meta">Matched "lending", "credit" in their role, organisation.</div></div></div></div>
+
+      <div class="h-md" style="margin-top:14px">Organisations to visit</div>
+      <div class="blk"><div style="display:flex;gap:10px">
+        <div class="sq" style="width:40px;height:40px">LOGO</div>
+        <div style="flex:1"><div class="ln w50"></div>
+          <div class="meta">Lending &amp; Credit · matched "credit", "risk" in use cases</div>
+          <span class="btn ghost" style="margin-top:6px">Website ↗</span></div></div>
+        <div class="absent" style="margin-top:8px">no booth · no hall · no location · no "find them at"</div></div>
+
+      <div class="h-md" style="margin-top:14px">What to attend</div>
+      <div class="blk"><div class="meta">Wed 9 Sep</div>
+        <div class="ln w90"></div><div class="ln w70"></div>
+        <div class="meta">10:00–10:40 · Lotus 1 — clash-free</div></div>
+
+      <div class="meta" style="margin-top:12px">Built from 316 partners, 487 speakers, 222 public
+        sessions. Could not see: 108 partners without use cases, 25 without descriptions,
+        62 speakers without bios, 20 sessions without descriptions. 34 invite-only excluded.</div>
+    </div></div>
+
+    <div>
+      <div class="note bad"><b>The empty state that matters most.</b> If nothing clears
+        <code>MIN_SCORE</code>: <i>"Nothing at GFF 2026 matched what you described closely enough to
+        recommend"</i> + the terms we searched, so the user can rephrase.
+        <b>Never</b> fall back to "here are some popular sessions" — an ungrounded recommendation is
+        precisely what the matcher was built to prevent.</div>
+
+      <div class="note warn"><b>Login is not a security boundary.</b>
+        <code>app/lib/session.ts</code> is an unverified <code>gff_email</code> cookie that
+        "identifies a browser, not a person". Never gate anything sensitive on it, never label a plan
+        verified.</div>
+
+      <div class="note"><b>It already half-exists.</b> <code>/api/profile</code> GET today
+        concatenates <code>lookingFor</code> + <code>interests</code> and runs
+        <code>match(objective, 5)</code>. This journey extends a live code path, not a new one.</div>
+
+      <div class="note warn"><b>Surface degradation.</b> When the dense retriever is down,
+        <code>/api/match</code> already reports <code>degraded</code> — say so rather than quietly
+        serving a weaker plan as the full one.</div>
+
+      <div class="note bad"><b>Invite-only never appears.</b> Asserted twice (matcher + scheduler)
+        and dropped a third time by the validator. If one ever reaches the response, that is a bug
+        and a test should fail.</div>
+    </div>
+  </div>
+
+  <h3>The persistence problem — and the fix</h3>
+  <div class="wfgrid two">
+    <div>
+      <div class="wf"><div class="wf-bar">today — these two contradict each other</div><div class="wf-body">
+        <table>
+          <tr><th></th><th>where</th><th>survives</th></tr>
+          <tr><td><b>My Plan</b></td><td><code>localStorage</code><br><code>gff.bookmarks.v1</code></td><td>this browser only</td></tr>
+          <tr><td><b>Profile</b></td><td>Atlas <code>profiles</code></td><td>anywhere</td></tr>
+        </table>
+        <div class="empty" style="margin-top:8px"><b>MyPlan tells the user, correctly:</b>
+          "saved sessions live in this browser only — no account, no server, nothing shared."
+          A logged-in, agent-generated plan cannot live there and still be a plan you keep.</div>
+      </div></div>
+    </div>
+    <div>
+      <div class="note ok"><b>Recommended: additive, not a migration.</b></div>
+      <div class="note"><b>1.</b> localStorage stays the <b>anonymous</b> store, unchanged. It is the
+        offline-safe path on bad venue wifi — that is a feature, not debt.</div>
+      <div class="note"><b>2.</b> Add a <b><code>plans</code> collection</b> in Atlas beside
+        <code>profiles</code>, inside <code>app/lib/profiles.ts</code> (the only file allowed to touch
+        Mongo). <b>Store identifiers only</b> — <code>agendaCode</code>, <code>nameKey</code>,
+        <code>slug</code> — plus the grounded <code>why</code> terms.
+        <b>Never denormalised content</b>, or a rebuilt dataset leaves a stale session title (or worse,
+        a stale description) sitting in Atlas. An id that stops resolving is dropped with a visible
+        note, never rendered from a cached copy.</div>
+      <div class="note"><b>3.</b> On login with local bookmarks and no account plan, offer an explicit
+        <b>merge</b> — "you have 6 sessions saved in this browser, add them?" Never silent.</div>
+      <div class="note"><b>4.</b> Signed in, Atlas is the source of truth and localStorage becomes an
+        offline cache.</div>
+      <div class="note"><b>5.</b> Profile delete (<code>remove()</code>, already one-click) must delete
+        the plan too — same consent lifecycle.</div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<h2>Build order</h2>
+<div class="scroll"><table>
+  <tr><th>Stage</th><th>What</th><th>Blocked by</th></tr>
+  <tr><td><b>0</b> data wiring</td><td>Vendor <code>rag/sectors</code> via <code>sync-data.sh</code>;
+    add <code>SECTORS</code> + <code>sectorFor()</code> + topics-≥2 export + the build-time
+    org→partner index to <code>content.ts</code></td><td>—</td></tr>
+  <tr><td><b>1</b> exhibitor depth</td><td>316 partner pages · swap category chips for real sectors ·
+    24 sector pages · tier overview</td><td>stage 0</td></tr>
+  <tr><td><b>2</b> at-the-fest</td><td>17 hall pages · the grid (and drop the 169 track chips) ·
+    <code>/now</code> last — easiest to get subtly wrong</td><td>nothing — can run in parallel</td></tr>
+  <tr><td><b>3</b> topics</td><td>index with the 86-session disclosure · 76 topic pages ·
+    derived partner rail</td><td>stage 0</td></tr>
+  <tr><td><b>4</b> networking</td><td>org link for 130 · no-session state for 142 · LinkedIn demoted ·
+    "people from this org" on 81 partner pages</td><td>stages 0, 1</td></tr>
+  <tr><td><b>5</b> the agent</td><td><code>plans</code> collection → <code>/api/plan</code>
+    <b>without the LLM first, verified end to end</b> → <code>/plan</code> UI → login-aware
+    <code>/my-plan</code> → <b>only then</b> narrator + validator</td><td>stages 0, 4</td></tr>
+  <tr><td><b>throughout</b></td><td>Test: no partner component renders <code>hall</code>.
+    Test: no invite-only session reaches <code>/api/plan</code>. The four product rules should fail
+    the build, not a review.</td><td>—</td></tr>
+</table></div>
+
+<h2>Open decisions — these are yours</h2>
+
+<div class="dec"><h3>D1 · the "Beer Booth Partner" tier URL</h3>
+  One of 20 tier strings contains the word <i>Booth</i>. It's a sponsorship name, not a location, and
+  it already renders as a directory chip today. Minting <code>/exhibitors/tier/beer-booth-partner</code>
+  puts "booth" in a URL on a site whose policy is that booths don't exist here.
+  <b>Recommend: no page for it</b> — it lands in the named-partnerships list rows anyway, so nothing
+  is lost.</div>
+
+<div class="dec"><h3>D2 · plan conflict across devices</h3>
+  Save sessions on a laptop, then on a phone — what wins?
+  <b>Recommend: last-write-wins on the whole document</b>, with the merge prompt only at first login.
+  Set-union is friendlier but makes a removal on device A silently reappear from device B, which is
+  worse. The alternative is per-item timestamps — more storage, more code.</div>
+
+<div class="dec"><h3>D3 · should the narrator ship at all?</h3>
+  The deterministic plan is complete and honest on its own. The LLM adds ordering prose and an
+  outreach note — and adds the only fabrication risk in the system.
+  <b>Recommend: build the agent without it first, look at the real output, then decide.</b></div>
+
+<div class="dec"><h3>D4 · topic threshold</h3>
+  This plan draws the line at <b>≥2 sessions = 76 pages</b>. ≥3 gives 23 much denser pages;
+  ≥1 gives 346, of which 270 hold a single row. <b>Recommend ≥2.</b></div>
+
+<div class="dec"><h3>D5 · the <code>/now</code> clock zone</h3>
+  Pinned to <b>IST (UTC+05:30)</b> rather than device-local, so an international attendee's phone
+  doesn't show an empty festival. Confirm that's the intent.</div>
+
+<p class="foot">Companion to <code>docs/JOURNEYS.md</code>. Every figure measured from
+<code>data/2026/partners-2026.json</code>, <code>speakers-2026.json</code>,
+<code>sessions-2026.json</code> and <code>rag/sectors/sectors-2026.json</code> in this repository.
+Planning only — no application code, routes, or components were changed.</p>
+
+</div>
+</body>
+</html>

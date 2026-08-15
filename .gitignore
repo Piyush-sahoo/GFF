@@ -1,0 +1,56 @@
+# ---------------------------------------------------------------------------
+# Secrets — never commit. Five live credentials were used to build this project
+# (Gemini API key, Vercel token, Apify token, two Atlas passwords in SRV URIs).
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+
+# Logs may embed tokens in URLs or headers — excluded wholesale.
+*.log
+logs/
+
+# Dependencies / build output
+node_modules/
+.next/
+out/
+dist/
+build/
+.vercel/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Agent workspace metadata
+.claude/
+
+# ---------------------------------------------------------------------------
+# Large regenerable artifacts
+# ---------------------------------------------------------------------------
+# 12 MB float32 embedding matrix. Regenerable via rag/embeddings/build_index.py
+# and NOT read by the app — the app uses the int8 quantised vectors instead.
+*.f32.raw
+# 43 MB Gemini embedding response cache.
+.embed-cache.jsonl
+# Refresh run artifacts: re-scraped HTML + per-run JSON snapshots.
+pipeline/snapshots/
+# Transient Apify run-id marker.
+.apify-run
+# Throwaway probe scripts.
+probe*.tmp.ts
+probe*.mts
