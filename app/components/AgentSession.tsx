@@ -55,7 +55,17 @@ type Reference = { id: string; kind: string; label: string; detail: string; href
  * shows the prose without the chips, which is a cosmetic loss, not a factual
  * one — the reply text still names what it discussed.
  */
-type Msg = ConversationTurn & { error?: boolean; references?: Reference[] };
+/** A shared-plan attendee the agent named. Rebuilt server-side from the gated roster. */
+type Person = {
+  slug: string;
+  name: string;
+  detail: string;
+  href: string;
+  sharedCount: number;
+  isDemo: boolean;
+};
+
+type Msg = ConversationTurn & { error?: boolean; references?: Reference[]; people?: Person[] };
 
 /**
  * Deliberately a mix: a question, a people ask, a scheduling ask, and an open
@@ -138,7 +148,14 @@ export default function AgentSession() {
       } else {
         setMsgs((m) => [
           ...m,
-          { role: "agent", text: data.reply, at, ops: data.ops, references: data.references ?? [] },
+          {
+            role: "agent",
+            text: data.reply,
+            at,
+            ops: data.ops,
+            references: data.references ?? [],
+            people: data.people ?? [],
+          },
         ]);
         setPlan(data.planView ?? EMPTY);
         if (data.degraded) setDegraded(true);
@@ -217,6 +234,24 @@ export default function AgentSession() {
               <div className="msg bot" key={i}>
                 <span className="who">Agent</span>
                 <div className={`bubble${m.error ? " err" : ""}`}>{m.text}</div>
+                {m.people && m.people.length > 0 && (
+                  <div className="agent-people">
+                    {m.people.map((p) => (
+                      <a className="agent-person" key={p.slug} href={p.href}>
+                        <span className="agent-person-name">
+                          {p.name}
+                          {p.isDemo && <span className="agent-demo">demo</span>}
+                        </span>
+                        {p.detail && <span className="agent-person-detail">{p.detail}</span>}
+                        {p.sharedCount > 0 && (
+                          <span className="agent-person-shared">
+                            {p.sharedCount} session{p.sharedCount === 1 ? "" : "s"} in common
+                          </span>
+                        )}
+                      </a>
+                    ))}
+                  </div>
+                )}
                 {m.references && m.references.length > 0 && (
                   <div className="cites">
                     {m.references.map((r) => (

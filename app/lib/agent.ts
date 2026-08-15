@@ -28,7 +28,7 @@ import { GoogleGenAI } from "@google/genai";
 import { buildCatalog, resolveItems, validateIds } from "./catalog";
 import { dayLabel, getSession, overlaps } from "./content";
 import { match, reason } from "./match";
-import type { ConversationTurn, Plan, PlanOps } from "./types";
+import type { AttendeeOverlap, ConversationTurn, Plan, PlanOps } from "./types";
 
 const MODEL = process.env.GEMINI_MODEL || "gemini-3.6-flash";
 
@@ -56,6 +56,8 @@ export type AgentOutcome = {
    * with a link, without touching anyone's schedule.
    */
   refs: string[];
+  /** Validated attendee slugs the reply names. Never plan items. */
+  attendees: string[];
 };
 
 /* ------------------------------------------------------------------ *
@@ -71,7 +73,9 @@ You move between these freely, in one conversation, based on what the person act
 
 1. ANSWER QUESTIONS about the festival — what is on, who is speaking, when and where a session is, who is exhibiting and what they do, how a track is shaped, what is on at a given time. This is a completely valid turn on its own. Answer it well and stop.
 2. BUILD AND RESHAPE THEIR SCHEDULE — add sessions, drop sessions, pack a day, clear a day, swap one thing for another.
-3. HELP THEM FIND PEOPLE — who is worth meeting given what they care about, and which session makes that person reachable. A speaker is a lead you can actually follow, because you know where they will be and when.
+3. HELP THEM FIND PEOPLE — of two distinct kinds, and never confuse them:
+   - SPEAKERS from the catalogue. Worth meeting because you know which session puts them in the room, and when. These can go in the plan.
+   - OTHER ATTENDEES who have shared their plan with the festival. Listed under ATTENDEES WHO HAVE SHARED THEIR PLAN below, if any. For these you can say what you actually overlap on and when you are both free. These are NOT plan items — never put an attendee slug in add or remove.
 4. FLAG EXHIBITORS worth seeking out — a shortlist of who to find, never a location.
 5. JUST TALK about the event — react to an idea, help them think about what they want out of the three days, tell them what the festival is like. Not every message needs an outcome.
 
@@ -111,6 +115,16 @@ The catalog you are given contains ONLY sessions an attendee can actually attend
 - Be accurate about WHY you cannot help. GFF HAS published that these sessions exist — they are listed and badged in the agenda directory on this site. What is true is that they are not in your catalogue and are not attendable, so you cannot discuss or plan them. Say that.
 - Do NOT say GFF has not published them, or that no details exist. That is false, and it is the exact conflation the grounding rules warn about. Point them at the agenda page instead.
 
+## Other attendees — the privacy rules
+The ATTENDEES block, when present, lists ONLY people who have deliberately opted in twice: their profile is public AND they chose to share their plan. Everything shown about them has already passed that gate.
+
+- Those people are the complete set. If someone is not in that block they have not shared, and you know NOTHING about them. Never speculate about their schedule, never say they are "probably" at something, and never work around a missing entry by inferring from a speaker record.
+- If the block is absent or empty, say plainly that nobody has shared a plan yet. Do not substitute speakers and present them as attendees to meet.
+- \`sessions\` for an attendee is a COUNT, not a list. You may say "they have 7 sessions planned". You may NOT list, name or guess what those sessions are — except the ones under \`shared\`, which you already know because they are in this attendee's own plan too.
+- Say WHEN two people are both free. NEVER say where to meet. There is no floor plan, and a free window is a time, not a place.
+- Some entries are marked demo. If you recommend one, say it is seeded demo data. Never present a demo attendee as a real person who will be there.
+- Never state anyone's email address, including the person you are talking to. Refer to people by name; the slug is their handle.
+
 ## No fake clock
 You do not know the current time and you must never imply that you do. Never say a session is "happening now", "starting soon", or "just finished". Refer to plan days as "your Day 1 plan" or by date, always in the future tense.
 
@@ -132,6 +146,10 @@ The attendee has ONE plan that persists between conversations. You edit it with 
 - NEVER re-add everything already in the plan. Send only what actually changes. The current plan is given to you each turn; items you do not mention stay exactly as they are.
 - Some plan items were added by the attendee by hand. Leave them alone unless asked.
 
+## Naming attendees
+- \`attendees\` — slugs of shared-plan attendees your reply discusses. Copy them exactly from the ATTENDEES block.
+- These are people, not plan items. They never appear in \`add\`, \`remove\` or \`refs\`.
+
 ## Citing what you talked about
 - \`refs\` — ids of records your REPLY discusses but is NOT adding to the plan.
 - Use it every time you answer a question about a session, speaker or exhibitor. It is how the attendee sees the real record behind your words, with a link.
@@ -144,6 +162,7 @@ Return JSON only, matching the schema:
 - \`add\`: [{ id, why }] — ids copied EXACTLY from the catalog, each with a one-line grounded reason. Empty on most turns.
 - \`remove\`: [ids] — exact ids. Empty on most turns.
 - \`refs\`: [ids] — records your reply mentions but does not add.
+- \`attendees\`: [slugs] — shared-plan attendees your reply names. Empty unless the conversation is about meeting people.
 - \`objective\`: one sentence capturing what this attendee is at GFF to achieve, as you best understand it so far. Carry it forward and refine it as you learn more. Empty string if you genuinely do not know yet. If they are only asking questions and have shown no goal, leave it empty rather than inventing one.
 
 Any id you return that is not in the catalog is dropped by the system before it reaches the attendee, and your reply is then describing something that does not exist. Copy ids character for character.`;
@@ -170,9 +189,14 @@ const RESPONSE_SCHEMA = {
       description: "Ids of records the reply discusses but does NOT add to the plan.",
       items: { type: "string" },
     },
+    attendees: {
+      type: "array",
+      description: "Slugs of shared-plan attendees the reply names. Never plan items.",
+      items: { type: "string" },
+    },
     objective: { type: "string", description: "One sentence on what this attendee wants. Empty if unknown." },
   },
-  required: ["reply", "add", "remove", "refs", "objective"],
+  required: ["reply", "add", "remove", "refs", "attendees", "objective"],
 } as const;
 
 /* ------------------------------------------------------------------ *
@@ -203,6 +227,61 @@ function renderPlan(plan: Plan | null): string {
   section("People", plan.people);
   section("Exhibitors", plan.partners);
   return lines.join("\n");
+}
+
+/**
+ * The shared-plan roster, as the model sees it.
+ *
+ * Every field here comes straight off AttendeeOverlap, which lib/db.ts has
+ * already filtered to people who opted in TWICE — public profile and shared
+ * plan. This function deliberately adds nothing of its own: it does not read
+ * the plans collection, does not resolve session ids to titles, and has no way
+ * to reach a plan that was not shared. If a field is not on AttendeeOverlap,
+ * the model does not get it.
+ *
+ * Two omissions are load-bearing:
+ *  - No email, ever. The slug is the public handle. AttendeeOverlap does not
+ *    carry an email precisely so this cannot leak one by accident.
+ *  - `sessions` is a COUNT. The only session ids named are `shared` ones, which
+ *    are safe because the caller already holds them in their own plan.
+ */
+function renderAttendees(attendees: AttendeeOverlap[]): string {
+  if (!attendees.length) {
+    return "ATTENDEES WHO HAVE SHARED THEIR PLAN: none yet. Nobody has opted in, so you know nothing about any other attendee's schedule. Say so if asked.";
+  }
+
+  const lines = attendees.map((a) => {
+    const parts = [
+      a.slug,
+      a.name,
+      a.role || "-",
+      a.org || "-",
+      a.interests?.length ? a.interests.join("/") : "-",
+      `${a.sessionCount} sessions planned`,
+    ];
+    if (a.sharedSessions.length) parts.push(`also in your plan: ${a.sharedSessions.join(",")}`);
+    if (a.freeWindows.length) {
+      // A couple of windows is enough to suggest a time; the full list is noise.
+      parts.push(
+        `both free: ${a.freeWindows
+          .slice(0, 3)
+          .map((w) => `${dayLabel(w.day)} ${w.start}-${w.end}`)
+          .join("; ")}`,
+      );
+    }
+    if (a.commonInterests.length) {
+      parts.push(`in common: ${a.commonInterests.slice(0, 4).map((c) => c.label).join(", ")}`);
+    }
+    if (a.isDemo) parts.push("SEEDED DEMO ATTENDEE — say so if you recommend them");
+    return parts.join(" | ");
+  });
+
+  return [
+    `ATTENDEES WHO HAVE SHARED THEIR PLAN (${attendees.length}) — slug|name|role|org|interests|session count|overlaps`,
+    `This is the COMPLETE set of people whose plans you may discuss. Anyone not listed here has not shared, and you know nothing about their schedule.`,
+    `"N sessions planned" is a count. Do not name or guess those sessions — only the ones listed as already in your plan.`,
+    ...lines,
+  ].join("\n");
 }
 
 function renderHistory(turns: ConversationTurn[]): string {
@@ -407,6 +486,7 @@ function fallback(message: string, plan: Plan | null): AgentOutcome {
     dropped: valid.dropped,
     clashes,
     refs: [],
+    attendees: [],
   };
 }
 
@@ -418,8 +498,11 @@ export async function runAgent(input: {
   message: string;
   history: ConversationTurn[];
   plan: Plan | null;
+  /** From db.attendeeOverlapsFor — already gated. Never assembled here. */
+  attendees?: AttendeeOverlap[];
 }): Promise<AgentOutcome> {
   const { message, history, plan } = input;
+  const attendees = input.attendees ?? [];
 
   if (!AGENT_ENABLED) return fallback(message, plan);
 
@@ -429,6 +512,8 @@ export async function runAgent(input: {
     buildCatalog(),
     "---",
     renderPlan(plan),
+    "---",
+    renderAttendees(attendees),
     "---",
     renderHistory(history),
     "---",
@@ -474,6 +559,7 @@ export async function runAgent(input: {
     add?: unknown;
     remove?: unknown;
     refs?: unknown;
+    attendees?: unknown;
     objective?: unknown;
   };
   try {
@@ -533,7 +619,30 @@ export async function runAgent(input: {
     (id) => !inPlanOps.has(id),
   );
 
-  const dropped = [...addValid.dropped, ...removeValid.dropped, ...refsValid.dropped];
+  /**
+   * Attendee slugs get the same treatment as catalog ids, against the roster we
+   * actually supplied. An unknown slug is dropped rather than looked up — the
+   * roster IS the gate, so anything outside it is by definition someone who did
+   * not share, and inventing a lookup here would be the one way to get round it.
+   */
+  const rosterSlugs = new Set(attendees.map((a) => a.slug));
+  const attendeeSlugs = (Array.isArray(parsed.attendees) ? parsed.attendees : [])
+    .filter((x): x is string => typeof x === "string")
+    .map((s) => s.trim())
+    .filter((s, i, arr) => s && rosterSlugs.has(s) && arr.indexOf(s) === i);
+  const droppedSlugs = (Array.isArray(parsed.attendees) ? parsed.attendees : [])
+    .filter((x): x is string => typeof x === "string")
+    .filter((s) => s.trim() && !rosterSlugs.has(s.trim()));
+  if (droppedSlugs.length) {
+    console.warn(`[agent] dropped ${droppedSlugs.length} unknown attendee slug(s)`);
+  }
+
+  const dropped = [
+    ...addValid.dropped,
+    ...removeValid.dropped,
+    ...refsValid.dropped,
+    ...droppedSlugs,
+  ];
   if (dropped.length) {
     console.warn(`[agent] dropped ${dropped.length} unknown id(s): ${dropped.join(", ")}`);
   }
@@ -550,5 +659,6 @@ export async function runAgent(input: {
     dropped,
     clashes,
     refs,
+    attendees: attendeeSlugs,
   };
 }

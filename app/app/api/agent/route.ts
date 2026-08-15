@@ -16,6 +16,7 @@ import {
   ATLAS_OFF_MESSAGE,
   PROFILES_ENABLED,
   appendTurns,
+  attendeeOverlapsFor,
   getConversation,
   getPlan,
   mutatePlan,
@@ -71,11 +72,29 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Tell me what you're trying to get out of GFF." }, { status: 400 });
   }
 
-  const [conversation, plan] = await Promise.all([getConversation(email), getPlan(email)]);
+  /**
+   * The roster comes from db.attendeeOverlapsFor, which applies the visibility
+   * gate itself. Deliberately NOT fetched over HTTP from /api/meet: forwarding a
+   * session cookie service-to-service fails open, and a mistake there leaks a
+   * private plan rather than just erroring. Agent code never touches the plans
+   * collection directly — that is the only path that would bypass the gate.
+   *
+   * A failure here must not take the whole turn down: the agent is useful
+   * without the roster, so it degrades to an empty one and says nobody has
+   * shared, which is the same thing it says when nobody has.
+   */
+  const [conversation, plan, attendees] = await Promise.all([
+    getConversation(email),
+    getPlan(email),
+    attendeeOverlapsFor(email).catch((err) => {
+      console.error("[api/agent] attendee roster unavailable:", err);
+      return [];
+    }),
+  ]);
 
   let outcome;
   try {
-    outcome = await runAgent({ message, history: conversation?.turns ?? [], plan });
+    outcome = await runAgent({ message, history: conversation?.turns ?? [], plan, attendees });
   } catch (err) {
     const kind = err instanceof Error ? err.message : "";
     console.error("[api/agent] agent turn failed:", err);
@@ -134,5 +153,24 @@ export async function POST(req: Request) {
     // Records the reply discussed without touching the plan. Resolved from the
     // static dataset by id, like everything else the attendee is shown.
     references: resolveItems(outcome.refs),
+    /**
+     * Attendee cards, rebuilt from the SAME gated roster the model was given
+     * rather than from its output. It chose which slugs to name; it never
+     * supplies what is displayed about them.
+     */
+    people: outcome.attendees.flatMap((slug) => {
+      const a = attendees.find((x) => x.slug === slug);
+      if (!a) return [];
+      return [
+        {
+          slug: a.slug,
+          name: a.name,
+          detail: [a.role, a.org].filter(Boolean).join(" · "),
+          href: `/people/${a.slug}`,
+          sharedCount: a.sharedSessions.length,
+          isDemo: a.isDemo,
+        },
+      ];
+    }),
   });
 }

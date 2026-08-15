@@ -714,3 +714,19 @@ button.danger:hover { border-color: #ff9b9b; }
 .callme-result { margin: 9px 0 0; font-size: 12.5px; line-height: 1.55; }
 .callme-result.ok { color: var(--teal); }
 .callme-result.err { color: #ff9b9b; }
+
+/* ---------- agent: shared-plan attendees named in a reply ---------- */
+.agent-people { margin-top: 11px; display: grid; gap: 7px; }
+.agent-person {
+  display: grid; gap: 2px; padding: 9px 11px; border-radius: 8px;
+  border: 1px solid var(--line-2); background: var(--panel-2);
+  text-decoration: none; color: var(--text);
+}
+.agent-person:hover { border-color: var(--teal); }
+.agent-person-name { font-size: 13.5px; font-weight: 500; display: flex; align-items: center; gap: 7px; }
+.agent-demo {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 4px; border: 1px solid var(--saffron-dim); color: var(--saffron);
+}
+.agent-person-detail { font-size: 12px; color: var(--muted); }
+.agent-person-shared { font-family: var(--mono); font-size: 10px; color: var(--teal); }
