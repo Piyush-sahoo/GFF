@@ -36,8 +36,22 @@ export async function GET() {
   if (!PROFILES_ENABLED) return NextResponse.json({ error: ATLAS_OFF_MESSAGE }, { status: 503 });
 
   const [conversation, plan] = await Promise.all([getConversation(email), getPlan(email)]);
+
+  /**
+   * Replay resolves stored ids through the SAME resolveItems the live turn uses,
+   * so a reloaded citation chip is identical to the one that was just rendered
+   * rather than a second implementation that can drift.
+   *
+   * An id whose record no longer exists is dropped by resolveItems, so replay
+   * cannot resurrect a session a dataset rebuild removed. The ids were already
+   * validated before they were stored, so this is a second line, not the first.
+   */
+  const turns = (conversation?.turns ?? []).map((t) =>
+    t.refs?.length ? { ...t, references: resolveItems(t.refs) } : t,
+  );
+
   return NextResponse.json({
-    turns: conversation?.turns ?? [],
+    turns,
     plan,
     planView: viewPlan(plan),
     enabled: AGENT_ENABLED,
@@ -126,9 +140,24 @@ export async function POST(req: Request) {
   });
 
   const now = new Date().toISOString();
+  /**
+   * IDS ONLY. outcome.refs is the already-validated id list, passed straight
+   * through — the resolved Reference objects the response carries are built for
+   * display and are deliberately NOT stored. Persisting their titles would
+   * denormalise catalog content into Atlas, and a dataset rebuild would leave
+   * stale names in old turns while the live path showed the new ones.
+   *
+   * Attendee slugs are deliberately NOT persisted either, and that is a
+   * stronger rule than convenience. A session either exists or it does not, so
+   * replaying its id is safe. An attendee slug is only safe while that person
+   * still has visibility='shared' — storing slugs and replaying them blindly
+   * would resurrect someone's plan after they un-shared it, turning the feature
+   * against the opt-in it is built on. Those chips stay ephemeral until replay
+   * can re-check through attendeeOverlapsFor.
+   */
   const turns: ConversationTurn[] = [
     { role: "user", text: message, at: now },
-    { role: "agent", text: outcome.reply, at: now, ops: outcome.ops },
+    { role: "agent", text: outcome.reply, at: now, ops: outcome.ops, refs: outcome.refs },
   ];
   try {
     await appendTurns(email, turns);
