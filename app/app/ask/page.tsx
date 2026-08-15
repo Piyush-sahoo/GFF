@@ -16,8 +16,8 @@ import { EVENT_YEAR } from "../../lib/content";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: `Plan your GFF — Global Fintech Fest ${EVENT_YEAR}`,
-  description: `Build a personal Global Fintech Fest ${EVENT_YEAR} plan in conversation — sessions, people worth meeting and exhibitors worth finding, all from published GFF records.`,
+  title: `AI Agent — Global Fintech Fest ${EVENT_YEAR}`,
+  description: `Ask anything about Global Fintech Fest ${EVENT_YEAR}, build your schedule, and find the people worth meeting — one conversation, answered only from published GFF records.`,
 };
 
 export default function AskPage() {
@@ -25,15 +25,16 @@ export default function AskPage() {
 
   return (
     <main className="shell">
-      <Nav active="Ask" />
+      <Nav active="AI Agent" />
       <header className="subhero">
         <h1 className="display sub">
-          Plan your <em>GFF</em>
+          AI <em>Agent</em>
         </h1>
         <p className="lede">
-          Tell the agent what you&apos;re here to achieve and it builds your three days — sessions first,
-          the people worth meeting at them, and exhibitors worth seeking out. It remembers the conversation
-          and edits one plan, so you can change your mind out loud.
+          One conversation that knows the whole festival. Ask it anything about the agenda, speakers or
+          exhibitors; get it to build and reshape your schedule; work out who is worth meeting and when.
+          It remembers what you have told it, and it only changes your plan when you actually want it
+          changed.
         </p>
       </header>
 

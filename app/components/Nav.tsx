@@ -6,7 +6,9 @@ export default function Nav({ active }: { active?: string }) {
     { href: "/agenda", label: "Agenda" },
     { href: "/exhibitors", label: "Exhibitors" },
     { href: "/speakers", label: "Speakers" },
-    { href: "/ask", label: "Ask" },
+    // Route stays /ask — it is deployed and linked from elsewhere. /agent
+    // redirects here, so both URLs resolve and neither breaks mid-event.
+    { href: "/ask", label: "AI Agent" },
     { href: "/my-plan", label: "My Plan" },
     { href: "/people", label: "People" },
     { href: "/profile", label: "Profile" },

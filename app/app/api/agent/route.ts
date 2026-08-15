@@ -131,5 +131,8 @@ export async function POST(req: Request) {
     // Real sessions withheld to avoid a double-booking. Surfaced, not swallowed:
     // the attendee asked for these and is owed an explanation.
     clashes: outcome.clashes,
+    // Records the reply discussed without touching the plan. Resolved from the
+    // static dataset by id, like everything else the attendee is shown.
+    references: resolveItems(outcome.refs),
   });
 }

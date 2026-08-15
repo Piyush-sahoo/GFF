@@ -46,13 +46,27 @@ const EMPTY: PlanView = {
   unresolved: [],
 };
 
-type Msg = ConversationTurn & { error?: boolean };
+/** A record the agent talked about without adding it. Resolved server-side. */
+type Reference = { id: string; kind: string; label: string; detail: string; href: string };
 
+/**
+ * `references` is display-only and deliberately not persisted: W1 owns
+ * ConversationTurn and it has no field for them. Replayed history therefore
+ * shows the prose without the chips, which is a cosmetic loss, not a factual
+ * one — the reply text still names what it discussed.
+ */
+type Msg = ConversationTurn & { error?: boolean; references?: Reference[] };
+
+/**
+ * Deliberately a mix: a question, a people ask, a scheduling ask, and an open
+ * one. The first thing someone sees should show this is a conversation, not a
+ * form that only builds schedules.
+ */
 const OPENERS = [
-  "I'm a payments PM and I want to come away with three concrete integration leads.",
-  "We're raising a Series A. Who should I be in the room with?",
+  "What's on about UPI and real-time payments?",
+  "We're raising a Series A — who should I be in the room with?",
   "I only have Day 2. Build me a day that's worth the trip.",
-  "I care about lending to thin-file borrowers in India.",
+  "What's actually worth my time at this year's festival?",
 ];
 
 const DAY_NAME: Record<string, string> = {
@@ -122,7 +136,10 @@ export default function AgentSession() {
       if (!res.ok) {
         setMsgs((m) => [...m, { role: "agent", text: data.error ?? "Something went wrong.", at, error: true }]);
       } else {
-        setMsgs((m) => [...m, { role: "agent", text: data.reply, at, ops: data.ops }]);
+        setMsgs((m) => [
+          ...m,
+          { role: "agent", text: data.reply, at, ops: data.ops, references: data.references ?? [] },
+        ]);
         setPlan(data.planView ?? EMPTY);
         if (data.degraded) setDegraded(true);
       }
@@ -176,11 +193,15 @@ export default function AgentSession() {
             <div className="msg bot">
               <span className="who">Agent</span>
               <div className="bubble">
-                Tell me what you&apos;re at GFF to accomplish and I&apos;ll build your three days around it —
-                sessions first, the people worth meeting at them, and exhibitors worth seeking out.
+                Ask me anything about GFF — what&apos;s on, who&apos;s speaking, who&apos;s exhibiting. I
+                know the whole programme.
                 {"\n\n"}
-                I remember this conversation and I edit one plan, so you can say &ldquo;drop the Thursday
-                morning one&rdquo; later and I&apos;ll know what you mean.
+                I can also build your schedule when you want one, work out who&apos;s worth meeting and
+                which session gets you near them, or just talk through what you want out of the three
+                days. I remember this conversation, so you can say &ldquo;drop the Thursday morning
+                one&rdquo; later and I&apos;ll know what you mean.
+                {"\n\n"}
+                I only change your plan when you ask me to.
               </div>
             </div>
           )}
@@ -196,6 +217,16 @@ export default function AgentSession() {
               <div className="msg bot" key={i}>
                 <span className="who">Agent</span>
                 <div className={`bubble${m.error ? " err" : ""}`}>{m.text}</div>
+                {m.references && m.references.length > 0 && (
+                  <div className="cites">
+                    {m.references.map((r) => (
+                      <a className="cite" key={r.id} href={r.href}>
+                        {r.label}
+                        {r.detail && <span className="yr"> · {r.detail}</span>}
+                      </a>
+                    ))}
+                  </div>
+                )}
                 {changed > 0 && (
                   <div className="agent-ops">
                     {(m.ops?.add?.length ?? 0) > 0 && <span className="op add">+{m.ops!.add.length} added</span>}
