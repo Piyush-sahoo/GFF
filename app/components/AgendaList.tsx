@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import type { Plan } from "../lib/types";
 
 export type SlimSession = {
   agendaCode: string;
@@ -16,19 +18,115 @@ export type SlimSession = {
   speakers: string[];
 };
 
-const KEY = "gff.bookmarks.v1";
+/**
+ * "loading" -> "anon" | "ready" | "off".
+ *
+ * "anon" is a real state, not an error: the plan lives in Atlas against an
+ * account now, so a signed-out visitor can browse the agenda but has nowhere
+ * to save to. localStorage plans are gone — they could not be reached by the
+ * voice call or the agent, and two devices disagreed about what was saved.
+ */
+export type PlanStatus = "loading" | "anon" | "ready" | "off";
 
-export function readBookmarks(): string[] {
-  if (typeof window === "undefined") return [];
-  try {
-    return JSON.parse(localStorage.getItem(KEY) || "[]");
-  } catch {
-    return [];
-  }
+export type PlanState = {
+  plan: Plan | null;
+  status: PlanStatus;
+  /** Ids currently mid-write, so a row can disable itself. */
+  pending: Set<string>;
+  error: string | null;
+  has: (id: string) => boolean;
+  toggle: (id: string) => Promise<void>;
+  remove: (id: string) => Promise<void>;
+};
+
+/**
+ * The one client-side handle on the Atlas plan. Both the agenda Save button
+ * and /my-plan use it, so they cannot drift apart.
+ */
+export function usePlan(): PlanState {
+  const [plan, setPlan] = useState<Plan | null>(null);
+  const [status, setStatus] = useState<PlanStatus>("loading");
+  const [pending, setPending] = useState<Set<string>>(new Set());
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let live = true;
+    fetch("/api/plan")
+      .then(async (r) => {
+        if (!live) return;
+        if (r.status === 401) return setStatus("anon");
+        if (!r.ok) {
+          const d = await r.json().catch(() => ({}));
+          setError(d.error ?? "Could not load your plan.");
+          return setStatus("off");
+        }
+        const d = await r.json();
+        setPlan(d.plan ?? null);
+        setStatus("ready");
+      })
+      .catch(() => live && setStatus("off"));
+    return () => {
+      live = false;
+    };
+  }, []);
+
+  const ids = useMemo(() => {
+    if (!plan) return new Set<string>();
+    return new Set([...plan.sessions, ...plan.people, ...plan.partners]);
+  }, [plan]);
+
+  const write = useCallback(async (id: string, op: "add" | "remove") => {
+    setPending((p) => new Set(p).add(id));
+    setError(null);
+    try {
+      const r = await fetch("/api/plan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ [op]: [id] }),
+      });
+      if (r.status === 401) return setStatus("anon");
+      if (!r.ok) {
+        const d = await r.json().catch(() => ({}));
+        setError(d.error ?? "Could not save that.");
+        return;
+      }
+      // Take the server's plan rather than patching locally: it is the same
+      // document the agent writes, so it may have moved since we read it.
+      const d = await r.json();
+      setPlan(d.plan);
+    } catch {
+      setError("Could not reach the server.");
+    } finally {
+      setPending((p) => {
+        const n = new Set(p);
+        n.delete(id);
+        return n;
+      });
+    }
+  }, []);
+
+  const has = useCallback((id: string) => ids.has(id), [ids]);
+
+  return {
+    plan,
+    status,
+    pending,
+    error,
+    has,
+    toggle: (id) => write(id, has(id) ? "remove" : "add"),
+    remove: (id) => write(id, "remove"),
+  };
 }
 
-export function writeBookmarks(codes: string[]) {
-  localStorage.setItem(KEY, JSON.stringify(codes));
+/** Shown wherever a signed-out visitor tries to save something. */
+export function SignInToPlan({ next }: { next: string }) {
+  return (
+    <p className="coverage">
+      <Link className="mlink" href={`/login?next=${encodeURIComponent(next)}`}>Sign in</Link> or{" "}
+      <Link className="mlink" href="/register">create an account</Link> to save sessions to a plan that
+      follows you between devices.
+    </p>
+  );
 }
 
 export default function AgendaList({
@@ -44,9 +142,7 @@ export default function AgendaList({
   const [q, setQ] = useState("");
   const [track, setTrack] = useState<string | null>(null);
   const [format, setFormat] = useState<string | null>(null);
-  const [marks, setMarks] = useState<string[]>([]);
-
-  useEffect(() => setMarks(readBookmarks()), []);
+  const plan = usePlan();
 
   /**
    * Deep links (?day=2026-09-10) are read on the client, not from server
@@ -58,14 +154,6 @@ export default function AgendaList({
     const wanted = new URLSearchParams(window.location.search).get("day");
     if (wanted && days.some((d) => d.day === wanted)) setDay(wanted);
   }, [days]);
-
-  function toggle(code: string) {
-    setMarks((prev) => {
-      const next = prev.includes(code) ? prev.filter((c) => c !== code) : [...prev, code];
-      writeBookmarks(next);
-      return next;
-    });
-  }
 
   const dayList = useMemo(() => sessions.filter((s) => s.day === day), [sessions, day]);
 
@@ -175,6 +263,16 @@ export default function AgendaList({
         . Invite-only sessions are shown but cannot be added to your plan.
       </p>
 
+      {plan.status === "anon" && <SignInToPlan next="/agenda" />}
+      {plan.status === "off" && (
+        <p className="coverage warn">
+          {plan.error ?? "Saving is unavailable right now."} The agenda itself is unaffected.
+        </p>
+      )}
+      {plan.status === "ready" && plan.error && (
+        <p className="coverage warn">{plan.error}</p>
+      )}
+
       {shown.length === 0 ? (
         <div className="empty">No sessions match. Try clearing the filters or searching for something else.</div>
       ) : (
@@ -203,11 +301,22 @@ export default function AgendaList({
                 ) : (
                   <button
                     className="bookmark"
-                    data-on={marks.includes(s.agendaCode)}
-                    onClick={() => toggle(s.agendaCode)}
-                    aria-label={marks.includes(s.agendaCode) ? "Remove from my plan" : "Add to my plan"}
+                    data-on={plan.has(s.agendaCode)}
+                    disabled={plan.status === "loading" || plan.pending.has(s.agendaCode)}
+                    onClick={() => {
+                      if (plan.status === "anon") {
+                        window.location.href = "/login?next=/agenda";
+                        return;
+                      }
+                      plan.toggle(s.agendaCode);
+                    }}
+                    aria-label={plan.has(s.agendaCode) ? "Remove from my plan" : "Add to my plan"}
                   >
-                    {marks.includes(s.agendaCode) ? "★ Saved" : "☆ Save"}
+                    {plan.pending.has(s.agendaCode)
+                      ? "…"
+                      : plan.has(s.agendaCode)
+                        ? "★ Saved"
+                        : "☆ Save"}
                   </button>
                 )}
               </div>
