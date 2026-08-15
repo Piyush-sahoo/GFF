@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { MeetResponse, SharedPlanSummary } from "../../lib/types";
+import PersonCardStyle from "../../components/PersonCardStyle";
 
 export type SlimForMeet = {
   agendaCode: string;
@@ -95,6 +96,7 @@ export default function MeetPicker({
 
   return (
     <>
+      <PersonCardStyle />
       <p className="coverage">
         {people.length} {people.length === 1 ? "person has" : "people have"} shared a plan. Pick{" "}
         {MIN_PEOPLE}–{MAX_PEOPLE}.{" "}
@@ -113,18 +115,20 @@ export default function MeetPicker({
             <button
               type="button"
               key={p.slug}
-              className="spcard"
+              className="spcard spcard-btn"
               data-on={on}
               onClick={() => toggle(p.slug)}
-              style={{ textAlign: "left", cursor: "pointer", opacity: !on && picked.length >= MAX_PEOPLE ? 0.5 : 1 }}
+              style={{ cursor: "pointer", opacity: !on && picked.length >= MAX_PEOPLE ? 0.5 : 1 }}
               aria-pressed={on}
             >
               <span className="sphead placeholder">{(p.name || "?").slice(0, 1).toUpperCase()}</span>
               <div className="spbody">
-                <h3>
-                  {on ? "✓ " : ""}
-                  {p.name}
-                  {p.isDemo && <span className="mpill"> Demo attendee</span>}
+                <h3 className="pname">
+                  <span className="pname-link">
+                    {on ? "✓ " : ""}
+                    {p.name}
+                  </span>
+                  {p.isDemo && <span className="pname-badge">Demo attendee</span>}
                 </h3>
                 {(p.role || p.org) && (
                   <div className="sprole">{[p.role, p.org].filter(Boolean).join(" · ")}</div>

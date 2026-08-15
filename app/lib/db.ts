@@ -3,6 +3,7 @@ import { MongoClient, type Collection, type Db } from "mongodb";
 import { DAYS, PARTNERS, SESSIONS, SPEAKERS, getSession, isBookmarkable, toMinutes } from "./content";
 import type {
   Account,
+  AttendeeOverlap,
   CallRecord,
   CommonInterest,
   Conversation,
@@ -348,6 +349,7 @@ export async function listSharedPlans(): Promise<SharedPlanSummary[]> {
     name: string;
     role: string | null;
     org: string | null;
+    interests?: string[];
     consentPublic: boolean;
     isDemo?: boolean;
   }>("profiles");
@@ -374,6 +376,7 @@ export async function listSharedPlans(): Promise<SharedPlanSummary[]> {
         name: p.name,
         role: p.role ?? null,
         org: p.org ?? null,
+        interests: p.interests ?? [],
         isDemo: Boolean(p.isDemo || plan.isDemo),
         // Invite-only sessions can never be in a plan, but filter on read too:
         // a plan seeded or written before that rule would otherwise leak one.
@@ -385,6 +388,56 @@ export async function listSharedPlans(): Promise<SharedPlanSummary[]> {
         objective: plan.objective,
       };
     });
+}
+
+/**
+ * THE ONE CALL THE AGENT SHOULD MAKE for anything about other attendees.
+ *
+ * Returns every attendee who has shared a plan — excluding the caller — each
+ * annotated with how they overlap with the caller's own plan. It is a plain
+ * server-side function on purpose: a route calling its own HTTP endpoint and
+ * forwarding a session cookie is fragile, and getting that wrong here would
+ * leak a private plan rather than merely 500.
+ *
+ * Everything returned has already passed BOTH gates (profile consentPublic
+ * AND plan visibility "shared"), so its output is safe to put in a prompt as
+ * it stands. Do not enrich it by reading plans directly — that is the path
+ * that would bypass the gate.
+ *
+ * `email` may be null for a signed-out caller: you still get the attendee
+ * list, with the overlap fields empty because there is nothing to overlap.
+ */
+export async function attendeeOverlapsFor(email: string | null): Promise<AttendeeOverlap[]> {
+  const shared = await listSharedPlans();
+  const mine = email ? await getPlan(email) : null;
+  const mySessions = mine?.sessions ?? [];
+
+  // Don't offer the caller a meeting with themselves. They only appear in the
+  // list at all if they shared their own plan.
+  let ownSlug: string | null = null;
+  if (email) {
+    const me = await (await db())
+      .collection<{ email: string; slug: string }>("profiles")
+      .findOne({ email }, { projection: { _id: 0, slug: 1 } });
+    ownSlug = me?.slug ?? null;
+  }
+
+  return shared
+    .filter((p) => p.slug !== ownSlug)
+    .map((p) => ({
+      slug: p.slug,
+      name: p.name,
+      role: p.role,
+      org: p.org,
+      interests: p.interests,
+      isDemo: p.isDemo,
+      sessionCount: p.sessions.length,
+      sharedSessions: mySessions.filter((c) => p.sessions.includes(c)),
+      freeWindows: mySessions.length ? mutualFreeWindows([mySessions, p.sessions]) : [],
+      commonInterests: mySessions.length
+        ? commonInterests([{ ...p, sessions: mySessions, partners: mine?.partners ?? [] }, p])
+        : [],
+    }));
 }
 
 /** Festival hours, taken from the real schedule rather than assumed. */

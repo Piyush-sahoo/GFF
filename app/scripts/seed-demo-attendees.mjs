@@ -296,12 +296,33 @@ for (const p of plans) {
   }
 }
 
+/**
+ * Seeding is strictly additive: one upsert per demo email, no drop and no
+ * deleteMany on this path. The counts either side are asserted rather than
+ * assumed — if a future edit ever makes seeding destructive, this is what
+ * catches it, instead of someone noticing their plan is gone.
+ */
+const realPlansBefore = await db.collection("plans").countDocuments({ isDemo: { $ne: true } });
+const realProfilesBefore = await db.collection("profiles").countDocuments({ isDemo: { $ne: true } });
+
 for (const p of profiles) {
+  if (!p.isDemo) throw new Error(`refusing to write a profile without isDemo: ${p.email}`);
   await db.collection("profiles").replaceOne({ email: p.email }, p, { upsert: true });
 }
 for (const p of plans) {
+  if (!p.isDemo) throw new Error(`refusing to write a plan without isDemo: ${p.email}`);
   await db.collection("plans").replaceOne({ email: p.email }, p, { upsert: true });
 }
+
+const realPlansAfter = await db.collection("plans").countDocuments({ isDemo: { $ne: true } });
+const realProfilesAfter = await db.collection("profiles").countDocuments({ isDemo: { $ne: true } });
+if (realPlansAfter !== realPlansBefore || realProfilesAfter !== realProfilesBefore) {
+  console.error(
+    `SEEDING TOUCHED REAL DATA — plans ${realPlansBefore}->${realPlansAfter}, profiles ${realProfilesBefore}->${realProfilesAfter}. This is a bug; report it.`,
+  );
+  process.exit(1);
+}
+console.log(`real (non-demo) rows untouched: ${realPlansBefore} plans, ${realProfilesBefore} profiles`);
 
 const sizes = plans.map((p) => p.sessions.length);
 console.log(`seeded ${profiles.length} demo profiles and ${plans.length} shared plans`);

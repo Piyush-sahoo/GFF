@@ -140,6 +140,8 @@ export type SharedPlanSummary = {
   name: string;
   role: string | null;
   org: string | null;
+  /** Profile data, gated by consentPublic — already public in the directory. */
+  interests: string[];
   isDemo: boolean;
   /** agendaCode[] — ids only, resolved against the static catalog on render. */
   sessions: string[];
@@ -173,6 +175,27 @@ export type MeetResponse = {
   commonInterests: CommonInterest[];
   /** Slugs asked for that had no shared plan, so the UI can say which. */
   unavailable: string[];
+};
+
+/**
+ * One shared-plan attendee, annotated with how they overlap with a specific
+ * caller. Everything here has already passed both gates, so it is safe to
+ * hand to a model — see attendeeOverlapsFor in lib/db.ts.
+ */
+export type AttendeeOverlap = {
+  slug: string;
+  name: string;
+  role: string | null;
+  org: string | null;
+  interests: string[];
+  isDemo: boolean;
+  /** How many sessions they have. Only ever set for a plan that IS shared. */
+  sessionCount: number;
+  /** agendaCodes both they and the caller hold. Empty if the caller has none. */
+  sharedSessions: string[];
+  /** Windows when the caller and this person are both unbooked. */
+  freeWindows: FreeWindow[];
+  commonInterests: CommonInterest[];
 };
 
 export type ConversationTurn = {

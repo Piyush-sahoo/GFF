@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import PersonCardStyle from "../../components/PersonCardStyle";
 
 export type DirectoryPerson = {
   slug: string;
@@ -47,6 +48,7 @@ export default function PeopleDirectory({ people }: { people: DirectoryPerson[] 
 
   return (
     <>
+      <PersonCardStyle />
       <div className="controls">
         <div className="searchwrap">
           <input
@@ -87,9 +89,9 @@ export default function PeopleDirectory({ people }: { people: DirectoryPerson[] 
             <article className="spcard" key={p.slug} data-on={on}>
               <span className="sphead placeholder">{(p.name || "?").slice(0, 1).toUpperCase()}</span>
               <div className="spbody">
-                <h3>
-                  <Link href={`/people/${p.slug}`}>{p.name}</Link>
-                  {p.isDemo && <span className="mpill invite"> Demo data</span>}
+                <h3 className="pname">
+                  <Link className="pname-link" href={`/people/${p.slug}`}>{p.name}</Link>
+                  {p.isDemo && <span className="pname-badge">Demo data</span>}
                 </h3>
                 {(p.role || p.org) && (
                   <div className="sprole">{[p.role, p.org].filter(Boolean).join(" · ")}</div>
