@@ -76,11 +76,11 @@ export default function MyPlanPage() {
       </section>
       <footer>
         Your plan is stored against your account, so the agenda&apos;s Save button and the concierge
-        both write to the same one and it is the same plan on every device you sign in on. Pick a day
-        above — the day is always your explicit choice, never guessed from the clock, and nothing here
-        claims a session is happening now. Across {DAYS.length} days there are {SESSIONS.length}{" "}
-        published sessions to choose from; invite-only sessions cannot be saved. Exhibitors carry no
-        location: GFF published no 2026 floor plan.
+        both write to the same one and it is the same plan on every device you sign in on. The day is
+        always an explicit choice, never guessed from the clock, and nothing here claims a session is
+        happening now. Across {DAYS.length} days there are {SESSIONS.length} published sessions to
+        choose from; invite-only sessions cannot be saved. Exhibitors carry no location: GFF published
+        no 2026 floor plan.
       </footer>
     </main>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import type { CSSProperties } from "react";
 import type { Partner } from "../lib/types";
 
 function SearchIcon() {
@@ -28,6 +29,26 @@ const CATEGORY_LABELS: Record<string, string> = {
 function label(c: string) {
   return CATEGORY_LABELS[c] ?? c;
 }
+
+// There are 45 tier values, so the group filter is a dropdown rather than a chip
+// row — as chips it pushed the first exhibitor eight rows down the page. Styled
+// inline from the same tokens as `.chip` / `input.search` in globals.css.
+const GROUP_SELECT: CSSProperties = {
+  appearance: "none",
+  WebkitAppearance: "none",
+  padding: "7px 32px 7px 13px",
+  borderRadius: 999,
+  border: "1px solid var(--line)",
+  background:
+    "var(--panel) url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236c7488' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\") no-repeat right 12px center",
+  color: "var(--text)",
+  fontSize: 13,
+  fontFamily: "inherit",
+  cursor: "pointer",
+  maxWidth: "100%",
+  // Keeps the OS-rendered option list dark instead of flipping to a white popup.
+  colorScheme: "dark",
+};
 
 export default function ExhibitorDirectory({ partners }: { partners: Partner[] }) {
   const [q, setQ] = useState("");
@@ -78,14 +99,19 @@ export default function ExhibitorDirectory({ partners }: { partners: Partner[] }
 
         <div className="filterrow">
           <span className="filterlabel">Group</span>
-          <button className="chip" data-on={tier === null} onClick={() => setTier(null)}>
-            All
-          </button>
-          {tiers.map(([t, n]) => (
-            <button key={t} className="chip" data-on={tier === t} onClick={() => setTier(tier === t ? null : t)}>
-              {t} <span className="chip-n">{n}</span>
-            </button>
-          ))}
+          <select
+            style={GROUP_SELECT}
+            value={tier ?? ""}
+            onChange={(e) => setTier(e.target.value || null)}
+            aria-label="Filter by group"
+          >
+            <option value="">All</option>
+            {tiers.map(([t, n]) => (
+              <option key={t} value={t}>
+                {t} ({n})
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="filterrow">
