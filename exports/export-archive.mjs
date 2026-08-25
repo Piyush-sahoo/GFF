@@ -53,11 +53,8 @@ const speakerCols = year => [
   // spell it differently ("Category A" vs "Two - Category A") and are NOT
   // normalised across years — see exports/README.md.
   { header: 'speakerCategory', get: s => s.speakerCategory },
-  // 2024 has no extractable agenda, so no session linkage exists for it.
-  ...(year === 2025 ? [
-    { header: 'sessionTitle', get: s => s.sessionTitle },
-    { header: 'sessionCodes', get: s => s.sessionCodes },
-  ] : []),
+  { header: 'sessionTitle', get: s => s.sessionTitle },
+  { header: 'sessionCodes', get: s => s.sessionCodes },
   { header: 'nameKey', get: s => s.nameKey },
   ...provenance(year === 2024 ? [{ header: 'sourceApi', get: s => s.sourceApi }] : []),
 ];
@@ -85,6 +82,37 @@ const exhibitorCols = year => [
   ] : []),
   { header: 'isDataArtifact', get: p => p.isDataArtifact },
   ...provenance(year === 2024 ? [{ header: 'sourceApi', get: p => p.sourceApi }] : []),
+];
+
+const sessionCols = year => [
+  { header: 'agendaCode', get: s => s.agendaCode },
+  { header: 'title', get: s => s.title },
+  { header: 'day', get: s => s.day },
+  // Time format is verbatim per edition: 2024 publishes 24-hour ("10:00"),
+  // 2025/2026 publish 12-hour ("10:00 AM"). Neither is reformatted.
+  { header: 'startTime', get: s => s.startTime },
+  { header: 'endTime', get: s => s.endTime },
+  // Session venue, published by GFF for both years — legitimate, unlike partner
+  // booths. `level` is the venue floor; only the 2025 CMS publishes it.
+  { header: 'hall', get: s => s.hall },
+  { header: 'subHall', get: s => s.subHall },
+  ...(year === 2025 ? [{ header: 'level', get: s => s.level }] : []),
+  { header: 'format', get: s => s.format },
+  { header: 'track', get: s => s.track },
+  { header: 'topics', get: s => s.topics },
+  // 2025 publishes no session access type, so there is nothing to say about
+  // whether a session was open — omitted rather than defaulted to "public".
+  ...(year === 2024 ? [
+    { header: 'accessType', get: s => s.accessType },
+    { header: 'isClosedDoor', get: s => s.isClosedDoor },
+  ] : []),
+  { header: 'description', get: s => s.description },
+  { header: 'speakerNames', get: s => s.speakerNames },
+  { header: 'speakersWithTitles', get: s => s.speakersRaw },
+  { header: 'hostNames', get: s => s.hostNames },
+  { header: 'hostsWithTitles', get: s => s.hostsRaw },
+  ...(year === 2025 ? [{ header: 'documentId', get: s => s.documentId }] : []),
+  ...provenance(year === 2024 ? [{ header: 'sourceApi', get: s => s.sourceApi }] : []),
 ];
 
 const orgCols = [
@@ -120,6 +148,12 @@ const speakers2025 = read('data/archive-2025/speakers-2025.json').sort(byName);
 const speakers2024 = read('data/archive-2024/speakers-2024.json').sort(byName);
 const partners2025 = read('data/archive-2025/partners-2025.json');
 const partners2024 = read('data/archive-2024/partners-2024.json');
+const byWhen = (a, b) =>
+  String(a.day).localeCompare(String(b.day)) ||
+  String(a.startTime).localeCompare(String(b.startTime)) ||
+  String(a.agendaCode).localeCompare(String(b.agendaCode));
+const sessions2025 = read('data/archive-2025/sessions-2025.json').sort(byWhen);
+const sessions2024 = read('data/archive-2024/sessions-2024.json').sort(byWhen);
 const orgs = read('exports/orgs-by-year.json');
 
 const exhibitors2025 = real(partners2025).sort(byName);
@@ -132,8 +166,10 @@ const audit = { generatedAt: new Date().toISOString(), generatedFrom: 'data/arch
 const files = [
   ['speakers-2025.csv', speakerCols(2025), speakers2025],
   ['exhibitors-2025.csv', exhibitorCols(2025), exhibitors2025],
+  ['sessions-2025.csv', sessionCols(2025), sessions2025],
   ['speakers-2024.csv', speakerCols(2024), speakers2024],
   ['exhibitors-2024.csv', exhibitorCols(2024), exhibitors2024],
+  ['sessions-2024.csv', sessionCols(2024), sessions2024],
   ['orgs-by-year.csv', orgCols, orgs],
 ];
 
@@ -165,6 +201,11 @@ audit.tiers = {
   2025: tally(exhibitors2025, p => p.sourceGroup),
 };
 audit.orgsByYearCount = tally(orgs, o => o.yearCount);
+audit.sessionAccess = {
+  2024: tally(sessions2024, s => s.accessType),
+  2025: tally(sessions2025, s => s.accessType),
+};
+audit.sessionDays = { 2024: tally(sessions2024, s => s.day), 2025: tally(sessions2025, s => s.day) };
 
 writeFileSync(resolve(HERE, 'export-archive-audit.json'), JSON.stringify(audit, null, 2));
 console.log('\n' + JSON.stringify(

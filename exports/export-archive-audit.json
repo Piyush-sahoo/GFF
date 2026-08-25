@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T06:07:26.224Z",
+  "generatedAt": "2026-08-25T06:37:19.498Z",
   "generatedFrom": "data/archive-*/ JSON",
   "files": {
     "speakers-2025.csv": {
@@ -48,9 +48,37 @@
         "extractedAt": 399
       }
     },
+    "sessions-2025.csv": {
+      "rows": 391,
+      "columns": 20,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": [],
+      "coverage": {
+        "agendaCode": 391,
+        "title": 391,
+        "day": 391,
+        "startTime": 391,
+        "endTime": 391,
+        "hall": 391,
+        "subHall": 76,
+        "level": 391,
+        "format": 391,
+        "track": 247,
+        "topics": 247,
+        "description": 326,
+        "speakerNames": 354,
+        "speakersWithTitles": 354,
+        "hostNames": 193,
+        "hostsWithTitles": 193,
+        "documentId": 391,
+        "year": 391,
+        "sourceUrl": 391,
+        "extractedAt": 391
+      }
+    },
     "speakers-2024.csv": {
       "rows": 841,
-      "columns": 13,
+      "columns": 15,
       "formulaRiskCells": 0,
       "formulaRiskSample": [],
       "coverage": {
@@ -62,6 +90,8 @@
         "linkedin": 739,
         "headshotUrl": 839,
         "speakerCategory": 841,
+        "sessionTitle": 769,
+        "sessionCodes": 769,
         "nameKey": 841,
         "year": 841,
         "sourceUrl": 841,
@@ -89,6 +119,35 @@
         "sourceUrl": 371,
         "sourceApi": 371,
         "extractedAt": 371
+      }
+    },
+    "sessions-2024.csv": {
+      "rows": 338,
+      "columns": 21,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": [],
+      "coverage": {
+        "agendaCode": 338,
+        "title": 338,
+        "day": 338,
+        "startTime": 338,
+        "endTime": 338,
+        "hall": 338,
+        "subHall": 64,
+        "format": 338,
+        "track": 215,
+        "topics": 215,
+        "accessType": 338,
+        "isClosedDoor": 338,
+        "description": 66,
+        "speakerNames": 270,
+        "speakersWithTitles": 270,
+        "hostNames": 228,
+        "hostsWithTitles": 228,
+        "year": 338,
+        "sourceUrl": 338,
+        "sourceApi": 338,
+        "extractedAt": 338
       }
     },
     "orgs-by-year.csv": {
@@ -142,5 +201,26 @@
     "1": 451,
     "2": 157,
     "3": 105
+  },
+  "sessionAccess": {
+    "2024": {
+      "public": 322,
+      "invite-only": 16
+    },
+    "2025": {
+      "(empty)": 391
+    }
+  },
+  "sessionDays": {
+    "2024": {
+      "2024-08-29": 149,
+      "2024-08-28": 120,
+      "2024-08-30": 69
+    },
+    "2025": {
+      "2025-10-08": 179,
+      "2025-10-07": 159,
+      "2025-10-09": 53
+    }
   }
 }

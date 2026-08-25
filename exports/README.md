@@ -1,9 +1,10 @@
 # GFF — CSV exports
 
 **2026** (`export.mjs`, from MongoDB Atlas) and **2024 / 2025 archive**
-(`export-archive.mjs`, from JSON on disk). Jump to
-[the archive years](#2024--2025-archive-exports) for the pre-event outreach files,
-including [`orgs-by-year.csv`](#orgs-by-yearcsv--713-rows), the cross-year roll-up.
+(`export-archive.mjs`, from JSON on disk). Every year now has the same three
+sheets — **speakers, exhibitors, sessions** — plus
+[`orgs-by-year.csv`](#orgs-by-yearcsv--713-rows), the cross-year roll-up.
+Jump to [the archive years](#2024--2025-archive-exports).
 
 > **These sheets are speakers, partners and exhibitors — not attendees.**
 > GFF publishes no attendee or delegate list for any edition, and none has been
@@ -232,16 +233,23 @@ The 2024/2025 archive files have their own scripts and need no credentials — s
 
 # 2024 / 2025 archive exports
 
-Five CSVs built from JSON on disk by `export-archive.mjs`. **No database is
-involved** — the archive years are never loaded into MongoDB, and must not be.
+Seven CSVs built from JSON on disk by `export-archive.mjs` — the same three
+sheets 2026 has, for both archive years, plus the cross-year roll-up. **No
+database is involved**; the archive years are never loaded into MongoDB, and must
+not be.
 
 | File | Rows | Columns | Source |
 |---|---:|---:|---|
 | `speakers-2025.csv` | **993** | 14 | `data/archive-2025/speakers-2025.json` |
 | `exhibitors-2025.csv` | **399** | 16 | `data/archive-2025/partners-2025.json` |
-| `speakers-2024.csv` | **841** | 13 | `data/archive-2024/speakers-2024.json` |
+| `sessions-2025.csv` | **391** | 20 | `data/archive-2025/sessions-2025.json` |
+| `speakers-2024.csv` | **841** | 15 | `data/archive-2024/speakers-2024.json` |
 | `exhibitors-2024.csv` | **371** | 14 | `data/archive-2024/partners-2024.json` |
+| `sessions-2024.csv` | **338** | 21 | `data/archive-2024/sessions-2024.json` |
 | `orgs-by-year.csv` | **713** | 16 | all three years, folded by canonical org |
+
+Side by side with 2026: **speakers** 841 / 993 / 487 · **exhibitors** 371 / 399 /
+316 · **sessions** 338 / 391 / 256, for 2024 / 2025 / 2026.
 
 Same format guarantees as the 2026 files: UTF-8 with BOM, RFC4180 quoting, CRLF,
 `;`-joined multi-values, and **empty stays empty**. `verify-archive.mjs` re-parses
@@ -294,6 +302,7 @@ records the pages render from:
 /2024/api/partners                         partners 90 · exhibitors 319 ·
                                            supporters 33 · organizers 3
                                            (gff_friends and fintech_friends: empty)
+/2024/api/agenda                 338 rows   the full session listing
 ```
 
 Checked before relying on them:
@@ -311,11 +320,9 @@ Checked before relying on them:
 
 The Wayback Machine was therefore never needed.
 
-**Also available for 2024 but not exported here:** `/2024/agenda` returns a full
-session listing. It is out of scope for this ask (speakers + orgs), so no
-`sessions-2024.json` exists and 2024 speakers consequently have no session
-linkage. It is a small job if the cadence later wants "which session did this org
-speak in".
+`/2024/agenda` has its own endpoint on the same stack and supplies
+`sessions-2024.csv` and the session linkage on 2024 speakers (769 of 841 map to at
+least one session).
 
 ## Row counts, and what changed on re-scrape
 
@@ -332,10 +339,8 @@ every previously committed row is still present — and a lot was recovered:
 **`sessions-2025.json` was recorded as 0 rows** with the note "GFF did not publish
 a 2025 agenda in retrievable form". **That is no longer true** —
 `2025.globalfintechfest.com/agenda` now carries a full `rawAgendaData` payload of
-391 sessions. They are extracted to `data/archive-2025/sessions-2025.json` and
-used to give 2025 speakers their `sessionTitle` / `sessionCodes`. No
-`sessions-2025.csv` is produced, since the ask was speakers + orgs; say the word
-and it is a one-line change.
+391 sessions. They are exported as `sessions-2025.csv` and also give 2025 speakers
+their `sessionTitle` / `sessionCodes`.
 
 ## Column deltas vs. the 2026 exports
 
@@ -350,7 +355,7 @@ equivalent): `lastSeenAt`, `status`, `recordId`.
 | Column | 2026 | 2025 | 2024 | Why |
 |---|:-:|:-:|:-:|---|
 | `name` `title` `org` `country` `bio` `linkedin` `headshotUrl` `nameKey` | ✅ | ✅ | ✅ | |
-| `sessionTitle` `sessionCodes` | ✅ | ✅ | — | 2024 agenda not extracted (see above) |
+| `sessionTitle` `sessionCodes` | ✅ | ✅ | ✅ | 856/993 for 2025, 769/841 for 2024 |
 | `speakerCategory` | — | ✅ | ✅ | GFF's own speaker tiering; not carried in the 2026 export |
 | `sourceApi` | — | — | ✅ | 2024 only, where `sourceUrl` is the human page and the data came from a separate endpoint |
 
@@ -443,6 +448,57 @@ placeholders that affect 2026 (`PCI logo`, `NPCI logo`, `FCC logo`) are not pres
 in the 2024 or 2025 payloads. The filter is applied regardless, so it stays correct
 if a re-scrape ever picks one up. Both counts are therefore unfiltered totals.
 
+### Sessions
+
+**`sessions-2025.csv` — 391 rows**
+
+| Column | Populated |
+|---|---|
+| `agendaCode` `title` `day` `startTime` `endTime` `hall` `level` `format` `documentId` `year` `sourceUrl` `extractedAt` | **391 / 391** |
+| `description` | 326 / 391 |
+| `speakerNames` `speakersWithTitles` | 354 / 391 |
+| `track` `topics` | 247 / 391 |
+| `hostNames` `hostsWithTitles` | 193 / 391 |
+| `subHall` | 76 / 391 |
+
+Days: `2025-10-07` 159 · `2025-10-08` 179 · `2025-10-09` 53.
+
+**`sessions-2024.csv` — 338 rows**
+
+| Column | Populated |
+|---|---|
+| `agendaCode` `title` `day` `startTime` `endTime` `hall` `format` `accessType` `isClosedDoor` `year` `sourceUrl` `sourceApi` `extractedAt` | **338 / 338** |
+| `hostNames` `hostsWithTitles` | 228 / 338 |
+| `speakerNames` `speakersWithTitles` | 270 / 338 |
+| `track` `topics` | 215 / 338 |
+| `description` | 66 / 338 |
+| `subHall` | 64 / 338 |
+
+Days: `2024-08-28` 120 · `2024-08-29` 149 · `2024-08-30` 69.
+Access: `public` 322 · `invite-only` 16.
+
+#### Session column deltas
+
+| Column | 2026 | 2025 | 2024 | Why |
+|---|:-:|:-:|:-:|---|
+| `agendaCode` `title` `day` `startTime` `endTime` `hall` `format` `track` `topics` `description` `speakerNames` `speakersWithTitles` `hostNames` `hostsWithTitles` | ✅ | ✅ | ✅ | |
+| `accessType` `isClosedDoor` | ✅ | — | ✅ | **2025 publishes no session access type at all.** Emitting `isClosedDoor = false` would assert all 391 sessions were open to everyone, which GFF never said — so both columns are omitted for 2025 rather than defaulted |
+| `subHall` | — | ✅ | ✅ | published for both archive years; 2026 has no equivalent field |
+| `level` | — | ✅ | — | venue floor (`Ground Level`, `Level 1–3`); only the 2025 CMS publishes it |
+| `documentId` | ✅ | ✅ | — | 2024 has only its numeric node id, already used as `agendaCode` |
+| `status` `withdrawnDetectedAt` `lastSeenAt` `recordId` | ✅ | — | — | withdrawal tracking and Atlas bookkeeping; both are products of the live 2026 refresh loop, which never ran on a past edition |
+
+Two things to know when reading the session sheets:
+
+**`agendaCode` is not the same kind of value each year.** 2026 publishes a real
+agenda code (`A0900`). 2025 publishes a numeric code (`20250411`). 2024 publishes
+none, so its CMS node id (`29884`) is used — unique across all 338 rows and
+therefore a valid join key for `sessionCodes`, but not a code GFF ever showed
+anyone.
+
+**`startTime` / `endTime` are verbatim per edition.** 2024 is 24-hour (`10:00`),
+2025 and 2026 are 12-hour (`10:00 AM`). Neither is reformatted.
+
 ## `orgs-by-year.csv` — 713 rows
 
 **The most useful file here for the cadence.** One row per canonical organisation
@@ -525,8 +581,20 @@ in this section.
 
 1. **No attendee list, for any year.** Restating it because it was the literal ask:
    GFF does not publish one. Speakers + orgs is the complete public set.
-2. **No 2024 sessions**, so no session linkage on 2024 speakers. The data exists at
-   `/2024/agenda`; extracting it was out of scope.
+2. **2024 agenda speaker strings are free text, and 17 of 993 entries are not
+   people.** The 2024 CMS stores each agenda speaker as up to three consecutive
+   chunks of one string (`note` + `name` + `info`); those are rejoined in the order
+   and with the spacing GFF's own page renders, verified against the live page. The
+   original almost certainly had a hyphen at the seam (`Global Co-Head` reads as
+   `Global Co Head`), but that character is not in the payload and GFF's page loses
+   it too, so it is not guessed back. `speakerNames` takes the first comma segment,
+   the same rule the 2026 pipeline uses; on 17 entries that yields a label rather
+   than a person (`Report Launch Building Bridges for the Next Decade of Finance`,
+   and four rows where the CMS used `.` instead of `,` after the name). They are
+   left in rather than filtered on a guess — `speakersWithTitles` always holds the
+   full string. **88% of distinct agenda names match the 2024 speaker directory**;
+   the other 12% are real people the directory simply does not list, which is why
+   the agenda is not filtered against it.
 3. **No 2023 / 2022 / 2021.** `archive.globalfintechfest.com` also carries `/2023/`,
    `/2022/` and `/2021/` paths. They were not investigated — the ask was 2024 and 2025.
 4. **`speakerCategory` is not normalised across years.** 2024 says `Category A`,

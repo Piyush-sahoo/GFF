@@ -31,11 +31,12 @@ product; `verify_corpus.py` asserts every corpus chunk is `year: 2026` and that 
 | `archive-2025/sessions-2025.json` | 391 | `2025.globalfintechfest.com/agenda` | 2026-08-25 |
 | `archive-2024/speakers-2024.json` | 841 | `archive.globalfintechfest.com/2024/api/speakers-category-{a,b}` | 2026-08-25 |
 | `archive-2024/partners-2024.json` | 371 | `archive.globalfintechfest.com/2024/api/partners` | 2026-08-25 |
+| `archive-2024/sessions-2024.json` | 338 | `archive.globalfintechfest.com/2024/api/agenda` | 2026-08-25 |
 
 Kept for year-over-year comparison of the exhibitor and speaker sets, and as the
-input to the outreach CSVs in `exports/` (`speakers-2024.csv`,
-`exhibitors-2024.csv`, `speakers-2025.csv`, `exhibitors-2025.csv`, and the
-cross-year `orgs-by-year.csv`).
+input to the outreach CSVs in `exports/` — the same three sheets 2026 has
+(speakers, exhibitors, sessions) for each archive year, plus the cross-year
+`orgs-by-year.csv`.
 
 **Two corrections to what this table used to say.**
 

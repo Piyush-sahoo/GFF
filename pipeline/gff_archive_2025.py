@@ -54,7 +54,27 @@ def main():
 
     # ---- sessions -------------------------------------------------------
     sessions = GX.extract_sessions(payload['agenda'], year=YEAR, base=BASE)
+    # The 2025 agenda schema is not the 2026 one, so three fields need fixing up
+    # after the shared extractor has run:
+    #   - topics live in session_tags_01..05, not a session_topics array, so
+    #     extract_sessions finds none. Recover them.
+    #   - session_sub_hall and session_level are published for 2025 and 2026 has
+    #     no equivalent, so the shared extractor never looks for them.
+    #   - there is NO session_access_type. extract_sessions derives isClosedDoor
+    #     from it and lands on False for all 391, which would assert that every
+    #     2025 session was open to everyone. GFF published no such thing, so both
+    #     fields go back to empty.
+    raw_sessions = {GX.clean(o.get('agenda_code')): o
+                    for o in GX.grab(payload['agenda'], 'rawAgendaData')}
     for s in sessions:
+        o = raw_sessions.get(s['agendaCode']) or {}
+        topics = [t for t in (GX.clean(o.get('session_tags_%02d' % n)) for n in range(1, 6)) if t]
+        s['topics'] = topics
+        s['track'] = ', '.join(topics) if topics else None
+        s['subHall'] = GX.clean(o.get('session_sub_hall'))
+        s['level'] = GX.clean(o.get('session_level'))
+        s['accessType'] = None
+        s['isClosedDoor'] = None
         s['description'] = GX.deref(payload['agenda'], s['description'])
         s['extractedAt'] = stamp
 

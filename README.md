@@ -241,7 +241,8 @@ because it was a booth location rather than a description.
 - **`docs/JOURNEYS.md` is a design document, not a description of the built app.** It
   specifies routes (`/now`, `/halls/[hall]`, `/topics/[topic]`) that were not built.
 - **The archive years are for CSV export only.** `data/archive-2025/` (993 speakers,
-  399 partners, 391 sessions) and `data/archive-2024/` (841 speakers, 371 partners) are
+  399 partners, 391 sessions) and `data/archive-2024/` (841 speakers, 371 partners,
+  338 sessions) are
   scraped by `pipeline/gff_archive_2025.py` / `gff_archive_2024.py` and exported by
   `exports/export-archive.mjs`. Not used by the app, corpus, or agent. A note here
   previously said 2025 had no retrievable agenda — the 2025 agenda page now serves one,

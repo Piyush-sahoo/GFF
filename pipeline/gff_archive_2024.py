@@ -17,6 +17,7 @@ return the same records the page renders from, complete and unpaginated.
     /2024/api/speakers-category-b  787 rows   (the main speaker directory)
     /2024/api/partners                        (partners, exhibitors, supporters,
                                                gff_friends, fintech_friends, organizers)
+    /2024/api/agenda               338 rows   (the full session listing)
 
 Verified before relying on them: ?page=1 returns byte-identical output to page 0,
 so the endpoints carry no pager and are not truncated. The rendered /2024/speakers
@@ -34,7 +35,7 @@ import html, json, pathlib, re, subprocess, sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import gff_extract as GX
 import gff_identity as GI
-from gff_names import normalise_name
+from gff_names import normalise_name, split_agenda_speaker
 
 BASE = 'https://archive.globalfintechfest.com/2024'
 YEAR = 2024
@@ -43,8 +44,10 @@ CACHE = pathlib.Path(__file__).resolve().parent / '.cache' / 'archive-2024'
 
 SPEAKER_API = ['/api/speakers-category-a', '/api/speakers-category-b']
 PARTNER_API = '/api/partners'
+AGENDA_API = '/api/agenda'
 SPEAKER_PAGE = BASE + '/speakers'
 PARTNER_PAGE = BASE + '/partners'
+AGENDA_PAGE = BASE + '/agenda'
 
 # Drupal serves the partner groups under one endpoint. Order matters: it decides
 # which listing an org that appears twice is filed under, mirroring the 2026
@@ -83,6 +86,84 @@ def text(v):
     return GX.clean(s.replace('\xa0', ' '))
 
 
+def speaker_string(entry: dict) -> str | None:
+    """Reassemble one agenda speaker/host entry into the string GFF displays.
+
+    The 2024 CMS stores each speaker as three consecutive chunks of ONE free-text
+    string, split at some point during authoring and never rejoined:
+
+        {"note": "Mr. Naveen Mallela,  Managing Director, Global Co",
+         "name": "Head of Onyx, J.P. Morgan", "info": ""}
+        {"note": "", "name": "Mr. Yashraj Erande, ",
+         "info": "Managing Director & Partner, ... Boston Consulting Group (BCG)"}
+
+    Concatenating note + name + info in that order, space-joined, reproduces
+    /2024/agenda byte for byte in both shapes (checked against the rendered page).
+    The original almost certainly had a hyphen at the seam ("Global Co-Head"), but
+    that character is not recoverable from the payload and GFF's own page renders
+    it as a space, so a space is what we emit. Guessing the hyphen back would be
+    inventing a value.
+    """
+    parts = [entry.get(k) or '' for k in ('note', 'name', 'info')]
+    return text(' '.join(p for p in parts if p.strip()))
+
+
+def extract_sessions(rows: list, stamp: str) -> list:
+    """Agenda rows -> session records shaped like sessions-2026.json."""
+    out = []
+    for o in rows:
+        title = text(o.get('title'))
+        if not title:
+            continue
+
+        def people(field):
+            raw, names = [], []
+            for entry in (o.get(field) or []):
+                s = speaker_string(entry)
+                if not s:
+                    continue
+                raw.append(s)
+                nm, _, _ = split_agenda_speaker(s)
+                if nm:
+                    names.append(nm)
+            return raw, names
+
+        spk_raw, spk = people('speakers_list')
+        host_raw, hosts = people('host_list')
+        topics = [t for t in (text(x) for x in (o.get('tags') or '').split(',')) if t]
+        invite = (o.get('is_invite_only') or '').strip().lower() == 'yes'
+        out.append({
+            # The 2024 CMS publishes no human-facing agenda code, only its own
+            # node id. It is unique across all 338 rows, so it serves as the join
+            # key, but it is not a GFF-published code like 2026's "A0900".
+            'agendaCode': str(o['id']) if o.get('id') is not None else None,
+            'title': title,
+            'description': text(o.get('description')),
+            'track': ', '.join(topics) if topics else None,
+            'topics': topics,
+            'format': text(o.get('format')),
+            'day': text(o.get('date')),
+            # 24-hour "10:00", where 2026 publishes "10:00 AM". Verbatim per year.
+            'startTime': text(o.get('start_time')),
+            'endTime': text(o.get('end_time')),
+            'hall': text(o.get('location')),
+            'subHall': text(o.get('sub_hall')),
+            'accessType': 'invite-only' if invite else 'public',
+            'isClosedDoor': invite,
+            'speakerNames': spk,
+            'speakersRaw': spk_raw,
+            'hostNames': hosts,
+            'hostsRaw': host_raw,
+            'speakers': spk + hosts,
+            'year': YEAR,
+            'sourceUrl': AGENDA_PAGE,
+            'sourceApi': BASE + AGENDA_API,
+            'extractedAt': stamp,
+        })
+    out.sort(key=lambda s: (s['day'] or '', s['startTime'] or '', s['hall'] or '', s['title']))
+    return out
+
+
 def main():
     stamp = GX.now()
 
@@ -107,6 +188,8 @@ def main():
                 'linkedin': GX.clean(o.get('linkedin')),
                 'headshotUrl': GX.clean(o.get('image')),
                 'speakerCategory': text(o.get('category')),
+                'sessionTitle': None,       # filled from the agenda below
+                'sessionCodes': [],
                 'year': YEAR,
                 'sourceUrl': SPEAKER_PAGE,
                 'sourceApi': BASE + path,
@@ -171,8 +254,38 @@ def main():
             })
     partners.sort(key=lambda p: p['name'].lower())
 
+    # ---- sessions ----------------------------------------------------
+    agenda = get(AGENDA_API)
+    agenda = agenda[0] if isinstance(agenda, list) and agenda else agenda
+    if not isinstance(agenda, dict) or 'list' not in agenda:
+        raise RuntimeError('%s: expected an object with a "list" key' % AGENDA_API)
+    sessions = extract_sessions(agenda['list'], stamp)
+
+    # Link speakers to their sessions by normalised name — the agenda carries no
+    # speaker id, exactly as in 2026, so the name IS the join key.
+    by_key = {}
+    for sess in sessions:
+        for nm in sess['speakerNames'] + sess['hostNames']:
+            by_key.setdefault(normalise_name(nm), []).append(sess)
+    for sp in speakers:
+        mine = by_key.get(sp['nameKey']) or []
+        sp['sessionTitle'] = mine[0]['title'] if mine else None
+        sp['sessionCodes'] = sorted({m['agendaCode'] for m in mine if m['agendaCode']})
+
+    # The agenda also names people the speaker directory does not carry, so report
+    # the join rate rather than quietly filtering agenda names against the
+    # directory — filtering would drop real speakers from the session rows.
+    known = {s['nameKey'] for s in speakers}
+    agenda_keys = {normalise_name(n) for s in sessions for n in s['speakerNames'] + s['hostNames']}
+    agenda_keys.discard('')
+    matched = len(agenda_keys & known)
+    linked = sum(1 for s in speakers if s['sessionCodes'])
+    print('agenda names   : %d distinct, %d in the speaker directory (%.0f%%)'
+          % (len(agenda_keys), matched, 100 * matched / max(1, len(agenda_keys))))
+    print('speakers linked: %d of %d have a session' % (linked, len(speakers)))
+
     OUT.mkdir(parents=True, exist_ok=True)
-    for name, rows in [('speakers', speakers), ('partners', partners)]:
+    for name, rows in [('speakers', speakers), ('partners', partners), ('sessions', sessions)]:
         (OUT / ('%s-2024.json' % name)).write_text(
             json.dumps(rows, indent=2, ensure_ascii=False) + '\n')
         print('%-9s %4d rows' % (name, len(rows)))

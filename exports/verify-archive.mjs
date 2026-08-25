@@ -28,8 +28,10 @@ const RSC_REF = /^\$[0-9a-f]+$/;
 const SPEC = {
   'speakers-2025.csv': { src: 'data/archive-2025/speakers-2025.json', rows: 993, key: 'name' },
   'exhibitors-2025.csv': { src: 'data/archive-2025/partners-2025.json', rows: 399, key: 'name', real: true },
+  'sessions-2025.csv': { src: 'data/archive-2025/sessions-2025.json', rows: 391, key: 'agendaCode' },
   'speakers-2024.csv': { src: 'data/archive-2024/speakers-2024.json', rows: 841, key: 'name' },
   'exhibitors-2024.csv': { src: 'data/archive-2024/partners-2024.json', rows: 371, key: 'name', real: true },
+  'sessions-2024.csv': { src: 'data/archive-2024/sessions-2024.json', rows: 338, key: 'agendaCode' },
   'orgs-by-year.csv': { src: 'exports/orgs-by-year.json', rows: 713, key: 'org', skipRequired: true },
 };
 
@@ -103,6 +105,8 @@ for (const [file, spec] of Object.entries(SPEC)) {
       const v = h === 'whatTheyDo_unsourced' ? rec.unsourced?.whatTheyDo
         : h === 'useCases_unsourced' ? rec.unsourced?.useCases
         : h === 'unsourced_confidence' ? rec.unsourced?.confidence
+        : h === 'speakersWithTitles' ? rec.speakersRaw
+        : h === 'hostsWithTitles' ? rec.hostsRaw
         : rec[h];
       if (r[c] !== cell(v)) { if (mismatch < 3) console.log(`       ${h}: csv=${JSON.stringify(r[c].slice(0, 60))} json=${JSON.stringify(cell(v).slice(0, 60))}`); mismatch++; }
     }
@@ -116,7 +120,8 @@ for (const [file, spec] of Object.entries(SPEC)) {
 }
 
 // The archive must never claim to be 2026 data.
-for (const file of ['speakers-2025.csv', 'exhibitors-2025.csv', 'speakers-2024.csv', 'exhibitors-2024.csv']) {
+for (const file of ['speakers-2025.csv', 'exhibitors-2025.csv', 'sessions-2025.csv',
+                    'speakers-2024.csv', 'exhibitors-2024.csv', 'sessions-2024.csv']) {
   const rows = parseCsv(readFileSync(resolve(HERE, file), 'utf8').replace(/^﻿/, ''));
   const i = rows[0].indexOf('year');
   const want = file.slice(-8, -4);
