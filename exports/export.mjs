@@ -8,6 +8,7 @@
  *  - traced text and unsourced text never share a column
  */
 import { MongoClient } from 'mongodb';
+import { toCsv, formulaRisks, has, count, tally } from './csv.mjs';
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -18,49 +19,7 @@ import { fileURLToPath } from 'node:url';
 const OUT = resolve(dirname(fileURLToPath(import.meta.url)));
 mkdirSync(OUT, { recursive: true });
 
-// ---------- CSV writing (RFC4180) ----------
-
-const BOM = '﻿';
-
-/** Cell value -> CSV text. Blank is blank: null/undefined/empty array all render as "". */
-function cell(v) {
-  if (v === null || v === undefined) return '';
-  if (Array.isArray(v)) return v.length ? v.map(x => String(x).trim()).filter(Boolean).join(';') : '';
-  if (typeof v === 'boolean') return v ? 'true' : 'false';
-  if (typeof v === 'number') return Number.isFinite(v) ? String(v) : '';
-  const s = String(v);
-  return s.trim() === '' ? '' : s;
-}
-
-/** RFC4180 field: quote when the value contains a delimiter, quote, CR/LF, or edge whitespace. */
-function field(s) {
-  if (s === '') return '';
-  if (/[",\r\n]/.test(s) || s !== s.trim()) return '"' + s.replace(/"/g, '""') + '"';
-  return s;
-}
-
-function toCsv(columns, rows) {
-  const lines = [columns.map(c => field(c.header)).join(',')];
-  for (const r of rows) lines.push(columns.map(c => field(cell(c.get(r)))).join(','));
-  return BOM + lines.join('\r\n') + '\r\n';
-}
-
-/** Excel/Sheets treat a leading = + - @ as a formula. We do not mutate data; we report it. */
-function formulaRisks(columns, rows) {
-  const hits = [];
-  for (const r of rows) {
-    for (const c of columns) {
-      const s = cell(c.get(r));
-      if (/^[=+\-@\t\r]/.test(s)) hits.push({ column: c.header, value: s.slice(0, 60) });
-    }
-  }
-  return hits;
-}
-
-// ---------- helpers ----------
-
-const has = v => !(v === null || v === undefined || v === '' || (Array.isArray(v) && v.length === 0));
-const count = (rows, fn) => rows.reduce((n, r) => n + (has(fn(r)) ? 1 : 0), 0);
+// CSV writing (RFC4180), the has/count/tally helpers: exports/csv.mjs.
 
 // ---------- load ----------
 
@@ -270,11 +229,6 @@ audit.sessions = {
   halls: [...new Set(sessions.map(s => s.hall).filter(Boolean))].sort(),
 };
 
-function tally(rows, fn) {
-  const m = {};
-  for (const r of rows) { const k = fn(r) ?? '(empty)'; m[k] = (m[k] || 0) + 1; }
-  return Object.fromEntries(Object.entries(m).sort((a, b) => b[1] - a[1]));
-}
 
 writeFileSync(resolve(OUT, 'export-audit.json'), JSON.stringify(audit, null, 2));
 console.log('\n' + JSON.stringify({ partners: audit.partners, speakers: audit.speakers.coverage, sessions: audit.sessions }, null, 2));

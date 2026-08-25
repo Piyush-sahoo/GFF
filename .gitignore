@@ -54,3 +54,4 @@ pipeline/snapshots/
 # Throwaway probe scripts.
 probe*.tmp.ts
 probe*.mts
+pipeline/.cache/

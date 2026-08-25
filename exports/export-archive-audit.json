@@ -1,0 +1,146 @@
+{
+  "generatedAt": "2026-08-25T06:07:26.224Z",
+  "generatedFrom": "data/archive-*/ JSON",
+  "files": {
+    "speakers-2025.csv": {
+      "rows": 993,
+      "columns": 14,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": [],
+      "coverage": {
+        "name": 993,
+        "title": 993,
+        "org": 986,
+        "country": 634,
+        "bio": 618,
+        "linkedin": 626,
+        "headshotUrl": 993,
+        "speakerCategory": 993,
+        "sessionTitle": 856,
+        "sessionCodes": 856,
+        "nameKey": 993,
+        "year": 993,
+        "sourceUrl": 993,
+        "extractedAt": 993
+      }
+    },
+    "exhibitors-2025.csv": {
+      "rows": 399,
+      "columns": 16,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": [],
+      "coverage": {
+        "name": 399,
+        "canonicalName": 399,
+        "slug": 399,
+        "tier": 399,
+        "sourceGroup": 399,
+        "alsoListedIn": 115,
+        "category": 399,
+        "website": 360,
+        "logoUrl": 399,
+        "whatTheyDo_unsourced": 64,
+        "useCases_unsourced": 50,
+        "unsourced_confidence": 64,
+        "isDataArtifact": 399,
+        "year": 399,
+        "sourceUrl": 399,
+        "extractedAt": 399
+      }
+    },
+    "speakers-2024.csv": {
+      "rows": 841,
+      "columns": 13,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": [],
+      "coverage": {
+        "name": 841,
+        "title": 841,
+        "org": 839,
+        "country": 815,
+        "bio": 695,
+        "linkedin": 739,
+        "headshotUrl": 839,
+        "speakerCategory": 841,
+        "nameKey": 841,
+        "year": 841,
+        "sourceUrl": 841,
+        "sourceApi": 841,
+        "extractedAt": 841
+      }
+    },
+    "exhibitors-2024.csv": {
+      "rows": 371,
+      "columns": 14,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": [],
+      "coverage": {
+        "name": 371,
+        "canonicalName": 371,
+        "slug": 371,
+        "tier": 371,
+        "sourceGroup": 371,
+        "alsoListedIn": 73,
+        "category": 371,
+        "website": 253,
+        "logoUrl": 371,
+        "isDataArtifact": 371,
+        "year": 371,
+        "sourceUrl": 371,
+        "sourceApi": 371,
+        "extractedAt": 371
+      }
+    },
+    "orgs-by-year.csv": {
+      "rows": 713,
+      "columns": 16,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": [],
+      "coverage": {
+        "org": 713,
+        "aliases": 121,
+        "yearCount": 713,
+        "years": 713,
+        "returning": 713,
+        "in2024": 713,
+        "tier2024": 368,
+        "group2024": 368,
+        "in2025": 713,
+        "tier2025": 396,
+        "group2025": 396,
+        "in2026": 713,
+        "tier2026": 316,
+        "category": 713,
+        "website": 605,
+        "otherWebsites": 104
+      }
+    }
+  },
+  "notInLatestFetch": {
+    "speakers-2025.csv": 0,
+    "exhibitors-2025.csv": 0
+  },
+  "dataArtifactsExcluded": {
+    "exhibitors-2025.csv": 0,
+    "exhibitors-2024.csv": 0
+  },
+  "tiers": {
+    "2024": {
+      "exhibitors": 247,
+      "partners": 90,
+      "supporters": 32,
+      "organizers": 2
+    },
+    "2025": {
+      "Exhibitors": 225,
+      "Partners": 138,
+      "Ecosystem": 23,
+      "Supporters": 13
+    }
+  },
+  "orgsByYearCount": {
+    "1": 451,
+    "2": 157,
+    "3": 105
+  }
+}

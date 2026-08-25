@@ -23,15 +23,19 @@ def now():
     return datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
 
 
-def fetch(outdir: pathlib.Path) -> dict:
-    """Download the three source pages. Returns {name: html_path}."""
+def fetch(outdir: pathlib.Path, base: str = BASE) -> dict:
+    """Download the three source pages. Returns {name: html_path}.
+
+    `base` defaults to the live 2026 site; the archive scripts pass an
+    earlier edition's origin (the page structure is identical).
+    """
     outdir.mkdir(parents=True, exist_ok=True)
     out = {}
     for name, path in PAGES.items():
         dest = outdir / ('%s.html' % name)
         r = subprocess.run(['curl', '-sS', '-L', '-m', '90', '--compressed',
                             '-A', UA, '-o', str(dest), '-w', '%{http_code}',
-                            BASE + path], capture_output=True, timeout=120)
+                            base + path], capture_output=True, timeout=120)
         code = r.stdout.decode().strip()
         size = dest.stat().st_size if dest.exists() else 0
         if code != '200' or size < 10000:
@@ -53,6 +57,40 @@ def flight(html_path: pathlib.Path) -> str:
         raise RuntimeError('no flight payload found in %s - page structure may '
                            'have changed' % html_path.name)
     return ''.join(parts)
+
+
+_REF = re.compile(r'^\$([0-9a-f]+)$')
+
+
+def deref(payload: str, value):
+    """Resolve an RSC row reference ("$3e") to the text it points at.
+
+    Large strings are not inlined in the flight payload; the field holds a
+    reference and the text is emitted later as its own row:
+
+        "bio":"$3e"   ...   \n3e:T844,Smt Nirmala Sitharaman was born on ...
+
+    The T-prefix carries the length in BYTES, not characters, so the slice is
+    taken over the UTF-8 encoding. Anything that is not a reference is returned
+    unchanged, and an unresolvable reference returns None rather than leaking
+    the raw "$3e" marker into the corpus.
+
+    NOTE: the 2026 extraction path does not call this yet, and
+    data/2026/speakers-2026.json consequently stores 124 raw "$xx" markers where
+    a bio should be (5 more in sessions-2026.json). Fixing that means re-running
+    the 2026 refresh, which is out of scope here — see exports/README.md.
+    """
+    if not isinstance(value, str):
+        return value
+    m = _REF.match(value)
+    if not m:
+        return value
+    hit = re.search(r'(?:^|\n)%s:T([0-9a-f]+),' % re.escape(m.group(1)), payload)
+    if not hit:
+        return None
+    start = hit.end()
+    nbytes = int(hit.group(1), 16)
+    return payload[start:].encode('utf-8')[:nbytes].decode('utf-8', 'replace') or None
 
 
 def grab(text: str, key: str):
@@ -79,7 +117,7 @@ def slugify(s):
 
 
 # ---------------------------------------------------------------- sessions
-def extract_sessions(agenda_payload: str) -> list:
+def extract_sessions(agenda_payload: str, year: int = YEAR, base: str = BASE) -> list:
     from gff_names import split_agenda_speaker
     raw = grab(agenda_payload, 'rawAgendaData')
     out = []
@@ -131,15 +169,16 @@ def extract_sessions(agenda_payload: str) -> list:
             'hostNames': hosts,
             'hostsRaw': host_raw,
             'speakers': spk + hosts,
-            'year': YEAR,
-            'sourceUrl': BASE + '/agenda',
+            'year': year,
+            'sourceUrl': base + '/agenda',
         })
     out.sort(key=lambda s: (s['day'] or '', s['startTime'] or '', s['hall'] or '', s['title']))
     return out
 
 
 # ---------------------------------------------------------------- speakers
-def extract_speakers(speakers_payload: str, sessions: list) -> list:
+def extract_speakers(speakers_payload: str, sessions: list,
+                     year: int = YEAR, base: str = BASE) -> list:
     from gff_names import normalise_name
     data = grab(speakers_payload, 'data')
     by_key = {}
@@ -168,8 +207,8 @@ def extract_speakers(speakers_payload: str, sessions: list) -> list:
             'bio': clean(o.get('bio')),
             'country': clean(ctry.get('country')),
             'linkedin': clean(o.get('linkedinProfile')),
-            'year': YEAR,
-            'sourceUrl': BASE + '/speakers',
+            'year': year,
+            'sourceUrl': base + '/speakers',
         }
         score = sum(1 for f in ('bio', 'headshotUrl', 'linkedin', 'sessionTitle') if rec.get(f))
         cur = best.get(key)
@@ -202,7 +241,7 @@ def categorise(name):
     return 'other'
 
 
-def extract_partners(partners_payload: str) -> list:
+def extract_partners(partners_payload: str, year: int = YEAR, base: str = BASE) -> list:
     pd = grab(partners_payload, 'partnerData')
     out, seen = [], set()
     for group, items in pd.items():
@@ -220,14 +259,14 @@ def extract_partners(partners_payload: str) -> list:
                 'name': name,
                 'slug': slugify(name),
                 'website': clean(o.get('webLink')),
-                'logoUrl': (BASE + logo) if logo and str(logo).startswith('/') else clean(logo),
+                'logoUrl': (base + logo) if logo and str(logo).startswith('/') else clean(logo),
                 'tier': clean(o.get('title')) or group.rstrip('s'),
                 'sourceGroup': group,
                 'category': categorise(name),
                 'booth': None,        # GFF publishes no partner booths; never inferred
                 'boothSource': None,
-                'year': YEAR,
-                'sourceUrl': BASE + '/partners',
+                'year': year,
+                'sourceUrl': base + '/partners',
             })
     out.sort(key=lambda p: p['name'].lower())
     return out

@@ -98,8 +98,9 @@ so the only number the system can dial is the one you registered yourself.
 Where a bio is missing, the app shows a missing bio. The coverage table below is on this
 page for the same reason.
 
-**2026 only.** The 2025 archive under `data/archive-2025/` is never loaded by the app,
-never enters the corpus, and never reaches the agent.
+**2026 only.** The archives under `data/archive-2025/` and `data/archive-2024/` are never
+loaded by the app, never enter the corpus, never reach the agent, and are never written to
+MongoDB. They exist for year-over-year comparison and the outreach CSVs in `exports/`.
 
 ---
 
@@ -239,9 +240,12 @@ because it was a booth location rather than a description.
   `rag/corpus/verify_corpus.py` and the 29 tests in `rag/retrieval`.
 - **`docs/JOURNEYS.md` is a design document, not a description of the built app.** It
   specifies routes (`/now`, `/halls/[hall]`, `/topics/[topic]`) that were not built.
-- **`data/archive-2025/sessions-2025.json` is empty** (`[]`). GFF did not publish a 2025
-  agenda in a retrievable form. 2025 partners (399) and speakers (993) are present.
-  Archive only — not used anywhere.
+- **The archive years are for CSV export only.** `data/archive-2025/` (993 speakers,
+  399 partners, 391 sessions) and `data/archive-2024/` (841 speakers, 371 partners) are
+  scraped by `pipeline/gff_archive_2025.py` / `gff_archive_2024.py` and exported by
+  `exports/export-archive.mjs`. Not used by the app, corpus, or agent. A note here
+  previously said 2025 had no retrievable agenda — the 2025 agenda page now serves one,
+  and `sessions-2025.json` holds it.
 - **`pipeline/build_corpus_2026.py`** reads raw scraped HTML from a machine-local
   scratchpad that no longer exists. It is retained as a record of the original extraction;
   `gff_extract.py` and `refresh.py` are the maintained entry points.
@@ -266,9 +270,10 @@ rag/sectors/  Sector taxonomy + per-partner classification decisions
 rag/embeddings/  Gemini embedding index builder → int8 quantised vectors
 rag/retrieval/   @gff/retrieval — hybrid lexical + dense retrieval, 29 tests
 rag/eval/     Eval + adversarial safety harness (engine only — see Known gaps)
-exports/      Atlas → CSV exports (exhibitors, speakers, sessions) + audit
+exports/      Atlas → CSV exports (2026) + JSON → CSV archive exports (2024/2025) + audit
 data/2026/           Canonical 2026 JSON — the source of truth
 data/archive-2025/   2025 archive. NOT used by the app, corpus, or agent.
+data/archive-2024/   2024 archive. NOT used by the app, corpus, or agent.
 ```
 
 ### Why the data appears more than once

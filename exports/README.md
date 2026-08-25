@@ -1,4 +1,17 @@
-# GFF 2026 — CSV exports
+# GFF — CSV exports
+
+**2026** (`export.mjs`, from MongoDB Atlas) and **2024 / 2025 archive**
+(`export-archive.mjs`, from JSON on disk). Jump to
+[the archive years](#2024--2025-archive-exports) for the pre-event outreach files,
+including [`orgs-by-year.csv`](#orgs-by-yearcsv--713-rows), the cross-year roll-up.
+
+> **These sheets are speakers, partners and exhibitors — not attendees.**
+> GFF publishes no attendee or delegate list for any edition, and none has been
+> inferred. See [What "attendee" does and does not mean](#what-attendee-does-and-does-not-mean).
+
+---
+
+## 2026 exports
 
 Three CSVs exported from the **MongoDB Atlas `gff` database** (the deduped, enriched,
 provenance-labelled state). The raw JSON scrape files on disk are pre-dedupe and were
@@ -211,3 +224,325 @@ quotes and cut off mid-sentence (`…It is a product by "`). That is exactly wha
 `export.mjs` regenerates all three CSVs from Atlas; `verify.mjs` re-parses them and
 cross-checks every cell against the database. Credentials live in `.env` (mode 0600,
 gitignored). `export-audit.json` holds the machine-readable counts behind every figure above.
+
+The 2024/2025 archive files have their own scripts and need no credentials — see
+[Reproducing the archive exports](#reproducing-the-archive-exports).
+
+---
+
+# 2024 / 2025 archive exports
+
+Five CSVs built from JSON on disk by `export-archive.mjs`. **No database is
+involved** — the archive years are never loaded into MongoDB, and must not be.
+
+| File | Rows | Columns | Source |
+|---|---:|---:|---|
+| `speakers-2025.csv` | **993** | 14 | `data/archive-2025/speakers-2025.json` |
+| `exhibitors-2025.csv` | **399** | 16 | `data/archive-2025/partners-2025.json` |
+| `speakers-2024.csv` | **841** | 13 | `data/archive-2024/speakers-2024.json` |
+| `exhibitors-2024.csv` | **371** | 14 | `data/archive-2024/partners-2024.json` |
+| `orgs-by-year.csv` | **713** | 16 | all three years, folded by canonical org |
+
+Same format guarantees as the 2026 files: UTF-8 with BOM, RFC4180 quoting, CRLF,
+`;`-joined multi-values, and **empty stays empty**. `verify-archive.mjs` re-parses
+every file with a strict RFC4180 reader and compares each cell back to the source
+JSON — 0 mismatches, 0 orphans, 0 missing rows, 0 placeholder cells.
+
+Every archive row carries `year`, `sourceUrl` and `extractedAt`, populated on
+100% of rows in all four per-year files.
+
+## What "attendee" does and does not mean
+
+The ask was for "a list of attendees for the 2025 and 2024 events".
+
+**GFF publishes no attendee or delegate list — for any edition.** There is no
+public roster of who bought a ticket and walked the floor, and none has been
+reconstructed, inferred, or assembled from press coverage. What GFF does publish,
+and what these files contain, is:
+
+* **speakers** — everyone on the published speaker directory, with role, org,
+  country, LinkedIn and bio where the CMS carries them;
+* **partners, exhibitors, supporters and ecosystem organisations** — every
+  organisation with a paid or listed presence at the event.
+
+For an outreach cadence that targets *organisations*, this is the useful set and
+in practice the one the 2026 pipeline produces too. It is not a headcount of
+who attended.
+
+## Provenance — where each year came from
+
+| Year | Source | Fetched | Structure |
+|---|---|---|---|
+| 2026 | `https://www.globalfintechfest.com/{speakers,partners,agenda}` | see `export-audit.json` | Next.js RSC flight payload |
+| 2025 | `https://2025.globalfintechfest.com/{speakers,partners,agenda}` | **2026-08-25** | Next.js RSC flight payload |
+| 2024 | `https://archive.globalfintechfest.com/2024/api/{speakers-category-a,speakers-category-b,partners}` | **2026-08-25** | Drupal REST-export JSON |
+
+All three are parsed from the site's **own structured data**, never from rendered
+text. `extractedAt` on every row records the fetch above.
+
+### Was 2024 retrievable? Yes.
+
+`2024.globalfintechfest.com` has no DNS record, so the 2024 edition looks gone.
+It is not: it was folded into `archive.globalfintechfest.com` under a `/2024/`
+path prefix, running the pre-2026 Drupal stack. That stack publishes the views
+behind the speaker and partner pages as REST-export endpoints returning the same
+records the pages render from:
+
+```
+/2024/api/speakers-category-a     58 rows   dignitaries / headline speakers
+/2024/api/speakers-category-b    787 rows   the main speaker directory
+/2024/api/partners                         partners 90 · exhibitors 319 ·
+                                           supporters 33 · organizers 3
+                                           (gff_friends and fintech_friends: empty)
+```
+
+Checked before relying on them:
+
+* **Not truncated.** `?page=1` returns byte-identical output to page 0, so the
+  endpoints carry no pager. The *rendered* `/2024/speakers` page **is** paged
+  (78 cards on page one of ~845), which is exactly why it is not the source.
+* **Genuinely 2024, not the archive root.** The archive root is the Drupal build
+  of the **2025** edition (superseded by the Next.js `2025.globalfintechfest.com`
+  site). The `/2024/` payload is a distinct dataset — different records,
+  logo filenames stamped `-2024xxxx`.
+* **JSON:API is not usable.** `/2024/jsonapi` is mounted but returns
+  "insufficient authorization" for anonymous callers, so it could not serve as an
+  independent cross-check.
+
+The Wayback Machine was therefore never needed.
+
+**Also available for 2024 but not exported here:** `/2024/agenda` returns a full
+session listing. It is out of scope for this ask (speakers + orgs), so no
+`sessions-2024.json` exists and 2024 speakers consequently have no session
+linkage. It is a small job if the cadence later wants "which session did this org
+speak in".
+
+## Row counts, and what changed on re-scrape
+
+The 2025 JSON on disk was extracted **2026-08-12** and had drifted from what the
+live site exposes. `gff_archive_2025.py` re-fetched it. Nothing regressed —
+every previously committed row is still present — and a lot was recovered:
+
+| | committed 2026-08-12 | after re-scrape | change |
+|---|---:|---:|---|
+| speakers | 993 | **993** | same people; **+618 bios, +626 LinkedIn, +634 country, +993 headshots, +856 session links** — all of these columns were previously absent entirely |
+| partners/exhibitors | 399 | **399** | same orgs; `sourceGroup` recovered (was dropped), `alsoListedIn` added |
+| sessions | 0 | **391** | see below |
+
+**`sessions-2025.json` was recorded as 0 rows** with the note "GFF did not publish
+a 2025 agenda in retrievable form". **That is no longer true** —
+`2025.globalfintechfest.com/agenda` now carries a full `rawAgendaData` payload of
+391 sessions. They are extracted to `data/archive-2025/sessions-2025.json` and
+used to give 2025 speakers their `sessionTitle` / `sessionCodes`. No
+`sessions-2025.csv` is produced, since the ask was speakers + orgs; say the word
+and it is a one-line change.
+
+## Column deltas vs. the 2026 exports
+
+Columns are as close to `speakers-2026.csv` / `exhibitors-2026.csv` as each
+year's source allows. Nothing is padded with empty filler.
+
+**Dropped from both archive years** (Atlas bookkeeping with no archive
+equivalent): `lastSeenAt`, `status`, `recordId`.
+
+**Speakers**
+
+| Column | 2026 | 2025 | 2024 | Why |
+|---|:-:|:-:|:-:|---|
+| `name` `title` `org` `country` `bio` `linkedin` `headshotUrl` `nameKey` | ✅ | ✅ | ✅ | |
+| `sessionTitle` `sessionCodes` | ✅ | ✅ | — | 2024 agenda not extracted (see above) |
+| `speakerCategory` | — | ✅ | ✅ | GFF's own speaker tiering; not carried in the 2026 export |
+| `sourceApi` | — | — | ✅ | 2024 only, where `sourceUrl` is the human page and the data came from a separate endpoint |
+
+**Exhibitors**
+
+| Column | 2026 | 2025 | 2024 | Why |
+|---|:-:|:-:|:-:|---|
+| `name` `slug` `tier` `sourceGroup` `category` `website` `logoUrl` `isDataArtifact` | ✅ | ✅ | ✅ | |
+| `canonicalName` | — | ✅ | ✅ | the `gff_identity.canonical_name()` spelling, so the fold used by `orgs-by-year.csv` is visible per row |
+| `alsoListedIn` | — | ✅ | ✅ | other listings the same org appears under (115 rows in 2025, 73 in 2024) |
+| `whatTheyDo` `useCases` + all `_method` / `_sourceUrl` / `_fetchedAt` / `_writer` / `_note` provenance columns | ✅ | — | — | **omitted, not blank.** GFF's partner payload carries no description field in either archive year, so every traced column would be 100% empty |
+| `whatTheyDo_unsourced` `useCases_unsourced` `unsourced_confidence` | ✅ | ✅ | — | 2025 only — see next section |
+| `aliases` `confidence` `confidenceScore` `confidence_*` `logoUrl_*` | ✅ | — | — | produced by the 2026 enrichment pass, which never ran on the archive years |
+
+### The 2025 unsourced columns
+
+The 2025 snapshot on disk carried a `whatTheyDo` and `useCases` on 64 and 50 rows.
+**These were model-written with no provenance recorded** — the GFF partners page
+they cite supplies only logos, names, tiers and links, and cannot be the origin of
+descriptive prose. Under the repo's rule that traced and unsourced text never
+share a column, they are exported as `whatTheyDo_unsourced` /
+`useCases_unsourced`, with the record's `confidence` alongside as
+`unsourced_confidence` on those 64 rows only. **There is no traced `whatTheyDo`
+column for 2025**, because there is no traced description. Treat these as leads,
+not facts.
+
+## Coverage
+
+**`speakers-2025.csv` — 993 rows**
+
+| Column | Populated |
+|---|---|
+| `name` `title` `headshotUrl` `speakerCategory` `nameKey` `year` `sourceUrl` `extractedAt` | **993 / 993** |
+| `org` | 986 / 993 |
+| `sessionTitle` `sessionCodes` | 856 / 993 (137 speakers map to no published session) |
+| `country` | 634 / 993 |
+| `linkedin` | 626 / 993 |
+| `bio` | 618 / 993 |
+
+**`speakers-2024.csv` — 841 rows** (845 source rows; 4 are the same person listed
+in both categories, folded on `nameKey`, keeping the richer row)
+
+| Column | Populated |
+|---|---|
+| `name` `title` `speakerCategory` `nameKey` `year` `sourceUrl` `sourceApi` `extractedAt` | **841 / 841** |
+| `org` | 839 / 841 |
+| `headshotUrl` | 839 / 841 |
+| `country` | 815 / 841 |
+| `linkedin` | 739 / 841 |
+| `bio` | 695 / 841 |
+
+2024 has *better* bio and LinkedIn coverage than 2025 (83% / 88% vs 62% / 63%) —
+the older Drupal CMS asked speakers for more.
+
+**`exhibitors-2025.csv` — 399 rows** (514 listings; 115 are an org appearing under
+more than one heading, folded on name with the extra headings in `alsoListedIn`)
+
+| Column | Populated |
+|---|---|
+| `name` `canonicalName` `slug` `tier` `sourceGroup` `category` `logoUrl` `isDataArtifact` `year` `sourceUrl` `extractedAt` | **399 / 399** |
+| `website` | 360 / 399 |
+| `alsoListedIn` | 115 / 399 |
+| `whatTheyDo_unsourced` `unsourced_confidence` | 64 / 399 |
+| `useCases_unsourced` | 50 / 399 |
+
+`sourceGroup`: `Exhibitors` 225 · `Partners` 138 · `Ecosystem` 23 · `Supporters` 13.
+
+**`exhibitors-2024.csv` — 371 rows** (445 listings → 371 orgs: 73 are an org
+cross-listed under a second heading, and one — `ET Now` — is listed twice under
+`supporters` by the CMS itself)
+
+| Column | Populated |
+|---|---|
+| `name` `canonicalName` `slug` `tier` `sourceGroup` `category` `logoUrl` `isDataArtifact` `year` `sourceUrl` `sourceApi` `extractedAt` | **371 / 371** |
+| `website` | 253 / 371 |
+| `alsoListedIn` | 73 / 371 |
+
+`sourceGroup`: `exhibitors` 247 · `partners` 90 · `supporters` 32 · `organizers` 2.
+Group names are verbatim from each CMS, which is why 2024 is lower-case and 2025
+is capitalised. The 247 exhibitors carry no tier in the 2024 CMS, so `tier` falls
+back to `Exhibitor` — derived from the listing, the same way the 2026 extractor
+does it, not published by GFF.
+
+**No booth or stall column in any archive file**, for the same reason as 2026:
+GFF publishes no floor plan, for any year. `booth` and `boothSource` are `null`
+on all 371 and 399 archive partner records and are not exported.
+
+**No `isDataArtifact = true` rows exist in either archive year** — the CMS logo
+placeholders that affect 2026 (`PCI logo`, `NPCI logo`, `FCC logo`) are not present
+in the 2024 or 2025 payloads. The filter is applied regardless, so it stays correct
+if a re-scrape ever picks one up. Both counts are therefore unfiltered totals.
+
+## `orgs-by-year.csv` — 713 rows
+
+**The most useful file here for the cadence.** One row per canonical organisation
+across all three editions, so an org that keeps coming back is visible at a glance.
+Sorted by `yearCount` descending, so the strongest targets are at the top of the sheet.
+
+| | Orgs |
+|---|---:|
+| present in **all three** years (2024 + 2025 + 2026) | **105** |
+| present in **two** years | **157** |
+| present in one year only | 451 |
+| **total canonical orgs** | **713** |
+| — of which listed in 2024 | 368 |
+| — of which listed in 2025 | 396 |
+| — of which listed in 2026 | 316 |
+
+(368 + 396 + 316 = 1,080 listings folding into 713 orgs. The per-year figures are
+lower than the per-year CSV row counts — 371 and 399 — because a few orgs inside a
+single year fold together under two spellings.)
+
+### How organisations are folded
+
+Identity comes from `pipeline/gff_identity.py`, the same module the 2026 dedupe
+uses: `canonical_name()` applies the agreed spellings and `company_keys()`
+supplies the match keys, union-found so a chain of spellings ends in one cluster.
+That is what makes `ElevenLabs` / `Eleven Labs` and `HDFC` / `HDFC Bank ` one row.
+Rows flagged `isDataArtifact` are dropped.
+
+**The fold is auditable from the sheet.** Every raw spelling that went into a row
+is listed in `aliases` (121 rows have one). `orgs-by-year.json` additionally records
+the exact per-year spelling as `name2024` / `name2025` / `name2026`; those are kept
+out of the CSV to stop it sprawling, and `exhibitors-<year>.csv` shows the same thing
+against the full per-year record. The widest folds in the
+current data are all legitimate legal-suffix or short-form pairs
+(`Juspay` ← `Juspay Technologies Pvt Ltd`, `Citi` ← `Citi Bank`,
+`Pine Labs` ← `Pinelabs`); all 17 folds below 55% string similarity were checked
+by hand and none is a false merge.
+
+### Column dictionary — orgs-by-year
+
+| Column | Meaning |
+|---|---|
+| `org` | Canonical name — the most recent edition's spelling, so it matches the 2026 corpus |
+| `aliases` | Every other spelling folded into this row (`;`-joined) |
+| `yearCount` | 1, 2 or 3 — how many editions this org appeared in |
+| `years` | Which ones, e.g. `2024;2026` |
+| `returning` | `true` when `yearCount > 1` — the quick filter for the cadence |
+| `in2024` / `in2025` / `in2026` | `true` / `false` presence per edition |
+| `tier2024` / `tier2025` / `tier2026` | Sponsorship tier that year (`;`-joined if the org held more than one) |
+| `group2024` / `group2025` | Which listing it came from that year |
+| `category` | Sector classification |
+| `website` | First website on record across the years |
+| `otherWebsites` | Any different URLs the other years carried (104 rows) — a changed domain is worth knowing before a cold call |
+
+There is **no `group2026` column**: `sourceGroup` is added to a partner record by
+a later pipeline step and lives only in Atlas, not in
+`data/2026/partners-2026.json`, which is what this roll-up reads. An always-empty
+column would read as "2026 had no listings" rather than "the field is not in this
+file". `tier2026` is populated 316/316.
+
+## Reproducing the archive exports
+
+```bash
+python3 pipeline/gff_archive_2024.py   # -> data/archive-2024/*.json   (network)
+python3 pipeline/gff_archive_2025.py   # -> data/archive-2025/*.json   (network)
+python3 pipeline/orgs_by_year.py       # -> exports/orgs-by-year.json
+node    exports/export-archive.mjs     # -> the five CSVs + export-archive-audit.json
+node    exports/verify-archive.mjs     # independent read-back, exits non-zero on failure
+```
+
+No credentials, no database. Both scrapers are re-runnable and idempotent: the
+2025 merge is top-up-only and will not regress a committed row, and the 2024
+fetches are cached under `pipeline/.cache/` (gitignored) so a re-run does not
+re-hit the site — delete that directory to force a fresh fetch.
+
+`export-archive-audit.json` holds the machine-readable counts behind every figure
+in this section.
+
+## Known gaps
+
+1. **No attendee list, for any year.** Restating it because it was the literal ask:
+   GFF does not publish one. Speakers + orgs is the complete public set.
+2. **No 2024 sessions**, so no session linkage on 2024 speakers. The data exists at
+   `/2024/agenda`; extracting it was out of scope.
+3. **No 2023 / 2022 / 2021.** `archive.globalfintechfest.com` also carries `/2023/`,
+   `/2022/` and `/2021/` paths. They were not investigated — the ask was 2024 and 2025.
+4. **`speakerCategory` is not normalised across years.** 2024 says `Category A`,
+   2025 says `Two - Category A`. Both are verbatim from their own CMS and are left
+   that way rather than mapped onto an invented shared scale.
+5. **No enrichment on the archive years.** No websites were resolved, no
+   descriptions fetched, no confidence scored. `website` is whatever the GFF CMS
+   published: 360/399 for 2025 and 253/371 for 2024.
+6. **2024 `tier` for plain exhibitors is derived**, not published — see above.
+7. **Unrelated 2026 defect, found while building this and deliberately not fixed
+   here:** `data/2026/speakers-2026.json` stores a raw RSC row reference
+   (`$32`, `$80`, …) instead of the bio text on **124 of 487** rows, and
+   `sessions-2026.json` does the same on **5 of 256** descriptions. Those markers
+   are in `speakers-2026.csv` and in the RAG corpus today. The cause is that
+   `extract_speakers` / `extract_sessions` read the field without resolving the
+   reference. `gff_extract.deref()` (added here, used by the 2025 path, which is
+   why `speakers-2025.csv` has none) is the fix, but wiring it into the 2026 path
+   means re-running the 2026 refresh and rebuilding the corpus — out of scope for
+   an archive-export change, and worth its own PR.
