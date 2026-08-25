@@ -2,32 +2,8 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { MongoClient } from 'mongodb';
+import { parseCsv } from './csv.mjs';
 
-function parseCsv(text) {
-  const rows = [];
-  let row = [], f = '', i = 0, q = false;
-  while (i < text.length) {
-    const c = text[i];
-    if (q) {
-      if (c === '"') {
-        if (text[i + 1] === '"') { f += '"'; i += 2; continue; }
-        q = false; i++; continue;
-      }
-      f += c; i++; continue;
-    }
-    if (c === '"') {
-      if (f !== '') throw new Error('quote appears mid-field at ' + i);
-      q = true; i++; continue;
-    }
-    if (c === ',') { row.push(f); f = ''; i++; continue; }
-    if (c === '\r' && text[i + 1] === '\n') { row.push(f); rows.push(row); row = []; f = ''; i += 2; continue; }
-    if (c === '\n' || c === '\r') throw new Error('bare CR/LF outside quotes at ' + i);
-    f += c; i++;
-  }
-  if (q) throw new Error('unterminated quote');
-  if (f !== '' || row.length) { row.push(f); rows.push(row); }
-  return rows;
-}
 
 const FILES = ['exhibitors-2026.csv', 'speakers-2026.csv', 'sessions-2026.csv'];
 const EXPECTED = { 'exhibitors-2026.csv': 316, 'speakers-2026.csv': 487, 'sessions-2026.csv': 256 };

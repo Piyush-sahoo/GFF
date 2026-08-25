@@ -116,6 +116,9 @@ The scraped name is retained as a searchable alias on the surviving document.
 | `gff_names.py` | Person-name normalisation for the session↔speaker join. |
 | `identity-map.json` | Persisted alias → canonical map and artifact list. |
 | `test_gff_names.py` | `python3 test_gff_names.py` — pins the join at 345/345. |
+| `gff_archive_2025.py` | **Archive, not the 2026 pipeline.** Re-scrapes the 2025 edition into `data/archive-2025/`. Top-up merge, never regresses a row. |
+| `gff_archive_2024.py` | **Archive, not the 2026 pipeline.** Fetches the 2024 edition from the Drupal REST-export endpoints into `data/archive-2024/`. |
+| `orgs_by_year.py` | Folds 2024/2025/2026 partners into one canonical-org roll-up for `exports/orgs-by-year.csv`. |
 | `load_gff.py` | The original one-shot loader. Superseded by `refresh.py`. |
 
 ## Credentials

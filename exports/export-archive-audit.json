@@ -1,0 +1,226 @@
+{
+  "generatedAt": "2026-08-25T06:37:19.498Z",
+  "generatedFrom": "data/archive-*/ JSON",
+  "files": {
+    "speakers-2025.csv": {
+      "rows": 993,
+      "columns": 14,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": [],
+      "coverage": {
+        "name": 993,
+        "title": 993,
+        "org": 986,
+        "country": 634,
+        "bio": 618,
+        "linkedin": 626,
+        "headshotUrl": 993,
+        "speakerCategory": 993,
+        "sessionTitle": 856,
+        "sessionCodes": 856,
+        "nameKey": 993,
+        "year": 993,
+        "sourceUrl": 993,
+        "extractedAt": 993
+      }
+    },
+    "exhibitors-2025.csv": {
+      "rows": 399,
+      "columns": 16,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": [],
+      "coverage": {
+        "name": 399,
+        "canonicalName": 399,
+        "slug": 399,
+        "tier": 399,
+        "sourceGroup": 399,
+        "alsoListedIn": 115,
+        "category": 399,
+        "website": 360,
+        "logoUrl": 399,
+        "whatTheyDo_unsourced": 64,
+        "useCases_unsourced": 50,
+        "unsourced_confidence": 64,
+        "isDataArtifact": 399,
+        "year": 399,
+        "sourceUrl": 399,
+        "extractedAt": 399
+      }
+    },
+    "sessions-2025.csv": {
+      "rows": 391,
+      "columns": 20,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": [],
+      "coverage": {
+        "agendaCode": 391,
+        "title": 391,
+        "day": 391,
+        "startTime": 391,
+        "endTime": 391,
+        "hall": 391,
+        "subHall": 76,
+        "level": 391,
+        "format": 391,
+        "track": 247,
+        "topics": 247,
+        "description": 326,
+        "speakerNames": 354,
+        "speakersWithTitles": 354,
+        "hostNames": 193,
+        "hostsWithTitles": 193,
+        "documentId": 391,
+        "year": 391,
+        "sourceUrl": 391,
+        "extractedAt": 391
+      }
+    },
+    "speakers-2024.csv": {
+      "rows": 841,
+      "columns": 15,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": [],
+      "coverage": {
+        "name": 841,
+        "title": 841,
+        "org": 839,
+        "country": 815,
+        "bio": 695,
+        "linkedin": 739,
+        "headshotUrl": 839,
+        "speakerCategory": 841,
+        "sessionTitle": 769,
+        "sessionCodes": 769,
+        "nameKey": 841,
+        "year": 841,
+        "sourceUrl": 841,
+        "sourceApi": 841,
+        "extractedAt": 841
+      }
+    },
+    "exhibitors-2024.csv": {
+      "rows": 371,
+      "columns": 14,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": [],
+      "coverage": {
+        "name": 371,
+        "canonicalName": 371,
+        "slug": 371,
+        "tier": 371,
+        "sourceGroup": 371,
+        "alsoListedIn": 73,
+        "category": 371,
+        "website": 253,
+        "logoUrl": 371,
+        "isDataArtifact": 371,
+        "year": 371,
+        "sourceUrl": 371,
+        "sourceApi": 371,
+        "extractedAt": 371
+      }
+    },
+    "sessions-2024.csv": {
+      "rows": 338,
+      "columns": 21,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": [],
+      "coverage": {
+        "agendaCode": 338,
+        "title": 338,
+        "day": 338,
+        "startTime": 338,
+        "endTime": 338,
+        "hall": 338,
+        "subHall": 64,
+        "format": 338,
+        "track": 215,
+        "topics": 215,
+        "accessType": 338,
+        "isClosedDoor": 338,
+        "description": 66,
+        "speakerNames": 270,
+        "speakersWithTitles": 270,
+        "hostNames": 228,
+        "hostsWithTitles": 228,
+        "year": 338,
+        "sourceUrl": 338,
+        "sourceApi": 338,
+        "extractedAt": 338
+      }
+    },
+    "orgs-by-year.csv": {
+      "rows": 713,
+      "columns": 16,
+      "formulaRiskCells": 0,
+      "formulaRiskSample": [],
+      "coverage": {
+        "org": 713,
+        "aliases": 121,
+        "yearCount": 713,
+        "years": 713,
+        "returning": 713,
+        "in2024": 713,
+        "tier2024": 368,
+        "group2024": 368,
+        "in2025": 713,
+        "tier2025": 396,
+        "group2025": 396,
+        "in2026": 713,
+        "tier2026": 316,
+        "category": 713,
+        "website": 605,
+        "otherWebsites": 104
+      }
+    }
+  },
+  "notInLatestFetch": {
+    "speakers-2025.csv": 0,
+    "exhibitors-2025.csv": 0
+  },
+  "dataArtifactsExcluded": {
+    "exhibitors-2025.csv": 0,
+    "exhibitors-2024.csv": 0
+  },
+  "tiers": {
+    "2024": {
+      "exhibitors": 247,
+      "partners": 90,
+      "supporters": 32,
+      "organizers": 2
+    },
+    "2025": {
+      "Exhibitors": 225,
+      "Partners": 138,
+      "Ecosystem": 23,
+      "Supporters": 13
+    }
+  },
+  "orgsByYearCount": {
+    "1": 451,
+    "2": 157,
+    "3": 105
+  },
+  "sessionAccess": {
+    "2024": {
+      "public": 322,
+      "invite-only": 16
+    },
+    "2025": {
+      "(empty)": 391
+    }
+  },
+  "sessionDays": {
+    "2024": {
+      "2024-08-29": 149,
+      "2024-08-28": 120,
+      "2024-08-30": 69
+    },
+    "2025": {
+      "2025-10-08": 179,
+      "2025-10-07": 159,
+      "2025-10-09": 53
+    }
+  }
+}
